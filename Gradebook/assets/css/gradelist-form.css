@@ -18,6 +18,16 @@ input
     box-sizing: border-box;
     background-color: #EAEDED;
   }
+  .header1{
+    border:1px solid #ccc;
+    text-align:center;
+    background-color:blue;
+    border: 1px blue;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2% 10%;
+}
   .labelGradeitem 
   {
     margin-right:50%;
@@ -44,7 +54,6 @@ input
 
   .wrapper ul li{
    display: inline;
-   paddind: 1%;
   }
   
 
