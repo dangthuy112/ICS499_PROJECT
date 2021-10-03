@@ -1,5 +1,6 @@
-body {font-family: Arial, Helvetica, sans-serif ;background-color: lightblue;}
+
 form {border: 3px solid #f1f1f1;}
+body {font-family: Arial, Helvetica, sans-serif ;background-color: lightblue;}
 input
  {
     width: 100%;
@@ -55,6 +56,20 @@ input
   .wrapper ul li{
    display: inline;
   }
-  
+ /*css for footer*/
+ .footer
+ {
+  background-color: #70a1ff;
+  color: white;
+}
+.footerwrapper
+{
+  padding: 7px;
+  width: 80%;
+  margin: 0 auto;
+}
 
+.text-center{
+  text-align: center;
+}
   

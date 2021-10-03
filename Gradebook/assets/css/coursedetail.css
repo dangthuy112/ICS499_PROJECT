@@ -5,6 +5,28 @@
 */
 body {font-family: Arial, Helvetica, sans-serif ;background-color: lightblue;}
 form {border: 3px solid #f1f1f1;}
+a{
+  position: absolute;
+  top: 200px;
+  left:1%;
+  color: #70a1ff;;
+  font-size: 20px;
+  text-decoration: underline;
+}
+.a1{
+  position: absolute;
+  top: 200px;
+  left: 95%;
+  color: #1e90ff;
+  font-size: 20px;
+  text-decoration: underline;
+}
+.a1:hover{
+  color: blue;
+}
+a:hover{
+    color: blue;
+  }
 input
  {
     width: 100%;
@@ -15,7 +37,7 @@ input
     box-sizing: border-box;  
   }
  
-  label
+label
   {
     border: 1px solid #ccc;
     width:100%;
@@ -47,6 +69,15 @@ input
     background-color: #70a1ff;
     color: white;
 }
+.footerwrapper{
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .text-center{
+    text-align: center;
+  }
 /*CSS FOR FLOAT DIVIDE*/
 .floatdiv 
 {
@@ -61,14 +92,7 @@ input
     background-color: solid green;
 
 }
-.floatdiv header 
-{   
-    font-size: 20px;
-    text-align: center;
-    writing-mode: horizontal-tb;
-    
 
-}
 .floatdiv header 
 {   
     font-size: 20px;
