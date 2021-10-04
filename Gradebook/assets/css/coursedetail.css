@@ -5,25 +5,26 @@
 */
 body {font-family: Arial, Helvetica, sans-serif ;background-color: lightblue;}
 form {border: 3px solid #f1f1f1;}
+.coursenameContainer
+  {
+    border:1px solid grey;
+    background-color: white;
+    display: flex;
+  }
+  .coursenameContainer coursename{
+  font-size:30px;
+  text-align:center;
+  margin-left: 39%;
+  margin-right: 39%;
+
+}
 a{
-  position: absolute;
-  top: 200px;
-  left:1%;
+ 
   color: #70a1ff;;
   font-size: 20px;
   text-decoration: underline;
 }
-.a1{
-  position: absolute;
-  top: 200px;
-  left: 95%;
-  color: #1e90ff;
-  font-size: 20px;
-  text-decoration: underline;
-}
-.a1:hover{
-  color: blue;
-}
+
 a:hover{
     color: blue;
   }
@@ -114,3 +115,4 @@ writing-mode: horizontal-tb;
     border: 1px #ccc;
     
   }
+

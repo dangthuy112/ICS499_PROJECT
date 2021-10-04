@@ -31,7 +31,7 @@ input
 }
   .labelGradeitem 
   {
-    margin-right:50%;
+    margin-right:80%;
   }
   .labelMiddle{
   margin-right:50px;
@@ -41,11 +41,18 @@ input
     background-color:  #EAEDED;
     border: 1px solid #ccc;
   }
+  .wrapper1{
+    
+    border: 1px solid grey;
+    width:100%;
+    display: flex; 
+    background-color: #ccc;
+
+  }
   .wrapper{
     
     border: 1px solid grey;
     width:100%;
-    display: inline-block; 
     background-color: #ccc;
 
   }
@@ -56,6 +63,18 @@ input
   .wrapper ul li{
    display: inline;
   }
+  a{
+ 
+    color: #70a1ff;;
+    font-size: 20px;
+    text-decoration: underline;
+    margin-left: 85%;
+    margin-top: 20px;
+  }
+  
+  a:hover{
+      color: blue;
+    }
  /*css for footer*/
  .footer
  {
