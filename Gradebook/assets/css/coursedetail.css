@@ -1,0 +1,118 @@
+/* 
+
+    author: Trung Pham
+
+*/
+body {font-family: Arial, Helvetica, sans-serif ;background-color: lightblue;}
+form {border: 3px solid #f1f1f1;}
+.coursenameContainer
+  {
+    border:1px solid grey;
+    background-color: white;
+    display: flex;
+  }
+  .coursenameContainer coursename{
+  font-size:30px;
+  text-align:center;
+  margin-left: 39%;
+  margin-right: 39%;
+
+}
+a{
+ 
+  color: #70a1ff;;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+a:hover{
+    color: blue;
+  }
+input
+ {
+    width: 100%;
+    height: 20%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;  
+  }
+ 
+label
+  {
+    border: 1px solid #ccc;
+    width:100%;
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: #EAEDED;
+  }
+ .header1{
+    border:1px solid #ccc;
+    text-align:center;
+    background-color:blue;
+    border: 1px blue;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2% 10%;
+}
+
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+/*css for footer*/
+.footer{
+    background-color: #70a1ff;
+    color: white;
+}
+.footerwrapper{
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .text-center{
+    text-align: center;
+  }
+/*CSS FOR FLOAT DIVIDE*/
+.floatdiv 
+{
+    border: 1px solid black;
+    width: auto;
+    height: 20%;
+    padding: 12px 20px;
+    display: inline-block;
+    border: 1px solid black;
+    box-sizing: border-box;  
+    font-family: algerian, courier;
+    background-color: solid green;
+
+}
+
+.floatdiv header 
+{   
+    font-size: 20px;
+    text-align: center;
+    writing-mode: horizontal-tb;
+ 
+}
+.floatdiv.b
+{
+font-size: 20px;
+text-align: center;
+writing-mode: horizontal-tb;
+}
+.container 
+{   width: 100%;
+    background-color: #ccc;
+    display: flex;
+    padding: 16px;
+    border: 1px #ccc;
+    
+  }
+

@@ -1,5 +1,6 @@
-body {font-family: Arial, Helvetica, sans-serif ;background-color: lightblue;}
+
 form {border: 3px solid #f1f1f1;}
+body {font-family: Arial, Helvetica, sans-serif ;background-color: lightblue;}
 input
  {
     width: 100%;
@@ -18,9 +19,19 @@ input
     box-sizing: border-box;
     background-color: #EAEDED;
   }
+  .header1{
+    border:1px solid #ccc;
+    text-align:center;
+    background-color:blue;
+    border: 1px blue;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2% 10%;
+}
   .labelGradeitem 
   {
-    margin-right:50%;
+    margin-right:80%;
   }
   .labelMiddle{
   margin-right:50px;
@@ -30,11 +41,18 @@ input
     background-color:  #EAEDED;
     border: 1px solid #ccc;
   }
+  .wrapper1{
+    
+    border: 1px solid grey;
+    width:100%;
+    display: flex; 
+    background-color: #ccc;
+
+  }
   .wrapper{
     
     border: 1px solid grey;
     width:100%;
-    display: inline-block; 
     background-color: #ccc;
 
   }
@@ -44,8 +62,33 @@ input
 
   .wrapper ul li{
    display: inline;
-   paddind: 1%;
+  }
+  a{
+ 
+    color: #70a1ff;;
+    font-size: 20px;
+    text-decoration: underline;
+    margin-left: 85%;
+    margin-top: 20px;
   }
   
+  a:hover{
+      color: blue;
+    }
+ /*css for footer*/
+ .footer
+ {
+  background-color: #70a1ff;
+  color: white;
+}
+.footerwrapper
+{
+  padding: 7px;
+  width: 80%;
+  margin: 0 auto;
+}
 
+.text-center{
+  text-align: center;
+}
   
