@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2021 at 01:27 AM
+-- Generation Time: Oct 13, 2021 at 03:42 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -20,26 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `ics499`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `id` int(100) NOT NULL,
-  `login` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `login`, `password`) VALUES
-(1, 'admin', 'password'),
-(2, 'admin2', 'password2');
 
 -- --------------------------------------------------------
 
@@ -244,16 +224,32 @@ INSERT INTO `ts` (`teacherID_subid`, `subjectID_subid`) VALUES
 (4, 2),
 (4, 3);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
+(1, 'admin', 'password', 1),
+(2, 'teacher', 'password', 2),
+(3, 'student', 'password', 3),
+(4, 'aziz', 'password', 1);
+
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `login` (`login`);
 
 --
 -- Indexes for table `announcement`
@@ -302,6 +298,12 @@ ALTER TABLE `teachers`
 ALTER TABLE `ts`
   ADD PRIMARY KEY (`teacherID_subid`,`subjectID_subid`),
   ADD KEY `subjectID_tsid_idx` (`subjectID_subid`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Constraints for dumped tables
