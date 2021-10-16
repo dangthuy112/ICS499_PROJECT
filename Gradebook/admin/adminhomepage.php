@@ -27,7 +27,7 @@
         <div class="column-3">
             <h2>Students</h2>
             <br>
-            <li><a href="#">View All Students</a></li>
+            <li><a href="AdminManageStudent.php">View All Students</a></li>
             <li><a href="#">Search For a Student</a></li>
             <li><a href="#">Add Students</a></li>
             <li><a href="#">Remove Students</a></li>

@@ -10,12 +10,12 @@
         <div class="menu text-center">
             <div class="wrapper">
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="adminhomepage.php">Home</a></li>
                     <li><a href="#">Courses</a></li>
                     <li><a href="#">Instructors</a></li>
                     <li><a href="#">Students</a></li>
                     <li><a href="#">Tools</a></li>
-                    <li><a href="logout.html">Logout</a></li>
+                    <li><a href="../logout.html">Logout</a></li>
                 </ul>
             </div>
         </div>
