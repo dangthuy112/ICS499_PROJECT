@@ -13,7 +13,7 @@
             </tr>
 
             <?php
-            $connection = mysqli_connect("localhost", "root", "", "studentgradebook");
+            $connection = mysqli_connect("localhost", "root", "", "ics499");
             if ($connection-> connect_error) {
                 die("Connection Failed:". $connection-> connect_error);
             }

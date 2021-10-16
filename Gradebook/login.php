@@ -1,3 +1,46 @@
+
+<?php
+   include("config.php");
+   session_unset();
+   session_start();
+   
+   if($_SERVER["REQUEST_METHOD"] == "POST") {
+      // username and password sent from form 
+      
+      $myusername = mysqli_real_escape_string($db,$_POST['username']);
+      $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
+
+      $sql = "SELECT * FROM users WHERE username = '$myusername' and password = '$mypassword'";
+      $result = mysqli_query($db,$sql);
+      $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+      
+      
+      
+      $count = mysqli_num_rows($result);
+      
+      // If result matched $myusername and $mypassword, table row must be 1 row
+		
+      if($count == 1) {
+      
+         $_SESSION['username'] = $myusername;
+         $_SESSION['password'] = $password;
+         
+         $role = trim($row['role']); // get the redirect column's value
+
+         if ($role == '1') {
+            header("location: /ICS499_PROJECT/Gradebook/admin/AdminManageInstructor.php");
+        } elseif ($role == '2')  {
+            header("location: /ICS499_PROJECT/Gradebook/student/GradeList.html");
+        } elseif ($role == '3')  {
+            header("location: /ICS499_PROJECT/Gradebook/student/studentpage.html");
+
+        } else {
+         echo '<script type="text/javascript">alert("Username and password incorrect!");     window.location="login.php";</script>';
+        }
+      }
+   }
+?>
+
 <!DOCTYPE html>
 <html lang="en" style="color: rgb(41,33,33);">
 
@@ -15,7 +58,7 @@
 <body>
     <section class="login-clean" style="color: rgb(33, 37, 41);">
         <h1 style="text-align: center;color: rgb(244,71,107);">Welcome To The Team 3 Gradebook</h1>
-        <form method="post" action="adminhomepage.html">
+        <form method="post">
             <h2 class="visually-hidden">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-navigate" style="color: rgb(244, 71, 107);"></i></div>
             <div class="mb-3"><input class="form-control" type="username" name="username" placeholder="Username"></div>
