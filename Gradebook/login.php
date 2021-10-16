@@ -1,6 +1,7 @@
 
 <?php
    include("config.php");
+   session_unset();
    session_start();
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,7 +10,7 @@
       $myusername = mysqli_real_escape_string($db,$_POST['username']);
       $mypassword = mysqli_real_escape_string($db,$_POST['password']); 
 
-      $sql = "SELECT id FROM admin WHERE login = '$myusername' and password = '$mypassword'";
+      $sql = "SELECT * FROM users WHERE username = '$myusername' and password = '$mypassword'";
       $result = mysqli_query($db,$sql);
       $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
       
@@ -21,13 +22,21 @@
 		
       if($count == 1) {
       
-         $_SESSION['login_user'] = $myusername;
+         $_SESSION['username'] = $myusername;
+         $_SESSION['password'] = $password;
          
-         header("location: GradeList.html");
-      }else {
-       
-         echo '<script type="text/javascript">alert("Username and password incorrect!");     window.location="login.php";</script>';
+         $role = trim($row['role']); // get the redirect column's value
 
+         if ($role == '1') {
+            header("location: /ICS499_PROJECT/Gradebook/admin/AdminManageInstructor.php");
+        } elseif ($role == '2')  {
+            header("location: /ICS499_PROJECT/Gradebook/student/GradeList.html");
+        } elseif ($role == '3')  {
+            header("location: /ICS499_PROJECT/Gradebook/student/studentpage.html");
+
+        } else {
+         echo '<script type="text/javascript">alert("Username and password incorrect!");     window.location="login.php";</script>';
+        }
       }
    }
 ?>
