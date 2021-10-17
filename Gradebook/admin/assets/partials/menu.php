@@ -11,9 +11,9 @@
             <div class="wrapper">
                 <ul>
                     <li><a href="adminhomepage.php">Home</a></li>
-                    <li><a href="#">Courses</a></li>
-                    <li><a href="#">Instructors</a></li>
-                    <li><a href="#">Students</a></li>
+                    <li><a href="AdminManageCourse.php">Courses</a></li>
+                    <li><a href="AdminManageInstructor.php">Instructors</a></li>
+                    <li><a href="AdminManageStudent.php">Students</a></li>
                     <li><a href="#">Tools</a></li>
                     <li><a href="../logout.html">Logout</a></li>
                 </ul>

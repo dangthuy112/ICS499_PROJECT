@@ -39,6 +39,22 @@ table tr th{
 table tr td{
     padding: 1%;
 }
+
+.tbl-30{
+    width: 60%;
+}
+
+.btn-primary{
+    background-color: #ff6b81;
+    color: white;
+    text-decoration: none;
+    padding: 1%;
+}
+
+.btn-primary:hover{
+    background-color: #ff4757;
+}
+
 /*css for menu*/
 .menu{
     border-bottom: 1px solid grey;

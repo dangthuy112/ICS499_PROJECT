@@ -3,7 +3,13 @@
 <div class="admin-manage">
     <div class="wrapper">
         <h1>Manage Instructors</h1>
-
+        <br />
+        
+        <!-- add instructor button -->
+        <a href="add-instructor.php" class="btn-primary">Add Instructor</a>
+        
+        <br /><br /><br />
+        <!-- display table -->
         <table class="tbl-full" >
             <tr> 
                 <th>ID</th>
@@ -18,22 +24,17 @@
                 die("Connection Failed:". $connection-> connect_error);
             }
                    
-            $sql = "SELECT tid, name from teachers";
+            $sql = "SELECT instructorID, fullname from instructors";
             $result = $connection->query($sql);
 
             while ($row = $result-> fetch_assoc()) {
-                echo "<tr><td>" . $row["tid"] . "</td><td>" . $row["name"] . "</td></tr>";
+                echo "<tr><td>" . $row["instructorID"] . "</td><td>" . $row["fullname"] . "</td></tr>";
             }
             echo "</table>";
 
-
             $connection->close();
             ?>
-
-
-            <tr>
-                <td></td>
-            </tr>
+            
         </table>
 
     </div>

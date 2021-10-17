@@ -6,22 +6,27 @@
 
         <table class="tbl-full" >
             <tr> 
-                <th>ID</th>
-                <th>Full Name</th>
-                <th>Username</th>
+                <th>Subject</th>
+                <th>Course Number</th>
+                <th>Course Name</th>
+                <th>InstructorID</th>
             </tr>
             
             <?php
-            $connection = mysqli_connect("localhost", "root", "", "studentgradebook");
+            $connection = mysqli_connect("localhost", "root", "", "ics499");
             if ($connection-> connect_error) {
                 die("Connection Failed:". $connection-> connect_error);
             }
                    
-            $sql = "SELECT sid, name from students";
-            $result = $connection->query($sql);
+            $sql = "SELECT subject, coursenumber, name, instructorID from courses";
+            $result = $connection->query($sql) or die($connection->error);
 
             while ($row = $result-> fetch_assoc()) {
-                echo "<tr><td>" . $row["sid"] . "</td><td>" . $row["name"] . "</td></tr>";
+                echo "<tr><td>" . $row["subject"] . "</td>"
+                        . "<td>" . $row["coursenumber"] . "</td>"
+                        . "<td>" . $row["name"] . "</td>"
+                        . "<td>" . $row["instructorID"] . "</td>"
+                        . "</tr>";
             }
             echo "</table>";
 

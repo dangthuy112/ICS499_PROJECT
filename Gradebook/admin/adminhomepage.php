@@ -8,7 +8,7 @@
         <div class="column-3">
             <h2>Courses</h2>
             <br>
-            <li><a href="#">View All Courses</a></li>
+            <li><a href="AdminManageCourse.php">View All Courses</a></li>
             <li><a href="#">Search For a Course</a></li>
             <li><a href="#">Add Courses</a></li>
             <li><a href="#">Remove Courses</a></li>
