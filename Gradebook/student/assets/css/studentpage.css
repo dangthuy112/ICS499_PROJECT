@@ -35,17 +35,6 @@
 
 }
 
-.menu ul li a{
-    text-decoration: none;
-    font-weight: bold;
-    color: white;
-}
-
-.menu ul li a:hover{
-    color: #1e90ff;
-}
-
-
 /*css for announcement*/
 .announcementtable{
     height: 80%;
@@ -59,6 +48,8 @@
 .footer{
     background-color: #70a1ff;
     color: white;
+   padding-top: 90%;
+    margin-bottom: 90%;
 
 }
 
@@ -66,6 +57,25 @@
 .announcementtable.table, th, td {
     border:1px solid black;
   
+  }
+  /*css for Dropdown table*/
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
   }
  
 
