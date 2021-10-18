@@ -52,11 +52,13 @@
                                   ";
 
         $result = $connection->query($sql_insert_instructor) or die($connection->error);
-
+        // Get last insert id 
+        $lastid = mysqli_insert_id($connection); 
         $sql_insert_user = "INSERT into users SET
                                     username='$username',
                                     password='$password',
-                                    role=2
+                                    role=2,
+                                    fromable_id =$lastid
                                   ";
 
         $result = $connection->query($sql_insert_user) or die($connection->error);

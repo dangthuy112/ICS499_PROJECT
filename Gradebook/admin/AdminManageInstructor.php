@@ -24,11 +24,22 @@
                 die("Connection Failed:". $connection-> connect_error);
             }
                    
-            $sql = "SELECT instructorID, fullname from instructors";
-            $result = $connection->query($sql);
+            $sql = "SELECT
+            `instructors`.`instructorID`
+            , `instructors`.`fullname`
+            , `users`.`username`
+                , `users`.`role`
+            FROM
+                `instructors`
+                INNER JOIN `users` 
+                    ON (`instructors`.`instructorID` = `users`.`fromable_id`)
+            WHERE (`users`.`role` =2);";
 
+            $result = $connection->query($sql);
+            $count =1;
             while ($row = $result-> fetch_assoc()) {
-                echo "<tr><td>" . $row["instructorID"] . "</td><td>" . $row["fullname"] . "</td></tr>";
+                echo "<tr><td>" . $count . "</td><td>" . $row["fullname"] . "</td><td>" . $row["username"] . "</td> </tr>";
+                $count++;
             }
             echo "</table>";
 
