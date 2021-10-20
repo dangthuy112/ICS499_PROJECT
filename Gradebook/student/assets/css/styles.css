@@ -1,0 +1,10 @@
+
+.padtable{
+  height: 70%;
+  width: 100%;
+  border: 1px solid black;
+  display: inline-block;
+  background-color: lightpink;
+ 
+}
+.middlediv{text-align: center;}
