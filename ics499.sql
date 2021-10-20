@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2021 at 03:42 AM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 7.3.30
+-- Generation Time: Oct 20, 2021 at 08:27 AM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -24,79 +25,67 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `announcement`
---
-
-CREATE TABLE `announcement` (
-  `annid` int(11) NOT NULL,
-  `teacher_ID` int(11) NOT NULL,
-  `announcement` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `announcement`
---
-
-INSERT INTO `announcement` (`annid`, `teacher_ID`, `announcement`) VALUES
-(1, 1, 'hello1 '),
-(2, 2, 'hello adams'),
-(3, 3, 'hello wha'),
-(4, 4, 'hello4');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `courses`
 --
 
 CREATE TABLE `courses` (
-  `courseID` int(10) UNSIGNED NOT NULL,
-  `subject` varchar(100) NOT NULL,
-  `coursenumber` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
-  `instructorID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `courses`
---
-
-INSERT INTO `courses` (`courseID`, `subject`, `coursenumber`, `name`, `instructorID`) VALUES
-(1, 'ICS', 462, 'Operating Systems', 0),
-(3, 'ICS', 499, 'Software Engineering and Capstone Project', 0),
-(4, 'MATH', 315, 'Linear Algebra and Applications', 1);
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `subject_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `points` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `grades`
+-- Table structure for table `failed_jobs`
 --
 
-CREATE TABLE `grades` (
-  `studentID` int(11) NOT NULL,
-  `teacherID` int(11) NOT NULL,
-  `subjectID` int(11) NOT NULL,
-  `grade_item` char(100) NOT NULL,
-  `score` char(10) NOT NULL,
-  `feedback` char(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `failed_jobs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `grades`
+-- Table structure for table `fiscal_periods`
 --
 
-INSERT INTO `grades` (`studentID`, `teacherID`, `subjectID`, `grade_item`, `score`, `feedback`) VALUES
-(1, 1, 2, 'quiz', '100', 'good'),
-(2, 2, 3, 'quiz', '33', 'good'),
-(2, 3, 4, 'qsa', '87', 'good'),
-(3, 3, 4, 'quiz', '89', 'good'),
-(4, 4, 1, 'quiz', '99', 'good'),
-(5, 1, 3, 'quiz', '78', 'good'),
-(6, 2, 4, 'quiz', '98', 'good'),
-(8, 4, 2, 'quiz', '77', 'good'),
-(9, 1, 4, 'quiz', '88', 'good'),
-(10, 2, 1, 'quiz', '55', 'good'),
-(11, 3, 2, 'quiz', '66', 'good');
+CREATE TABLE `fiscal_periods` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `period_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `fiscal_year_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `fiscal_years`
+--
+
+CREATE TABLE `fiscal_years` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `year_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -105,68 +94,107 @@ INSERT INTO `grades` (`studentID`, `teacherID`, `subjectID`, `grade_item`, `scor
 --
 
 CREATE TABLE `instructors` (
-  `instructorID` int(10) UNSIGNED NOT NULL,
-  `fullname` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `instructors`
---
-
-INSERT INTO `instructors` (`instructorID`, `fullname`) VALUES
-(1, 'Bob'),
-(3, 'Dave'),
-(10, 'Bob'),
-(11, 'Bob'),
-(12, 'Michael'),
-(13, 'Prof .Instructor A '),
-(14, 'Test Test');
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `work_no` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ss`
+-- Table structure for table `instructor_courses`
 --
 
-CREATE TABLE `ss` (
-  `studentID_ssid` int(11) NOT NULL,
-  `subjectId_ssid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+CREATE TABLE `instructor_courses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `instructor_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `course_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `period_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `ss`
+-- Table structure for table `migrations`
 --
 
-INSERT INTO `ss` (`studentID_ssid`, `subjectId_ssid`) VALUES
-(2, 1),
-(3, 1),
-(4, 1),
-(6, 1),
-(8, 1),
-(10, 1),
-(11, 1),
-(1, 2),
-(3, 2),
-(4, 2),
-(5, 2),
-(8, 2),
-(9, 2),
-(11, 2),
-(1, 3),
-(2, 3),
-(4, 3),
-(5, 3),
-(6, 3),
-(8, 3),
-(9, 3),
-(10, 3),
-(1, 4),
-(2, 4),
-(3, 4),
-(5, 4),
-(6, 4),
-(10, 4),
-(11, 4);
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(42, '2014_10_12_000000_create_users_table', 1),
+(43, '2014_10_12_100000_create_password_resets_table', 1),
+(44, '2014_10_12_200000_add_two_factor_columns_to_users_table', 1),
+(45, '2019_08_19_000000_create_failed_jobs_table', 1),
+(46, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(47, '2021_10_19_095404_create_sessions_table', 1),
+(48, '2021_10_19_103934_create_instructors_table', 1),
+(49, '2021_10_19_183248_create_subjects_table', 1),
+(50, '2021_10_19_183249_create_students_table', 1),
+(51, '2021_10_19_183709_create_courses_table', 1),
+(52, '2021_10_20_053829_create_fiscal_years_table', 1),
+(53, '2021_10_20_054044_create_fiscal_periods_table', 1),
+(54, '2021_10_20_054241_create_student_courses_table', 1),
+(55, '2021_10_20_060355_create_instructor_courses_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `personal_access_tokens`
+--
+
+CREATE TABLE `personal_access_tokens` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_used_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `payload` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -175,25 +203,35 @@ INSERT INTO `ss` (`studentID_ssid`, `subjectId_ssid`) VALUES
 --
 
 CREATE TABLE `students` (
-  `sid` int(11) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `regno` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `dob` date NOT NULL,
+  `subject_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `students`
+-- Table structure for table `student_courses`
 --
 
-INSERT INTO `students` (`sid`, `name`) VALUES
-(1, 'Simon'),
-(2, 'Alvin'),
-(3, 'Theo'),
-(4, 'Brittany'),
-(5, 'Jenette'),
-(6, 'Elenor'),
-(8, 'Thuy'),
-(9, 'Trung'),
-(10, 'Aziz'),
-(11, 'Vincent');
+CREATE TABLE `student_courses` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `student_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `course_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `grade` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `points` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `remarks` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `period_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -202,69 +240,12 @@ INSERT INTO `students` (`sid`, `name`) VALUES
 --
 
 CREATE TABLE `subjects` (
-  `subid` int(11) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `subjects`
---
-
-INSERT INTO `subjects` (`subid`, `name`) VALUES
-(1, 'History'),
-(2, 'Biology'),
-(3, 'SF'),
-(4, 'Math');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `teachers`
---
-
-CREATE TABLE `teachers` (
-  `tid` int(11) NOT NULL,
-  `name` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `teachers`
---
-
-INSERT INTO `teachers` (`tid`, `name`) VALUES
-(1, 'Washington'),
-(2, 'Adams'),
-(3, 'Jefferson'),
-(4, 'Lincoln');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ts`
---
-
-CREATE TABLE `ts` (
-  `teacherID_subid` int(11) NOT NULL,
-  `subjectID_subid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ts`
---
-
-INSERT INTO `ts` (`teacherID_subid`, `subjectID_subid`) VALUES
-(1, 2),
-(1, 3),
-(1, 4),
-(2, 1),
-(2, 3),
-(2, 4),
-(3, 1),
-(3, 2),
-(3, 4),
-(4, 1),
-(4, 2),
-(4, 3);
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -273,96 +254,125 @@ INSERT INTO `ts` (`teacherID_subid`, `subjectID_subid`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL,
-  `role` int(11) NOT NULL,
-  `fromable_id` int(11) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `username`, `password`, `role`, `fromable_id`) VALUES
-(1, 'admin', 'password', 1, NULL),
-(2, 'teacher', 'password', 2, NULL),
-(3, 'student', 'password', 3, NULL),
-(4, 'aziz', 'password', 1, NULL),
-(5, 'bob', 'bobby', 2, 11),
-(6, 'michael', 'michael69', 2, 12),
-(7, 'Instructor A', '12345678', 2, 13),
-(8, 'Test 1', '12345678', 2, 14);
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `two_factor_secret` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `two_factor_recovery_codes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `useable_id` bigint(20) UNSIGNED NOT NULL,
+  `useable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `current_team_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `profile_photo_path` varchar(2048) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `announcement`
---
-ALTER TABLE `announcement`
-  ADD PRIMARY KEY (`annid`),
-  ADD KEY `teacher_ID_idx` (`teacher_ID`);
-
---
 -- Indexes for table `courses`
 --
 ALTER TABLE `courses`
-  ADD PRIMARY KEY (`courseID`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `courses_subject_id_foreign` (`subject_id`);
 
 --
--- Indexes for table `grades`
+-- Indexes for table `failed_jobs`
 --
-ALTER TABLE `grades`
-  ADD PRIMARY KEY (`studentID`,`teacherID`,`subjectID`),
-  ADD KEY `tid_idx` (`teacherID`),
-  ADD KEY `subjectID_idx` (`subjectID`);
+ALTER TABLE `failed_jobs`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
+
+--
+-- Indexes for table `fiscal_periods`
+--
+ALTER TABLE `fiscal_periods`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fiscal_periods_fiscal_year_id_foreign` (`fiscal_year_id`);
+
+--
+-- Indexes for table `fiscal_years`
+--
+ALTER TABLE `fiscal_years`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `instructors`
 --
 ALTER TABLE `instructors`
-  ADD PRIMARY KEY (`instructorID`);
+  ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `ss`
+-- Indexes for table `instructor_courses`
 --
-ALTER TABLE `ss`
-  ADD PRIMARY KEY (`subjectId_ssid`,`studentID_ssid`),
-  ADD KEY `subjectID_idx` (`subjectId_ssid`),
-  ADD KEY `studentID_subid_idx` (`studentID_ssid`);
+ALTER TABLE `instructor_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `instructor_courses_instructor_id_foreign` (`instructor_id`),
+  ADD KEY `instructor_courses_course_id_foreign` (`course_id`),
+  ADD KEY `instructor_courses_period_id_foreign` (`period_id`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
+  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
+
+--
+-- Indexes for table `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sessions_user_id_index` (`user_id`),
+  ADD KEY `sessions_last_activity_index` (`last_activity`);
 
 --
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`sid`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `students_regno_unique` (`regno`),
+  ADD KEY `students_subject_id_foreign` (`subject_id`);
+
+--
+-- Indexes for table `student_courses`
+--
+ALTER TABLE `student_courses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `student_courses_student_id_foreign` (`student_id`),
+  ADD KEY `student_courses_course_id_foreign` (`course_id`),
+  ADD KEY `student_courses_period_id_foreign` (`period_id`);
 
 --
 -- Indexes for table `subjects`
 --
 ALTER TABLE `subjects`
-  ADD PRIMARY KEY (`subid`);
-
---
--- Indexes for table `teachers`
---
-ALTER TABLE `teachers`
-  ADD PRIMARY KEY (`tid`);
-
---
--- Indexes for table `ts`
---
-ALTER TABLE `ts`
-  ADD PRIMARY KEY (`teacherID_subid`,`subjectID_subid`),
-  ADD KEY `subjectID_tsid_idx` (`subjectID_subid`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -372,51 +382,111 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `courseID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
+--
+ALTER TABLE `failed_jobs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fiscal_periods`
+--
+ALTER TABLE `fiscal_periods`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `fiscal_years`
+--
+ALTER TABLE `fiscal_years`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `instructors`
 --
 ALTER TABLE `instructors`
-  MODIFY `instructorID` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `instructor_courses`
+--
+ALTER TABLE `instructor_courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+
+--
+-- AUTO_INCREMENT for table `personal_access_tokens`
+--
+ALTER TABLE `personal_access_tokens`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `student_courses`
+--
+ALTER TABLE `student_courses`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `announcement`
+-- Constraints for table `courses`
 --
-ALTER TABLE `announcement`
-  ADD CONSTRAINT `teacher_ID` FOREIGN KEY (`teacher_ID`) REFERENCES `teachers` (`tid`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `courses`
+  ADD CONSTRAINT `courses_subject_id_foreign` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
 
 --
--- Constraints for table `grades`
+-- Constraints for table `fiscal_periods`
 --
-ALTER TABLE `grades`
-  ADD CONSTRAINT `studentID` FOREIGN KEY (`studentID`) REFERENCES `students` (`sid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `subjectID` FOREIGN KEY (`subjectID`) REFERENCES `subjects` (`subid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `teacherID` FOREIGN KEY (`teacherID`) REFERENCES `teachers` (`tid`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `fiscal_periods`
+  ADD CONSTRAINT `fiscal_periods_fiscal_year_id_foreign` FOREIGN KEY (`fiscal_year_id`) REFERENCES `fiscal_years` (`id`);
 
 --
--- Constraints for table `ss`
+-- Constraints for table `instructor_courses`
 --
-ALTER TABLE `ss`
-  ADD CONSTRAINT `studentID_ssid` FOREIGN KEY (`studentID_ssid`) REFERENCES `students` (`sid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `subjectID_ssid` FOREIGN KEY (`subjectId_ssid`) REFERENCES `subjects` (`subid`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `instructor_courses`
+  ADD CONSTRAINT `instructor_courses_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `instructor_courses_instructor_id_foreign` FOREIGN KEY (`instructor_id`) REFERENCES `instructors` (`id`),
+  ADD CONSTRAINT `instructor_courses_period_id_foreign` FOREIGN KEY (`period_id`) REFERENCES `fiscal_periods` (`id`);
 
 --
--- Constraints for table `ts`
+-- Constraints for table `students`
 --
-ALTER TABLE `ts`
-  ADD CONSTRAINT `subjectID_tsid` FOREIGN KEY (`subjectID_subid`) REFERENCES `subjects` (`subid`),
-  ADD CONSTRAINT `teacherID_tsid` FOREIGN KEY (`teacherID_subid`) REFERENCES `teachers` (`tid`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `students`
+  ADD CONSTRAINT `students_subject_id_foreign` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
+
+--
+-- Constraints for table `student_courses`
+--
+ALTER TABLE `student_courses`
+  ADD CONSTRAINT `student_courses_course_id_foreign` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`),
+  ADD CONSTRAINT `student_courses_period_id_foreign` FOREIGN KEY (`period_id`) REFERENCES `fiscal_periods` (`id`),
+  ADD CONSTRAINT `student_courses_student_id_foreign` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
