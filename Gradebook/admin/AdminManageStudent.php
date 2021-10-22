@@ -9,7 +9,6 @@
                 <th>ID</th>
                 <th>Full Name</th>
                 <th>Username</th>
-
             </tr>
 
             <?php
