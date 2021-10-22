@@ -15,7 +15,7 @@
                     <li><a href="AdminManageInstructor.php">Instructors</a></li>
                     <li><a href="AdminManageStudent.php">Students</a></li>
                     <li><a href="#">Tools</a></li>
-                    <li><a href="../logout.html">Logout</a></li>
+                    <li><a href="../logout.php">Logout</a></li>
                 </ul>
             </div>
         </div>
