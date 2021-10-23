@@ -3,6 +3,21 @@
 <div class="admin-manage">
     <div class="wrapper">
         <h1>Manage Instructors</h1>
+
+      <?php
+    session_start();
+    if (isset($_SESSION['username'])) {
+      // This session already exists, should already contain data
+        echo "User ID:", $_SESSION['username'], "<br />";
+    } else {
+        // No Session Detected. Redirect to login page.
+
+        header("Location: ../login.php");
+
+    }
+?>
+
+
         <br />
         
         <!-- add instructor button -->

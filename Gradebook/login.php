@@ -35,8 +35,7 @@
         } elseif ($role == '2')  {
             header("location: /ICS499_PROJECT/Gradebook/student/GradeList.html");
         } elseif ($role == '3')  {
-            $_SESSION['userID_student'] = $userID_student;
-
+         
             header("location: /ICS499_PROJECT/Gradebook/student/studentcourse.html");
 
         } else {
