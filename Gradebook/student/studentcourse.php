@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="assets/css/styles.css">
         <?php
+        include("config.php");
+
         $sid=$_GET['sid'];
         $course = $_GET['course'];
         $connection_string = 'mysql:host=localhost:3307;dbname=gradebook1';

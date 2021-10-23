@@ -1,7 +1,7 @@
 
 <?php
    include("config.php");
-   session_unset();
+   
    session_start();
    
    if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,17 +25,22 @@
          $_SESSION['username'] = $myusername;
          $_SESSION['password'] = $password;
          
-         $role = trim($row['role']); // get the redirect column's value
+          $role = trim($row['role']); // get the redirect column's value
+          $userID_student = trim($row['useID_student']); // get the redirect column's value
+          $userID_instructor = trim($row['userID_intructor']); // get the redirect column's value
+          $userID_admin = trim($row['userID_admin']); // get the redirect column's value
 
          if ($role == '1') {
             header("location: /ICS499_PROJECT/Gradebook/admin/AdminManageInstructor.php");
         } elseif ($role == '2')  {
             header("location: /ICS499_PROJECT/Gradebook/student/GradeList.html");
         } elseif ($role == '3')  {
-            header("location: /ICS499_PROJECT/Gradebook/student/studentpage.html");
+            $_SESSION['userID_student'] = $userID_student;
+
+            header("location: /ICS499_PROJECT/Gradebook/student/studentcourse.html");
 
         } else {
-         echo '<script type="text/javascript">alert("Username and password incorrect!");     window.location="login.php";</script>';
+        echo '<script type="text/javascript">alert("Username and password incorrect!");     window.location="login.php";</script>';
         }
       }
    }

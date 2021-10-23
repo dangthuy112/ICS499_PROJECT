@@ -45,6 +45,7 @@
 </style>
 
 <?php   
+
         $user_name='student'; //testing
         $password = 'trungbasau123'; 
         $connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "gradebook1");
