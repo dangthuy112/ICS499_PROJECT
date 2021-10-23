@@ -21,14 +21,14 @@
       // If result matched $myusername and $mypassword, table row must be 1 row
 		
       if($count == 1) {
-      
+        $userID = trim($row['userID']); // get the userID column's value
+
          $_SESSION['username'] = $myusername;
-         $_SESSION['password'] = $password;
+         $_SESSION['password'] = $mypassword;
+         $_SESSION['userID'] = $userID;
          
           $role = trim($row['role']); // get the redirect column's value
-          $userID_student = trim($row['useID_student']); // get the redirect column's value
-          $userID_instructor = trim($row['userID_intructor']); // get the redirect column's value
-          $userID_admin = trim($row['userID_admin']); // get the redirect column's value
+
 
          if ($role == '1') {
             header("location: /ICS499_PROJECT/Gradebook/admin/AdminManageInstructor.php");

@@ -6,12 +6,16 @@
 
       <?php
     session_start();
-    if (isset($_SESSION['username'])) {
+    
+    if( (isset($_SESSION['username'])) && (isset($_SESSION['password'])) )
+ {
       // This session already exists, should already contain data
-        echo "User ID:", $_SESSION['username'], "<br />";
+        echo "User ID User:", $_SESSION['username'], "<br />";
+        echo "User ID Pass:", $_SESSION['password'], "<br />";
+        echo "User ID:", $_SESSION['userID'], "<br />";
     } else {
         // No Session Detected. Redirect to login page.
-
+    
         header("Location: ../login.php");
 
     }
