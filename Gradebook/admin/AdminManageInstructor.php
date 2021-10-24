@@ -42,24 +42,18 @@
         include("config.php");
 
                    
-            $sql = "SELECT
-            `instructors`.`instructorID`
-            , `instructors`.`fullname`
-            , `users`.`username`
-                , `users`.`role`
-            FROM
-                `instructors`
-                INNER JOIN `users` 
-                    ON (`instructors`.`instructorID` = `users`.`fromable_id`)
-            WHERE (`users`.`role` =2);";
+     
+       
+        $sql = "SELECT * from instructors";
 
 
             $result = mysqli_query($db,$sql);
-            
+            $count =1;
+
             if ($result->num_rows > 0) {
 
             while ($row = mysqli_fetch_array($result)) {
-                echo "<tr><td>" . $count . "</td><td>" . $row["fullname"] . "</td><td>" . $row["username"] . "</td> </tr>";
+                echo "<tr><td>" . $count . "</td><td>" . $row["fullname"] . "</td><td>" . $row["instructorID"] . "</td> </tr>";
                 $count++;
             }
         }
