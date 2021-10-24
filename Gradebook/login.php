@@ -23,10 +23,13 @@
 		
       if($count == 1) {
         $userID = trim($row['userID']); // get the userID column's value
+        $useID_student = trim($row['useID_student']); // get the useID_student column's value
 
          $_SESSION['username'] = $myusername;
          $_SESSION['password'] = $mypassword;
          $_SESSION['userID'] = $userID;
+         $_SESSION['useID_student'] = $useID_student;
+         
          
           $role = trim($row['role']); // get the redirect column's value
 
@@ -37,7 +40,7 @@
             header("location: /ICS499_PROJECT/Gradebook/student/GradeList.html");
         } elseif ($role == '3')  {
          
-            header("location: /ICS499_PROJECT/Gradebook/student/studentcourse.html");
+            header("location: /ICS499_PROJECT/Gradebook/student/studentpage.php");
 
         } else {
         echo '<script type="text/javascript">alert("Username and password incorrect!");     window.location="login.php";</script>';

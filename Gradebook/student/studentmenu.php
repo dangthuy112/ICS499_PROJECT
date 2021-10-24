@@ -1,76 +1,32 @@
-<link rel="stylesheet" href="assets/css/studentpage.css">
-<style>
-.dropdown {
-  position: relative;
-  display: inline-block;
-  background-color: lightblue;
-  padding: 20px;
-  height: 10%;
-}
+<link rel="stylesheet" href="assets/css/studentmenu.css">
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  padding: 12px 16px;
-  z-index: 1;
-}
 
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.dropdown a{
-    text-decoration: none;
-    font-weight: bold;
-    color:red;
-    margin-right: 100px;
-    
-}
-.dropdown a:hover{
-    color: red;
-}
-.a{
-    text-decoration: none;
-    font-weight: bold;
-    color:red;
-    margin-right: 100px;
-  
-    
-}
-.a:hover{
-    color: red;
-}
-</style>
 
 <?php   
-
-        $user_name='student'; //testing
-        $password = 'trungbasau123'; 
-        $connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "gradebook1");
-        if ($connection-> connect_error) {
-            die("Connection Failed:". $connection-> connect_error);
-        }
+        include("config.php");
+   
         
-        $sql = "SELECT subjects.subid, subjects.name From students ,subjects , ss WHERE students.sid=ss.studentid_ssid AND subjects.subid=ss.subjectid_ssid AND students.sid=$sid";
-        $result = $connection->query($sql);
+        $sql = "SELECT courses.courseID, courses.subject ,courses.coursenumber From students ,courses ,student_enroll WHERE students.StudentID=student_enroll.studentID_enroll AND courses.courseID=student_enroll.courseID_enroll AND students.studentID=$sid";
+        $result = mysqli_query($db,$sql);
         $subjectname = [];
-        $subjectid = [];
-        while($row = mysqli_fetch_assoc($result)) 
+        $courseid = [];
+        $coursenumber=[];
+        while ($row = mysqli_fetch_array($result)) 
     {
-        $subjectname[] = $row['name'];
+        $subjectname[] = $row['subject'];
+        $courseid[]= $row['courseID'];
+        $coursenumber[]=$row['coursenumber'];
         
     }
     echo "<div class='menu text-center'>
               <div class='dropdown'>  
                 <a >Course</a>
                 <div class='dropdown-content'>";
-                $counter=0;
-                foreach ($subjectname as $value) {
-                    echo "<a  href='./studentcourse.php?course=$value&sid=9'>$value</a>";
-                    }
+                for ($x = 0; $x < count($subjectname); $x++) {
                 
+                    echo "<a  href='./studentcourse.php?course=$subjectname[$x]&courseid=$courseid[$x]&sid=9'>$subjectname[$x]$coursenumber[$x]</a><br>";
+                  
+                }
                 echo " </div>
                  </div>
                  <a class = 'a' href='searchforacourse.php?sid=9'>Search For A Course</a>

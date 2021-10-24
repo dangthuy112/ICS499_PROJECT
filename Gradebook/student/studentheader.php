@@ -14,5 +14,5 @@
  <!-- header-->
 <body>
   <div class="header1">
-    <p style="font-size:50px; text-align:center;"> The Student Grade Book</p>
+    <a style="font-size:50px; text-align:center; color:white;text-decoration: none" href='studentpage.php?sid=9'> The Student Grade Book</a>
   </div>
