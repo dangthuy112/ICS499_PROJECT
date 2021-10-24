@@ -10,9 +10,9 @@
     if( (isset($_SESSION['username'])) && (isset($_SESSION['password'])) )
  {
       // This session already exists, should already contain data
-        echo "User ID Username: ", $_SESSION['username'], "<br />";
-        echo "User ID Password: ", $_SESSION['password'], "<br />";
-        echo "User ID: ", $_SESSION['userID'], "<br />";
+       # echo "User ID Username: ", $_SESSION['username'], "<br />";
+       # echo "User ID Password: ", $_SESSION['password'], "<br />";
+       # echo "User ID: ", $_SESSION['userID'], "<br />";
     } else {
         // No Session Detected. Redirect to login page.
       
