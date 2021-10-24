@@ -38,10 +38,9 @@
             </tr>
 
             <?php
-            $connection = mysqli_connect("localhost", "root", "", "ics499");
-            if ($connection-> connect_error) {
-                die("Connection Failed:". $connection-> connect_error);
-            }
+
+        include("config.php");
+
                    
             $sql = "SELECT
             `instructors`.`instructorID`
@@ -54,15 +53,29 @@
                     ON (`instructors`.`instructorID` = `users`.`fromable_id`)
             WHERE (`users`.`role` =2);";
 
-            $result = $connection->query($sql);
-            $count =1;
-            while ($row = $result-> fetch_assoc()) {
+
+            $result = mysqli_query($db,$sql);
+            
+            if ($result->num_rows > 0) {
+
+            while ($row = mysqli_fetch_array($result)) {
                 echo "<tr><td>" . $count . "</td><td>" . $row["fullname"] . "</td><td>" . $row["username"] . "</td> </tr>";
                 $count++;
             }
+        }
+
+
+
+
+
+
+
+
+
+
             echo "</table>";
 
-            $connection->close();
+            $db->close();
             ?>
             
         </table>
