@@ -4,7 +4,20 @@
 
 <?php   
         include("config.php");
-   
+        if( (isset($_SESSION['username'])) && (isset($_SESSION['password'])) )
+        {
+          // This session already exists, should already contain data
+           # echo "User ID Username from users table: ", $_SESSION['username'], "<br />";
+           # echo "User ID Password from users table: ", $_SESSION['password'], "<br />";
+          #  echo "User ID from users table: ", $_SESSION['userID'], "<br />";
+          #  echo "userID_student from users table ", $_SESSION['userID_student'], "<br />";
+        } else {
+            // No Session Detected. Redirect to login page.
+          
+            header("Location: ../login.php");
+        
+        }
+            
         
         $sql = "SELECT courses.courseID, courses.subject ,courses.coursenumber From students ,courses ,student_enroll WHERE students.StudentID=student_enroll.studentID_enroll AND courses.courseID=student_enroll.courseID_enroll AND students.studentID=$sid";
         $result = mysqli_query($db,$sql);

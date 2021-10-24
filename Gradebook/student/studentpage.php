@@ -25,10 +25,10 @@ session_start();
 if( (isset($_SESSION['username'])) && (isset($_SESSION['password'])) )
 {
   // This session already exists, should already contain data
-    echo "User ID Username from users table: ", $_SESSION['username'], "<br />";
-    echo "User ID Password from users table: ", $_SESSION['password'], "<br />";
-    echo "User ID from users table: ", $_SESSION['userID'], "<br />";
-    echo "useID_student from users table ", $_SESSION['useID_student'], "<br />";
+    #echo "User ID Username from users table: ", $_SESSION['username'], "<br />";
+   # echo "User ID Password from users table: ", $_SESSION['password'], "<br />";
+   # echo "User ID from users table: ", $_SESSION['userID'], "<br />";
+   # echo "userID_student from users table ", $_SESSION['userID_student'], "<br />";
 } else {
     // No Session Detected. Redirect to login page.
   
@@ -39,7 +39,7 @@ if( (isset($_SESSION['username'])) && (isset($_SESSION['password'])) )
 
 
 
-$sid =$_SESSION['useID_student']; //try student id constant
+$sid =$_SESSION['userID_student']; //try student id constant
 include('studentheader.php');
 include('studentmenu.php');
 
