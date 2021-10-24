@@ -23,7 +23,7 @@ if ($connection->connect_error) {
 
 <div class="admin-manage">
     <div class="wrapper">
-        <h1>Add Instructor</h1>
+        <h1>Add Student</h1>
         <br></br>
 
         <?php
@@ -65,7 +65,7 @@ if ($connection->connect_error) {
                 </tr>
 
                 <td colspan="2">
-                    <input type="submit" name="submit" value="Add Instructor" class="btn-primary">
+                    <input type="submit" name="submit" value="Add Student" class="btn-primary">
                 </td>
             </table>
         </form>
@@ -82,30 +82,31 @@ if (isset($_POST['submit'])) {
     $address = $_POST['address'];
     $gender = $_POST['gender'];
 
-    $sql_insert_instructor = "INSERT into instructors SET
+    $sql_insert_student = "INSERT into students SET
                                         fullname='$fullname',
                                         address='$address',
                                         gender='$gender'";
 
-    $result1 = $connection->query($sql_insert_instructor) or die($connection->error);
+    $result1 = $connection->query($sql_insert_student) or die($connection->error);
 
     //Get last insert id 
     if ($result1 == true) {
         $last_id = mysqli_insert_id($connection);
-        echo "New record created successfully. Last inserted ID is: $last_id";
+        //debugging
+        //echo "New record created successfully. Last inserted ID is: $last_id";
     } else {
         //failure message if sql was NOT added
-        $_SESSION['add'] = "Instructor NOT Added.";
+        $_SESSION['add'] = "Student NOT Added.";
 
         //redirect to the same page to show failure message
-        header('location: add-instructor.php');
+        header('location: add-student.php');
     }
 
     $sql_insert_user = "INSERT into users SET
                                         username='$username',
                                         password='$password',
-                                        userID_instructor='$last_id',
-                                        role = 2
+                                        userID_student='$last_id',
+                                        role = 3
                                       ";
 
     $result2 = $connection->query($sql_insert_user) or die($connection->error);
@@ -113,16 +114,16 @@ if (isset($_POST['submit'])) {
     //test to see if operation was successful
     if ($result1 == true && result2 == true) {
         //success message if sql was successfully added
-        $_SESSION['add'] = "Instructor Added Successfully!";
+        $_SESSION['add'] = "Student Added Successfully!";
 
         //redirect to the same page to show success message
-        header('location: add-instructor.php');
+        header('location: add-student.php');
     } else {
         //failure message if sql was NOT added
-        $_SESSION['add'] = "Instructor NOT Added.";
+        $_SESSION['add'] = "Student NOT Added.";
 
         //redirect to the same page to show failure message
-        header('location: add-instructor.php');
+        header('location: add-student.php');
     }
 }
 

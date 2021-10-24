@@ -1,4 +1,5 @@
 
+
 <?php
    include("config.php");
    
@@ -31,7 +32,7 @@
 
 
          if ($role == '1') {
-            header("location: /ICS499_PROJECT/Gradebook/admin/AdminManageInstructor.php");
+            header("location: /ICS499_PROJECT/Gradebook/admin/adminhomepage.php");
         } elseif ($role == '2')  {
             header("location: /ICS499_PROJECT/Gradebook/student/GradeList.html");
         } elseif ($role == '3')  {

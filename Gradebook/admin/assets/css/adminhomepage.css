@@ -55,6 +55,29 @@ table tr td{
     background-color: #ff4757;
 }
 
+.btn-secondary{
+    background-color: #ff6b81;
+    color: white;
+    text-decoration: none;
+    padding: 1%;
+}
+
+.btn-secondary:hover{
+    background-color: #ff4757;
+}
+
+.btn-danger{
+    background-color: #ff6b81;
+    color: white;
+    text-decoration: none;
+    padding: 1%;
+}
+
+.btn-danger:hover{
+    background-color: #ff4757;
+}
+
+
 /*css for menu*/
 .menu{
     border-bottom: 1px solid grey;
