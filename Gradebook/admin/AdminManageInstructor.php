@@ -33,7 +33,7 @@
             <tr> 
                 <th>ID</th>
                 <th>Full Name</th>
-                <th>User ID</th>
+                <th>Username</th>
 
             </tr>
 
@@ -53,7 +53,7 @@
             if ($result->num_rows > 0) {
 
             while ($row = mysqli_fetch_array($result)) {
-                echo "<tr><td>" . $count . "</td><td>" . $row["fullname"] . "</td><td>" . $row["instructorID"] . "</td> </tr>";
+                echo "<tr><td>" . $count . "</td><td>" . $row["fullname"] . "</td><td>" . $row["username"] . "</td> </tr>";
                 $count++;
             }
         }
