@@ -1,21 +1,4 @@
-<<<<<<< Updated upstream
-<link rel="stylesheet" href="assets/css/styles.css">
-        <?php
-        include("config.php");
 
-        $sid=$_GET['sid'];
-        $course = $_GET['course'];
-        $connection_string = 'mysql:host=localhost:3307;dbname=gradebook1';
-        $user_name = 'student'; //testing
-        $password = 'trungbasau123';
-        $connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "gradebook1");
-        if ($connection->connect_error) {
-          die("Connection Failed:" . $connection->connect_error);
-        }
-        include('studentheader.php');
-        include('studentmenu.php');
-        echo "<div class='padtable'>
-=======
 <link rel="stylesheet" href="assets/css/studentcourse.css">
 <?php
 $sid = $_GET['sid'];
@@ -32,6 +15,9 @@ $row = mysqli_fetch_assoc($result);
 $coursename = $row['coursename'];
 $coursenumber = $row['coursenumber'];
 $subject = $row['subject'];
+$coursenamestring=strval($coursename);
+$subjectstring=strval($subject);
+$coursenumberstring=strval($coursenumber);
 echo $coursename;
 echo $coursenumber;
 include('studentheader.php');
@@ -43,7 +29,7 @@ include('studentmenu.php');
    
     <tr>
       
-      <?php echo "<td>Hello this is $coursename and course subject number is $subject $coursenumber </td>" ?>;
+       <?php echo "<td>Hello this is $coursenamestring and course subject number is $subjectstring $coursenumberstring </td>" ?>;
     </tr>
     <!-- <tr>
       <td>tomorrow</td>

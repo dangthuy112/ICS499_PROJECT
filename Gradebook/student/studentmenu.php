@@ -15,10 +15,12 @@
         $result = $connection->query($sql);
         $subjectname = [];
         $courseid = [];
+        $coursenumber=[];
         while($row = mysqli_fetch_assoc($result)) 
     {
         $subjectname[] = $row['subject'];
         $courseid[]= $row['courseID'];
+        $coursenumber[]=$row['coursenumber'];
         
     }
     echo "<div class='menu text-center'>
@@ -27,7 +29,7 @@
                 <div class='dropdown-content'>";
                 for ($x = 0; $x < count($subjectname); $x++) {
                 
-                    echo "<a  href='./studentcourse.php?course=$subjectname[$x]&courseid=$courseid[$x]&sid=9'>$subjectname[$x]$courseid[$x]</a><br>";
+                    echo "<a  href='./studentcourse.php?course=$subjectname[$x]&courseid=$courseid[$x]&sid=9'>$subjectname[$x]$coursenumber[$x]</a><br>";
                   
                 }
                 echo " </div>
