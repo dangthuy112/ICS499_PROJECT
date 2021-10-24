@@ -19,20 +19,33 @@
 }
 </style> -->
 <?php
-$sid = 9; //try student id constant
+include("config.php");
+session_start();
+    
+if( (isset($_SESSION['username'])) && (isset($_SESSION['password'])) )
+{
+  // This session already exists, should already contain data
+    echo "User ID Username from users table: ", $_SESSION['username'], "<br />";
+    echo "User ID Password from users table: ", $_SESSION['password'], "<br />";
+    echo "User ID from users table: ", $_SESSION['userID'], "<br />";
+    echo "useID_student from users table ", $_SESSION['useID_student'], "<br />";
+} else {
+    // No Session Detected. Redirect to login page.
+  
+    header("Location: ../login.php");
+
+}
+    
+
+
+
+$sid =$_SESSION['useID_student']; //try student id constant
 include('studentheader.php');
 include('studentmenu.php');
-// $connection_string = 'mysql:host=localhost:3307;dbname=gradebook1';
-// $user_name = 'student'; //testing
-// $password = 'trungbasau123';
-// $db = new PDO($connection_string, $user_name, $password);
-$connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
-if ($connection-> connect_error) {
-    die("Connection Failed:". $connection-> connect_error);
-}
+
 
 $sql = "SELECT students.fullname From students WHERE students.StudentID='$sid'";
-$result = $connection->query($sql);
+$result = mysqli_query($db,$sql);
 $subjectname = [];
 $row = mysqli_fetch_assoc($result);
 $studentname=$row['fullname'];

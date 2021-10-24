@@ -3,20 +3,15 @@
 
 
 <?php   
-
-        $user_name='student'; //testing
-        $password = 'trungbasau123'; 
-        $connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
-        if ($connection-> connect_error) {
-            die("Connection Failed:". $connection-> connect_error);
-        }
+        include("config.php");
+   
         
         $sql = "SELECT courses.courseID, courses.subject ,courses.coursenumber From students ,courses ,student_enroll WHERE students.StudentID=student_enroll.studentID_enroll AND courses.courseID=student_enroll.courseID_enroll AND students.studentID=$sid";
-        $result = $connection->query($sql);
+        $result = mysqli_query($db,$sql);
         $subjectname = [];
         $courseid = [];
         $coursenumber=[];
-        while($row = mysqli_fetch_assoc($result)) 
+        while ($row = mysqli_fetch_array($result)) 
     {
         $subjectname[] = $row['subject'];
         $courseid[]= $row['courseID'];
