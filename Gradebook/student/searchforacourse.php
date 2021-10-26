@@ -2,12 +2,10 @@
 
 <?php
 $sid = $_GET['sid'];
-$connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
-if ($connection->connect_error) {
-  die("Connection Failed:" . $connection->connect_error);
-}
+include("config.php");
+
 $sql = "SELECT courses.subject  FROM courses GROUP BY courses.subject HAVING COUNT(*)>1";
-$result = $connection->query($sql);
+$result = mysqli_query($db,$sql);
 $subject = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $subject[] = $row['subject'];
@@ -82,7 +80,7 @@ include('studentmenu.php');
     $sql = "SELECT* FROM courses";
   }
  
-    $result = $connection->query($sql);
+  $result = mysqli_query($db,$sql);
     if ($result->num_rows > 0) {
       echo "
         <table style='border= 1px solid black;margin-left: auto; margin-right: auto;'>
@@ -137,7 +135,7 @@ include('studentmenu.php');
 
 </div>
 <?php
-$connection->close();
+$db->close();
 include('studentfooter.php');
 
 ?>
