@@ -1,17 +1,16 @@
 
 <link rel="stylesheet" href="assets/css/studentcourse.css">
 <?php
+include("config.php");
 $sid = $_GET['sid'];
 $course = $_GET['course'];
 $courseid = $_GET['courseid'];
 $stringcourseid = strval($courseid);
-$connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
-if ($connection->connect_error) {
-  die("Connection Failed:" . $connection->connect_error);
-}
+
 $sql = "SELECT courses.subject, courses.coursenumber, courses.coursename 
 FROM courses WHERE courses.courseID='$courseid'";
-$result = $connection->query($sql);
+$result = mysqli_query($db,$sql);
+
 $row = mysqli_fetch_assoc($result);
 $coursename = $row['coursename'];
 $coursenumber = $row['coursenumber'];
@@ -33,6 +32,6 @@ include('studentmenu.php');
   </table>
 </div>
 <?php
-$connection->close();
+$db->close();
 echo "</div>";
 include('studentfooter.php') ?>
