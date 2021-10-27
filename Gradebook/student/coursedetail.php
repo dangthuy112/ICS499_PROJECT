@@ -8,17 +8,18 @@
 <?php
 $sid = $_GET['sid'];
 $courseid= $_GET['courseid'];
-include('studentheader.php');
-include('studentmenu.php');
+include('assets/partials/studentheader.php');
+include('assets/partials/studentmenu.php');
 $courseid = $_GET['courseid'];
-$connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
-if ($connection->connect_error) {
-  die("Connection Failed:" . $connection->connect_error);
-}
+include("assets/partials/config.php");
+// $connection = mysqli_connect("localhost:3307", "admin", "password", "ics");
+// if ($connection->connect_error) {
+//   die("Connection Failed:" . $connection->connect_error);
+// }
 $sql = "SELECT * FROM `courses` WHERE courseID='$courseid'";
-$result = $connection->query($sql);
+$result = mysqli_query($db,$sql);
 $row = mysqli_fetch_assoc($result);
-$connection->close();
+// $connection->close();
 ?>
 <div class="coursenameContainer">
   <?php echo " <coursename class='coursename'>" . $row["coursename"] . "</coursename>"; ?>
@@ -88,33 +89,30 @@ $connection->close();
 <?php
  if (isset($_POST['signup'])) 
  {
-   echo " i am here";
-  $connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
-  if ($connection->connect_error) {
-      die("Connection Failed:" . $connection->connect_error);
-  }
+  //  echo " i am here";
+  // $connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
+  // if ($connection->connect_error) {
+  //     die("Connection Failed:" . $connection->connect_error);
+  // }
   $sql="SELECT * from student_enroll WHERE student_enroll.studentID_enroll='$sid' and student_enroll.courseID_enroll='$courseid'";
- $result = $connection->query($sql);
+ $result =   mysqli_query($db,$sql);
  $row = mysqli_fetch_assoc($result);
  if($result->num_rows > 0){
    echo"You are already sign up for this course please find another course";
  }
 elseif($result->num_rows == 0){
   $insert="INSERT INTO student_enroll(studentID_enroll, courseID_enroll) VALUES ('$sid', '$courseid');";
-  $process=$connection->query($insert);
+  $process=  mysqli_query($db,$insert);
   echo " The course is successfully add";
 }
-$connection->close();
+// $connection->close();
 }
 ?>
 
 
-<div class="footer">
-  <div class="footerwrapper">
-    <p class="text-center">2021 All rights reserved, Some School, Developped by Squad 3</p>
-  </div>
-</div>
-
+<?php
+$db->close();
+include('assets/partials/studentfooter.php') ?>
 
 
 

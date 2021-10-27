@@ -1,7 +1,7 @@
 
 <link rel="stylesheet" href="assets/css/studentcourse.css">
 <?php
-include("config.php");
+include("assets/partials/config.php");
 $sid = $_GET['sid'];
 $course = $_GET['course'];
 $courseid = $_GET['courseid'];
@@ -18,8 +18,8 @@ $subject = $row['subject'];
 $coursenamestring=strval($coursename);
 $subjectstring=strval($subject);
 $coursenumberstring=strval($coursenumber);
-include('studentheader.php');
-include('studentmenu.php');
+include('assets/partials/studentheader.php');
+include('assets/partials/studentmenu.php');
 ?>
 <div class="padtable">
   <b>ANNOUNCEMENT</b>
@@ -33,5 +33,4 @@ include('studentmenu.php');
 </div>
 <?php
 $db->close();
-echo "</div>";
-include('studentfooter.php') ?>
+include('assets/partials/studentfooter.php') ?>

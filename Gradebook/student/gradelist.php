@@ -1,6 +1,18 @@
 <?php
-include('studentheader.php');
-include('studentmenu.php');
+include('assets/partials/studentheader.php');
+include('assets/partials/studentmenu.php');
+include('assets/partials/config.php');
+$sql="SELECT* FROM grades WHERE grades.studentID_grade='$sid' and grades.courseID_grade='$courseid'and grades.instructorID_grade='$instructorid'";
+$result = mysqli_query($db, $sql);
+$subjectname = [];
+$courseid = [];
+$coursenumber = [];
+while ($row = mysqli_fetch_array($result)) {
+    $subjectname[] = $row['subject'];
+    $courseid[] = $row['courseID'];
+    $coursenumber[] = $row['coursenumber'];
+}
+
 ?>
 <link rel="stylesheet" href="assets/css/gradelist.css">
 <div class="padtable">
@@ -28,5 +40,6 @@ include('studentmenu.php');
   </div>
 </div>
 <?php
-include('studentfooter.php');
-?>
+$db->close();
+
+include('assets/partials/studentfooter.php') ?>

@@ -2,7 +2,7 @@
 
 <?php
 $sid = $_GET['sid'];
-include("config.php");
+include('assets/partials/config.php');
 
 $sql = "SELECT courses.subject  FROM courses GROUP BY courses.subject HAVING COUNT(*)>1";
 $result = mysqli_query($db,$sql);
@@ -10,8 +10,8 @@ $subject = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $subject[] = $row['subject'];
 }
-include('studentheader.php');
-include('studentmenu.php');
+include('assets/partials/studentheader.php');
+include('assets/partials/studentmenu.php');
 ?>
 
 <div class="padtable">
@@ -136,6 +136,6 @@ include('studentmenu.php');
 </div>
 <?php
 $db->close();
-include('studentfooter.php');
+include('assets/partials/studentfooter.php');
 
 ?>

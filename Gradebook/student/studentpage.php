@@ -1,7 +1,7 @@
 
 <?php
-include('studentheader.php');
-include('studentmenu.php');
+include('assets/partials/studentheader.php');
+include('assets/partials/studentmenu.php');
 
 $sql = "SELECT students.fullname From students WHERE students.StudentID='$sid'";
 $result = mysqli_query($db,$sql);
@@ -26,5 +26,6 @@ $studentname=$row['fullname'];
   </table>
 </div>
 <?php
-include('studentfooter.php');
-?>
+$db->close();
+
+include('assets/partials/studentfooter.php') ?>
