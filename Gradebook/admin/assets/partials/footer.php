@@ -1,4 +1,3 @@
-
 <!-- footer section starts-->
 <div class="footer">
     <div class="wrapper">

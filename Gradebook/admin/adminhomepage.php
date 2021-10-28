@@ -2,7 +2,7 @@
 
 
 <!-- admin manage section-->
-<div class="admin-manage">
+<div class="admin-manage" style="min-height: 100vh;">
     <div class="wrapper">
         <h1>Admin Dashboard</h1>
 
@@ -26,6 +26,13 @@
             <br>
             <li><a href="AdminManageStudent.php">View All Students</a></li>
             <li><a href="#">Add Students</a></li>
+        </div>
+
+        <div class="column-3">
+            <h2>Announcements</h2>
+            <br>
+            <li><a href="AdminManageStudent.php">View All Announcements</a></li>
+            <li><a href="#">Add Announcement</a></li>
         </div>
 
         <div class="clearfix"></div>

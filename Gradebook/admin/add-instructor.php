@@ -35,32 +35,32 @@ if ($connection->connect_error) {
 
         <form action="" method="POST">
             <table class="tbl-30">
-                <tr> 
+                <tr>
                     <td>Full Name: </td>
                     <td><input type="text" name="fullname" placeholder="Enter Name"></td>
                 </tr>
 
-                <tr> 
+                <tr>
                     <td>Username: </td>
                     <td><input type="text" name="username" placeholder="Enter Username"></td>
                 </tr>
 
-                <tr> 
+                <tr>
                     <td>Password: </td>
                     <td><input type="text" name="password" placeholder="Enter Password"></td>
                 </tr>
 
-                <tr> 
+                <tr>
                     <td>Address: </td>
                     <td><input type="text" name="address" placeholder="Enter Address"></td>
                 </tr>
 
-                <tr> 
+                <tr>
                     <td>Gender: </td>
                     <td><select name="gender">
-                            <option value ="" disabled selected>Choose Option</option>
-                            <option value ="Male">Male</option>
-                            <option value ="Female">Female</option>
+                            <option value="" disabled selected>Choose Option</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                     </td>
                 </tr>
 
@@ -125,6 +125,3 @@ if (isset($_POST['submit'])) {
         header('location: add-instructor.php');
     }
 }
-
-
-

@@ -15,13 +15,13 @@ if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
     header("Location: ../login.php");
 }
 
-$connection = mysqli_connect("localhost", "admin", "password", "ics499");
+$connection = mysqli_connect($servername, $username, $password, $dbname);
 if ($connection->connect_error) {
     die("Connection Failed:" . $connection->connect_error);
 }
 ?>
 
-<div class="admin-manage">
+<div class="admin-manage" style="min-height: 100vh;">
     <div class="wrapper">
         <h1>Manage Instructors</h1>
         <br>
@@ -48,8 +48,8 @@ if ($connection->connect_error) {
 
         <br /><br /><br />
         <!-- display table -->
-        <table class="tbl-full" >
-            <tr> 
+        <table class="tbl-full">
+            <tr>
                 <th>InstructorID</th>
                 <th>Full Name</th>
                 <th>Gender</th>
@@ -82,19 +82,19 @@ if ($connection->connect_error) {
                         $password = $rows['password'];
                         ?>
 
-                        <!--print data-->
-                        <tr>
-                            <td><?php echo $instructorID; ?></td>
-                            <td><?php echo $fullname; ?></td>
-                            <td><?php echo $gender; ?></td>
-                            <td><?php echo $address; ?></td>
-                            <td><?php echo $username; ?></td>
-                            <td><?php echo $password; ?></td>
-                            <td>
-                                <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
-                                <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>
-                            </td>
-                        </tr>
+            <!--print data-->
+            <tr>
+                <td><?php echo $instructorID; ?></td>
+                <td><?php echo $fullname; ?></td>
+                <td><?php echo $gender; ?></td>
+                <td><?php echo $address; ?></td>
+                <td><?php echo $username; ?></td>
+                <td><?php echo $password; ?></td>
+                <td>
+                    <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
+                    <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>
+                </td>
+            </tr>
 
             <?php
         }
