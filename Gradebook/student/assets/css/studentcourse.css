@@ -10,4 +10,18 @@
     text-align: center;
    
   }
-  table th td {border: 2px solid black;}
+  
+  .announcementpad{
+    height: 15%;
+    width: 100%;
+    background-color: lightgrey;
+    border: 1px solid black;
+    display: inline;
+  }
+  .announcementhead{
+    height: 5%;
+    width: 100%;
+    background-color:  grey;
+    border: 1px solid black;
+  }
+  
