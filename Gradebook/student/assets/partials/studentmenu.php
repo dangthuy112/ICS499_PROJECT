@@ -5,7 +5,7 @@ include("config.php");
 session_start();
 $sid = $_SESSION['userID_student']; //try student id constant
 $sidstring = strval($sid);
-$sql = "SELECT courses.courseID, courses.subject ,courses.coursenumber 
+$sql = "SELECT courses.courseID, courses.subject ,courses.coursenumber ,courses.semester
         From students ,courses ,student_enroll 
         WHERE students.StudentID=student_enroll.studentID_enroll 
         AND courses.courseID=student_enroll.courseID_enroll 
@@ -14,10 +14,12 @@ $result = mysqli_query($db, $sql);
 $subjectname = [];
 $courseid = [];
 $coursenumber = [];
+$semester = [];
 while ($row = mysqli_fetch_array($result)) {
     $subjectname[] = $row['subject'];
     $courseid[] = $row['courseID'];
     $coursenumber[] = $row['coursenumber'];
+    $semester[] = $row['semester'];
 }
 echo
 "<div class='menu text-center'>
@@ -25,8 +27,9 @@ echo
                 <a >Course</a>
                 <div class='dropdown-content'>";
 for ($x = 0; $x < count($subjectname); $x++) {
-
-    echo "<a  href='./studentcourse.php?course=$subjectname[$x]&courseid=$courseid[$x]&sid=9'>$subjectname[$x]$coursenumber[$x]</a><br>";
+    if ($semester[$x] == 'Current Semester') {
+        echo "<a  href='./studentcourse.php?course=$subjectname[$x]&courseid=$courseid[$x]&sid=9'>$subjectname[$x]$coursenumber[$x]</a><br>";
+    }
 }
 echo
 " </div>

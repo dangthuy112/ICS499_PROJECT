@@ -42,16 +42,9 @@ include('assets/partials/studentheader.php');
 include('assets/partials/studentmenu.php');
 include('assets/partials/gradelistbar.php');
 $sql = "SELECT * FROM announcement 
-WHERE announcement.courseID_ann=$stringsid AND announcement.instructorID_ann='$stringinstructorid'";
+WHERE announcement.courseID_ann=$stringsid 
+AND announcement.instructorID_ann=$stringinstructorid";
 $result = mysqli_query($db, $sql);
-
-$row = mysqli_fetch_assoc($result);
-$coursename = $row['coursename'];
-$coursenumber = $row['coursenumber'];
-$subject = $row['subject'];
-$coursenamestring = strval($coursename);
-$subjectstring = strval($subject);
-$coursenumberstring = strval($coursenumber);
 ?>
 <div class="padtable">
   <?php
@@ -62,9 +55,9 @@ $coursenumberstring = strval($coursenumber);
        </div> 
        <div class='announcementpad'>
        <p> $row[announcement]</p>
-      </div>
-      </div>";
+      </div> ";   
  }
+ echo "</div>";
   $db->close();
   include('assets/partials/studentfooter.php')
   ?>

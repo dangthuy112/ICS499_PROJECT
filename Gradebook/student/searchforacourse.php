@@ -15,6 +15,7 @@ include('assets/partials/studentmenu.php');
 ?>
 
 <div class="padtable">
+<?php include('assets/partials/coursesignedup.php');?>
   <div class="middlediv">
     <form action="" method="POST">
       <table >
@@ -82,7 +83,7 @@ include('assets/partials/studentmenu.php');
  
   $result = mysqli_query($db,$sql);
     if ($result->num_rows > 0) {
-      echo "
+      echo "<br><br>
         <table style='border= 1px solid black;margin-left: auto; margin-right: auto;'>
           <tr>
             <th style='border: 2px solid black'>CouseID</th>
@@ -97,7 +98,6 @@ include('assets/partials/studentmenu.php');
             <th style='border: 2px solid black'>Course Name</th>
           </tr>";
       // output data of each row
-      echo $result->num_rows;
       while ($row = mysqli_fetch_assoc($result)) {
         $id = $row['courseID'];
         $courseid = strval($id);
