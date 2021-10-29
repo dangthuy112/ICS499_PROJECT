@@ -71,42 +71,7 @@ $result = mysqli_query($db, $sql);
       }
       ?>
     </table>
-    <?php
-
-
-    // <!-- echo "<b style='margin-right: 50%;margin-left:5%;'>Assignment :</b><br>";
-    // $result = mysqli_query($db, $sql);
-    // while ($row = mysqli_fetch_array($result)) {
-    //   if ($row['grade_item'] == 'assignment') {
-    //     echo "<label style='margin-right: 50%;margin-left:8%;'>$row[gradename]</label>
-    //     <label style='margin-right: 10%;'>$row[score]</label>
-    //     <label>$row[feedback]</label>";
-    //   } -->
-    // //   echo  "<br>";
-    // }
-    // echo "<b style='margin-right: 50%;margin-left:5%;'>Quizz :</b><br>";
-    // $result = mysqli_query($db, $sql);
-    // while ($row = mysqli_fetch_array($result)) {
-    //   if ($row['grade_item'] == 'quizz') {
-    //     echo
-    //     "<label style='margin-right: 53%;margin-left:8%;'>$row[gradename]</label>
-    //     <label style='margin-right: 10%;'>$row[score]</label>
-    //     <label>$row[feedback]</label>";
-    //   }
-    //   echo  "<br>";
-    // }
-    // echo "<b style='margin-right: 50%;margin-left:5%;'>Class Activities :</b><br><br><br>";
-    // $result = mysqli_query($db, $sql);
-    // while ($row = mysqli_fetch_array($result)) {
-    //   if ($row['grade_item'] == 'activity') {
-    //     echo
-    //     "<label style='margin-right: 49%;margin-left:8%;'>$row[gradename]</label>
-    //     <label style='margin-right: 10%;'>$row[score]</label>
-    //     <label>$row[feedback]</label>";
-    //   }
-    //   echo  "<br>";
-    // }
-    ?>
+  
   </div>
   <?php
   $db->close();
