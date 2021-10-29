@@ -1,11 +1,11 @@
-<link rel="stylesheet" href="assets/css/searchforacourse.css">
-
+<head><link rel="stylesheet" href="assets/css/seachforacourse.css">
+</head>
 <?php
 $sid = $_GET['sid'];
 include('assets/partials/config.php');
 
 $sql = "SELECT courses.subject  FROM courses GROUP BY courses.subject HAVING COUNT(*)>1";
-$result = mysqli_query($db,$sql);
+$result = mysqli_query($db, $sql);
 $subject = [];
 while ($row = mysqli_fetch_assoc($result)) {
   $subject[] = $row['subject'];
@@ -15,10 +15,10 @@ include('assets/partials/studentmenu.php');
 ?>
 
 <div class="padtable">
-<?php include('assets/partials/coursesignedup.php');?>
+  <?php include('assets/partials/coursesignedup.php'); ?>
   <div class="middlediv">
     <form action="" method="POST">
-      <table >
+      <table>
         <tr>
           <th>
             <div class="divcenter">
@@ -62,26 +62,21 @@ include('assets/partials/studentmenu.php');
       </table>
     </form>
   </div>
- 
+
   <?php
   if (isset($_POST['submit'])) {
     $sem = $_POST['semester'];
     $sbj = $_POST['subject'];
     $sql = "SELECT* FROM courses WHERE courses.subject='$sbj' and courses.semester='$sem'";
-  if($sem=="Any"&&$sbj!="Any")
-  {
-    $sql = "SELECT* FROM courses WHERE courses.subject='$sbj'";
-  }
-  elseif($sem!="Any"&&$sbj=="Any")
-  {
-    $sql = "SELECT* FROM courses WHERE courses.semester='$sem'";
-  }
-  elseif($sem=="Any"&&$sbj=="Any")
-  {
-    $sql = "SELECT* FROM courses";
-  }
- 
-  $result = mysqli_query($db,$sql);
+    if ($sem == "Any" && $sbj != "Any") {
+      $sql = "SELECT* FROM courses WHERE courses.subject='$sbj'";
+    } elseif ($sem != "Any" && $sbj == "Any") {
+      $sql = "SELECT* FROM courses WHERE courses.semester='$sem'";
+    } elseif ($sem == "Any" && $sbj == "Any") {
+      $sql = "SELECT* FROM courses";
+    }
+
+    $result = mysqli_query($db, $sql);
     if ($result->num_rows > 0) {
       echo "<br><br>
         <table style='border= 1px solid black;margin-left: auto; margin-right: auto;'>
@@ -122,7 +117,7 @@ include('assets/partials/studentmenu.php');
           . $row["Instructor"] . "</td><td style='border: 2px solid black'><a  href='./coursedetail.php?sid=$sid&courseid=$courseid'>"
 
 
-          .$row["coursename"] . "</a></td></tr>";
+          . $row["coursename"] . "</a></td></tr>";
       }
       echo "</table>";
     } else {
