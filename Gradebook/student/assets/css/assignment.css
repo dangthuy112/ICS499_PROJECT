@@ -1,0 +1,26 @@
+header{text-align: center;}
+.padtable {
+    height: 70%;
+    width: 100%;
+    border: 1px solid black;
+    display: inline-block;
+    background-color: lightpink;
+  }
+.assignmentpad {
+    height: 15%;
+    width: 100%;
+    background-color: lightgrey;
+    border: 1px solid black;
+    display: inline-block;
+
+
+  }
+
+  .assignmenthead {
+    height: 7%;
+    width: 100%;
+    background-color: grey;
+    border: 1px solid black;
+    display: inline-block;
+   
+  }

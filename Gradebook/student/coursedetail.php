@@ -12,14 +12,9 @@ include('assets/partials/studentheader.php');
 include('assets/partials/studentmenu.php');
 $courseid = $_GET['courseid'];
 include("assets/partials/config.php");
-// $connection = mysqli_connect("localhost:3307", "admin", "password", "ics");
-// if ($connection->connect_error) {
-//   die("Connection Failed:" . $connection->connect_error);
-// }
 $sql = "SELECT * FROM `courses` WHERE courseID='$courseid'";
 $result = mysqli_query($db,$sql);
 $row = mysqli_fetch_assoc($result);
-// $connection->close();
 ?>
 <div class="coursenameContainer">
   <?php echo " <coursename class='coursename'>" . $row["coursename"] . "</coursename>"; ?>

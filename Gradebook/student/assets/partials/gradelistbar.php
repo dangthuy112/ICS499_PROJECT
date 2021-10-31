@@ -43,7 +43,7 @@ else
     <?php echo"<a   href='./gradelist.php?sid=$stringsid&courseid=$stringcourseid&instructorid=$stringinstructorid'>";?>
         Grade List
     </a> 
-    <a>
+    <?php echo"<a   href='./assignment.php?sid=$stringsid&courseid=$stringcourseid&instructorid=$stringinstructorid'>";?>
         Assignment
     </a>
     <a>
