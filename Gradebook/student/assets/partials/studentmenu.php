@@ -35,6 +35,6 @@ echo
 " </div>
                  </div>
                  <a class = 'a' href='searchforacourse.php?sid=9'>Search For A Course</a>
-                 <a   class = 'a' href='logout.php'>Logout</a>
+                 <a   class = 'a' href='./../logout.php'>Logout</a>
         </div>";
 ?>
