@@ -21,7 +21,7 @@ if ($connection->connect_error) {
 }
 ?>
 
-<div class="admin-manage" style="min-height: 100vh;">
+<div class="admin-manage" style="">
     <div class="wrapper">
         <h1>Manage Instructors</h1>
         <br>

@@ -1,5 +1,6 @@
 <?php
 include('assets/partials/menu.php');
+include('config.php');
 
 session_start();
 
@@ -14,64 +15,103 @@ if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
     header("Location: ../login.php");
 }
 
+$connection = mysqli_connect($servername, $username, $password, $dbname);
+if ($connection->connect_error) {
+    die("Connection Failed:" . $connection->connect_error);
+}
 ?>
 
-<div class="admin-manage">
+<div class="admin-manage" style="">
     <div class="wrapper">
         <h1>Manage Courses</h1>
+        <br>
 
-        <table class="tbl-full" >
-            <tr> 
+        <h4>
+            <?php
+            //to display success update message or not
+            if (isset($_SESSION['update'])) {
+                echo $_SESSION['update'];
+                unset($_SESSION['update']);
+            }
+
+            if (isset($_SESSION['delete'])) {
+                echo $_SESSION['delete'];
+                unset($_SESSION['delete']);
+            }
+            ?>
+        </h4>
+
+        <br /><br />
+
+        <!-- add courses button -->
+        <a href="add-course.php" class="btn-primary">Add Courses</a>
+
+        <br /><br /><br />
+        <!-- display table -->
+        <table class="tbl-full">
+            <tr>
                 <th>Subject</th>
                 <th>Course Number</th>
                 <th>Course Name</th>
-                <th>InstructorID</th>
+                <th>Semester</th>
+                <th>Days</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Instructor</th>
+                <th>Delivery Method</th>
             </tr>
 
             <?php
-            $connection = mysqli_connect("localhost", "root", "", "ics499");
-            if ($connection->connect_error) {
-                die("Connection Failed:" . $connection->connect_error);
-            }
+            $sql = "SELECT subject, coursenumber, coursename, semester, days,
+                    time, location, Instructor
+                    FROM courses
+                    ORDER BY subject ASC";
 
-            $sql = "SELECT subject, coursenumber, name, instructorID from courses";
-            $result = $connection->query($sql) or die($connection->error);
+            $result = $connection->query($sql);
 
             if ($result == TRUE) {
-                $rows_num = mysqli_num_rows($result);
+                $rows = mysqli_num_rows($result);
 
-                if ($rows_num > 0) {
+                if ($rows > 0) {
                     while ($rows = mysqli_fetch_assoc($result)) {
                         //grab data
-                        $course;
+                        $subject = $rows['subject'];
+                        $coursenumber = $rows['coursenumber'];
+                        $coursename = $rows['coursename'];
+                        $semester = $rows['semester'];
+                        $days = $rows['days'];
+                        $time = $rows['time'];
+                        $location = $rows['location'];
+                        $instructor = $rows['Instructor'];
+                        ?>
+
+                        <!--print data-->
+                        <tr>
+                            <td><?php echo $subject; ?></td>
+                            <td><?php echo $coursenumber; ?></td>
+                            <td><?php echo $coursename; ?></td>
+                            <td><?php echo $semester; ?></td>
+                            <td><?php echo $days; ?></td>
+                            <td><?php echo $time; ?></td>
+                            <td><?php echo $location; ?></td>
+                            <td><?php echo $instructor; ?></td>
+                            <td>
+                                <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
+                                <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>
+                            </td>
+                        </tr>
+
+                        <?php
                     }
-                } else {
-                    
                 }
             }
-
-            /*
-              while ($row = $result-> fetch_assoc()) {
-              echo "<tr><td>" . $row["subject"] . "</td>"
-              . "<td>" . $row["coursenumber"] . "</td>"
-              . "<td>" . $row["name"] . "</td>"
-              . "<td>" . $row["instructorID"] . "</td>"
-              . "</tr>";
-
-              }
-              echo "</table>";
-             */
 
             $connection->close();
             ?>
 
-            <tr>
-                <td></td>
-            </tr>
         </table>
 
     </div>
 </div>
 
 <?php include('assets/partials/footer.php'); ?>
-
