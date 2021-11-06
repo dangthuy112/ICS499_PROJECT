@@ -94,7 +94,7 @@ if (isset($_POST['yes'])) {
     $result2 = $connection->query($sql_delete_student) or die($connection->error);
 
     //test to see if operation was successful
-    if ($result1 == true && result2) {
+    if ($result1 == true && $result2) {
         //success message if sql was successfully added
         $_SESSION['delete'] = "Student Deleted Successfully!";
 

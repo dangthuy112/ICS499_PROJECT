@@ -111,7 +111,7 @@ if (isset($_POST['submit'])) {
     $result2 = $connection->query($sql_insert_user) or die($connection->error);
 
     //test to see if operation was successful
-    if ($result1 == true && result2 == true) {
+    if ($result1 == true && $result2 == true) {
         //success message if sql was successfully added
         $_SESSION['add'] = "Instructor Added Successfully!";
 

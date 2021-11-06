@@ -62,10 +62,13 @@ if ($connection->connect_error) {
             </tr>
 
             <?php
-            $sql = "SELECT subject, coursenumber, coursename, semester, days,
-                    time, location, Instructor
-                    FROM courses
-                    ORDER BY subject ASC";
+            $sql = "SELECT courses.subject, courses.coursenumber, courses.coursename,
+                        courses.semester, courses.days, courses.time, courses.location,
+                        instructors.fullname
+                        FROM instructor_enroll
+                        INNER JOIN instructors ON instructors.instructorID = instructor_enroll.instructorID_enroll
+                        INNER JOIN courses ON courses.courseID = instructor_enroll.courseID_enroll
+                        ORDER BY courses.subject ASC";
 
             $result = $connection->query($sql);
 
@@ -82,7 +85,7 @@ if ($connection->connect_error) {
                         $days = $rows['days'];
                         $time = $rows['time'];
                         $location = $rows['location'];
-                        $instructor = $rows['Instructor'];
+                        $instructor_fullname = $rows['fullname'];
                         ?>
 
                         <!--print data-->
@@ -94,7 +97,7 @@ if ($connection->connect_error) {
                             <td><?php echo $days; ?></td>
                             <td><?php echo $time; ?></td>
                             <td><?php echo $location; ?></td>
-                            <td><?php echo $instructor; ?></td>
+                            <td><?php echo $instructor_fullname; ?></td>
                             <td>
                                 <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
                                 <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>

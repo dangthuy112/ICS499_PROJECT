@@ -82,27 +82,27 @@ if ($connection->connect_error) {
                         $password = $rows['password'];
                         ?>
 
-            <!--print data-->
-            <tr>
-                <td><?php echo $instructorID; ?></td>
-                <td><?php echo $fullname; ?></td>
-                <td><?php echo $gender; ?></td>
-                <td><?php echo $address; ?></td>
-                <td><?php echo $username; ?></td>
-                <td><?php echo $password; ?></td>
-                <td>
-                    <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
-                    <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>
-                </td>
-            </tr>
+                        <!--print data-->
+                        <tr>
+                            <td><?php echo $instructorID; ?></td>
+                            <td><?php echo $fullname; ?></td>
+                            <td><?php echo $gender; ?></td>
+                            <td><?php echo $address; ?></td>
+                            <td><?php echo $username; ?></td>
+                            <td><?php echo $password; ?></td>
+                            <td>
+                                <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
+                                <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>
+                            </td>
+                        </tr>
 
-            <?php
-        }
-    }
-}
+                        <?php
+                    }
+                }
+            }
 
-$connection->close();
-?>
+            $connection->close();
+            ?>
 
         </table>
 
