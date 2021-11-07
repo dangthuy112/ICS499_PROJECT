@@ -35,7 +35,6 @@ $result = $connection->query($sql);
 $rows = mysqli_fetch_assoc($result);
 
 //set data to variables
-$instructorID = $rows['instructorID'];
 $fullname = $rows['fullname'];
 $gender = $rows['gender'];
 $address = $rows['address'];
@@ -77,35 +76,37 @@ $password = $rows['password'];
     </div>
 </div>
 
-<?php include('config.php'); ?>
-
 <?php
 if (isset($_POST['yes'])) {
-    //delete from users table FIRST
-    $sql_delete_user = "DELETE FROM users 
-                                WHERE userID_instructor = $instructorID";
+    //check to see if the instructor is currently enrolled in any classes
+    $sql = "SELECT * FROM `instructor_enroll` WHERE instructorID_enroll = $instructorID";
+    $result = $connection->query($sql);
+    $num_result = mysqli_num_rows($result);
 
-    $result1 = $connection->query($sql_delete_user);
-
-    //delete from instructors table
-    $sql_delete_instructor = "DELETE FROM instructors
+    if ($num_result > 0) {
+        //if they are, send to warning page
+        header('location: delete-instructor-warning.php?id=' . $instructorID);
+    } else {
+        //if not, delete them from instructors table which will cascade
+        $sql_delete_instructor = "DELETE FROM instructors
                                 WHERE instructorID = $instructorID";
 
-    $result2 = $connection->query($sql_delete_instructor) or die($connection->error);
+        $result = $connection->query($sql_delete_instructor) or die($connection->error);
 
-    //test to see if operation was successful
-    if ($result1 == true && $result2) {
-        //success message if sql was successfully added
-        $_SESSION['delete'] = "Instructor Deleted Successfully!";
+        //test to see if operation was successful
+        if ($result == true) {
+            //success message if sql was successfully added
+            $_SESSION['delete'] = "Instructor Deleted Successfully!";
 
-        //redirect to the same page to show success message
-        header('location: AdminManageInstructor.php');
-    } else {
-        //failure message if sql was NOT added
-        $_SESSION['delete'] = "Instructor NOT Deleted.";
+            //redirect to the same page to show success message
+            header('location: AdminManageInstructor.php');
+        } else {
+            //failure message if sql was NOT added
+            $_SESSION['delete'] = "Instructor NOT Deleted.";
 
-        //redirect to the manage page to show failure message
-        header('location: AdminManageInstructor.php');
+            //redirect to the manage page to show failure message
+            header('location: AdminManageInstructor.php');
+        }
     }
 } else if (isset($_POST['no'])) {
     //failure message since NOT deleted

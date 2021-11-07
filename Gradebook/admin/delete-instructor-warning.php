@@ -26,66 +26,85 @@ if ($connection->connect_error) {
         <h1>Deleting Instructor</h1>
         <br></br>
 
-        <h4><u>This instructor is currently teaching these classes:</u></h4>
-        <!--form for updating instructor-->
-        <?php
-        //grab ID from url
-        $instructorID = $_GET['id'];
+        <table class="tbl-full">
+            <tr><b><u>This instructor is currently teaching these classes:</u></b></tr>
+            <!--form for updating instructor-->
+            <?php
+            //grab ID from url
+            $instructorID = $_GET['id'];
 
-        $sql = "SELECT CONCAT(courses.subject,' ', courses.coursenumber,' ', courses.coursename) AS course_information
+            //sql for all classes that instructor is enrolled in
+            $sql = "SELECT CONCAT(courses.subject,' ', courses.coursenumber,' ', courses.coursename) AS course_information
                         FROM instructor_enroll
                         INNER JOIN courses ON courses.courseID = 
                                     instructor_enroll.courseID_enroll
                         WHERE instructor_enroll.instructorID_enroll = $instructorID";
 
-        $result = $connection->query($sql);
+            $result = $connection->query($sql);
 
-        if ($result == TRUE) {
-            $rows = mysqli_num_rows($result);
+            //display the classes
+            if ($result == TRUE) {
+                $rows = mysqli_num_rows($result);
 
-            if ($rows > 0) {
-                while ($rows = mysqli_fetch_assoc($result)) {
-                    //set data to variables
-                    $course = $rows['course_information'];
-                    ?>
+                if ($rows > 0) {
+                    while ($rows = mysqli_fetch_assoc($result)) {
+                        //set data to variables
+                        $course = $rows['course_information'];
+                        ?>
 
-                    <!--print data-->
-                    <tr>
-                        <td><?php echo $course; ?></td>
-                    </tr>
-                </div>
-            </div>
-            <?php
-        }
-    }
-}
-?>
+                        <!--print data-->
+                        <tr>
+                            <td><?php echo $course; ?></td>
+                        </tr>
+                        <?php
+                    }
+                }
+            }
+            ?>
+        </table>
+        
+        <h4><u><br>Deleting will remove their records from all the classes.
+                <br>Are you sure you want to continue?</br></br></u></h4>
+        <form action="" method="POST">
+            <table class="tbl-30"> 
+                <td colspan="2">
+                    <input type="submit" name="yes" value="Yes" class="btn-primary">
+                    <input type="submit" name="no" value="No" class="btn-primary">
+                </td>
 
-<h4><u>Deleting will remove their records from all the classes,
-        Are you sure you want to continue?</u></h4>
-<form action="" method="POST">
-    <table class="tbl-30">
-        <td colspan="2">
-            <input type="submit" name="yes" value="Yes" class="btn-primary">
-            <input type="submit" name="no" value="No" class="btn-primary">
-        </td>
-
-    </table>
-</form>
+            </table>
+        </form>
+    </div>
+</div>
 
 <?php
 if (isset($_POST['yes'])) {
-//delete from users table FIRST
-    $sql_delete_user = "DELETE FROM users 
-                                WHERE userID_instructor = $instructorID";
-
-    $result1 = $connection->query($sql_delete_user);
-
-//delete from instructors table
+    //delete from instructors table which will cascade and delete from other tables
     $sql_delete_instructor = "DELETE FROM instructors
                                 WHERE instructorID = $instructorID";
 
-    $result2 = $connection->query($sql_delete_instructor) or die($connection->error);
+    $result = $connection->query($sql_delete_instructor) or die($connection->error);
+
+    //test to see if operation was successful
+    if ($result == true) {
+        //success message if sql was successfully added
+        $_SESSION['delete'] = "Instructor Deleted Successfully!";
+
+        //redirect to the same page to show success message
+        header('location: AdminManageInstructor.php');
+    } else {
+        //failure message if sql was NOT added
+        $_SESSION['delete'] = "Instructor NOT Deleted.";
+
+        //redirect to the manage page to show failure message
+        header('location: AdminManageInstructor.php');
+    }
+} else if (isset($_POST['no'])) {
+    //failure message since NOT deleted
+    $_SESSION['delete'] = "Instructor NOT Deleted.";
+
+    //redirect to the manage page to show failure message
+    header('location: AdminManageInstructor.php');
 }
 ?>
 
