@@ -62,13 +62,22 @@ if ($connection->connect_error) {
             </tr>
 
             <?php
-            $sql = "SELECT courses.subject, courses.coursenumber, courses.coursename,
-                        courses.semester, courses.days, courses.time, courses.location,
-                        instructors.fullname
-                        FROM instructor_enroll
-                        INNER JOIN instructors ON instructors.instructorID = instructor_enroll.instructorID_enroll
-                        INNER JOIN courses ON courses.courseID = instructor_enroll.courseID_enroll
-                        ORDER BY courses.subject ASC";
+//            $sql = "SELECT courses.subject, courses.coursenumber, courses.coursename,
+//                        courses.semester, courses.days, courses.time, courses.location,
+//                        courses.`delivery method`, instructors.fullname
+//                        FROM instructor_enroll
+//                        INNER JOIN instructors ON instructors.instructorID = instructor_enroll.instructorID_enroll
+//                        INNER JOIN courses ON courses.courseID = instructor_enroll.courseID_enroll
+//                        ORDER BY courses.subject ASC";
+            $sql = "SELECT c.subject, c.coursenumber, c.coursename,
+                        c.semester, c.days, c.time, c.location,
+                        c.`delivery method`, i.fullname
+                        FROM courses c
+                        LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i 
+                                   ON ie.instructorID_enroll=i.instructorID) 
+                        ON c.courseID=ie.courseID_enroll
+                        ORDER BY c.subject ASC";
+                     
 
             $result = $connection->query($sql);
 
@@ -85,6 +94,7 @@ if ($connection->connect_error) {
                         $days = $rows['days'];
                         $time = $rows['time'];
                         $location = $rows['location'];
+                        $deliverymethod = $rows['delivery method'];
                         $instructor_fullname = $rows['fullname'];
                         ?>
 
@@ -97,7 +107,17 @@ if ($connection->connect_error) {
                             <td><?php echo $days; ?></td>
                             <td><?php echo $time; ?></td>
                             <td><?php echo $location; ?></td>
-                            <td><?php echo $instructor_fullname; ?></td>
+                            <td>
+                                <?php
+                                //display NONE instead of NULL
+                                if ($instructor_fullname == "") {
+                                    echo "NONE";
+                                } else {
+                                    echo $instructor_fullname;
+                                }
+                                ?>
+                            </td>
+                            <td><?php echo $deliverymethod; ?></td>
                             <td>
                                 <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
                                 <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>

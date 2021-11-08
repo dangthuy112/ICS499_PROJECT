@@ -34,6 +34,7 @@ if ($connection->connect_error) {
             ?>
         </h4>
 
+        <!--form for submitting info-->
         <form action="" method="POST">
             <table class="tbl-30">
                 <tr>
@@ -83,7 +84,7 @@ if ($connection->connect_error) {
                 <tr>
                     <td><label for =endtime>Select the End Time:</label> </td>
                     <td><input type="time" id="endtime" name="endtime" 
-                               min="<?php$begintime?>" max="22:00" required></td>
+                               min="06:00" max="22:00" required></td>
                 </tr>
                 <tr>
                     <td>Delivery Method: </td>
@@ -96,7 +97,7 @@ if ($connection->connect_error) {
                 </tr>
 
                 <td colspan="2">
-                    <input type="submit" name="submit" value="Add Instructor" class="btn-primary">
+                    <input type="submit" name="submit" value="Add Course" class="btn-primary">
                 </td>
             </table>
         </form>
@@ -107,12 +108,13 @@ if ($connection->connect_error) {
 
 <?php
 if (isset($_POST['submit'])) {
-//    $fullname = $_POST['fullname'];
-//    $fullname = $_POST['fullname'];
-//    $fullname = $_POST['fullname'];
-//    $fullname = $_POST['fullname'];
-//    $fullname = $_POST['fullname'];
-//    $fullname = $_POST['fullname'];
+    //grab values from post form
+    $subject = $_POST['subject'];
+    $coursenumber = $_POST['coursenumber'];
+    $coursename = $_POST['coursename'];
+    $semester = $_POST['semester'];
+    $location = $_POST['location'];
+    $deliverymethod= $_POST['deliverymethod'];
     
     //grab options from weekdays checkboxes
     $day_array = $_POST['day'];
@@ -123,39 +125,42 @@ if (isset($_POST['submit'])) {
         $days .= $day." ";
     }
     
+    //grab time and concatenate them
+    $time = date("g:iA", strtotime($_POST['begintime'])). " - " .
+            date("g:iA", strtotime($_POST['endtime']));
     
+    $sql_insert_course = "INSERT into courses SET
+                                        subject='$subject',
+                                        coursenumber='$coursenumber',
+                                        coursename='$coursename',
+                                        semester='$semester',
+                                        location='$location',
+                                        days='$days',
+                                        time='$time',
+                                        `delivery method`='$deliverymethod'";
 
-//
-//    $sql_insert_instructor = "INSERT into instructors SET
-//                                        fullname='$fullname',
-//                                        address='$address',
-//                                        gender='$gender'";
-//
-//    $result1 = $connection->query($sql_insert_instructor) or die($connection->error);
-//
-//    //Get last insert id 
+    //collect result after querying into database
+    $result = $connection->query($sql_insert_course) or die($connection->error);
+
+    //Get last insert id 
+    if ($result == true) {
+        //echo "New record created successfully";
+        
+        //success message if sql was successfully added
+        $_SESSION['add'] = "Course Added Successfully!";
+
+        //redirect to the same page to show success message
+        header('location: add-course.php');
+    } else {
+        //failure message if sql was NOT added
+        $_SESSION['add'] = "Course NOT Added.";
+
+        //redirect to the same page to show failure message
+        header('location: add-course.php');
+    }
+
+    //test to see if operation was successful
 //    if ($result1 == true) {
-//        $last_id = mysqli_insert_id($connection);
-//        echo "New record created successfully. Last inserted ID is: $last_id";
-//    } else {
-//        //failure message if sql was NOT added
-//        $_SESSION['add'] = "Instructor NOT Added.";
-//
-//        //redirect to the same page to show failure message
-//        header('location: add-instructor.php');
-//    }
-//
-//    $sql_insert_user = "INSERT into users SET
-//                                        username='$username',
-//                                        password='$password',
-//                                        userID_instructor='$last_id',
-//                                        role = 2
-//                                      ";
-//
-//    $result2 = $connection->query($sql_insert_user) or die($connection->error);
-//
-//    //test to see if operation was successful
-//    if ($result1 == true && $result2 == true) {
 //        //success message if sql was successfully added
 //        $_SESSION['add'] = "Instructor Added Successfully!";
 //
