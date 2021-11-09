@@ -39,7 +39,6 @@ if ($connection->connect_error) {
                     <td>Full Name: </td>
                     <td><input type="text" name="fullname" placeholder="Enter Name"></td>
                 </tr>
-
                 <tr>
                     <td>Username: </td>
                     <td><input type="text" name="username" placeholder="Enter Username"></td>

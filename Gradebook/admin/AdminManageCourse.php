@@ -77,7 +77,7 @@ if ($connection->connect_error) {
                                    ON ie.instructorID_enroll=i.instructorID) 
                         ON c.courseID=ie.courseID_enroll
                         ORDER BY c.subject ASC";
-                     
+
 
             $result = $connection->query($sql);
 
@@ -111,7 +111,11 @@ if ($connection->connect_error) {
                                 <?php
                                 //display NONE instead of NULL
                                 if ($instructor_fullname == "") {
-                                    echo "NONE";
+                                    ?> 
+                                    NONE
+                                    <br>
+                                    <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Assign Instructor</a>
+                                    <?php
                                 } else {
                                     echo $instructor_fullname;
                                 }

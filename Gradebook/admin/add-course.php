@@ -2,6 +2,7 @@
 include('assets/partials/menu.php');
 
 session_start();
+ob_start();
 
 if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
     // This session already exists, should already contain data
@@ -25,21 +26,34 @@ if ($connection->connect_error) {
     <div class="wrapper">
         <h1>Add Course</h1>
         <br></br>
-        <h4>
-            <?php
-            if (isset($_SESSION['add'])) {
-                echo $_SESSION['add'];
-                unset($_SESSION['add']);
-            }
-            ?>
-        </h4>
+        <?php
+        if (isset($_SESSION['add'])) {
+            echo "<b>".$_SESSION['add']."</b>";
+            unset($_SESSION['add']);
+        }
+        ?>
 
-        <!--form for submitting info-->
         <form action="" method="POST">
             <table class="tbl-30">
                 <tr>
                     <td>Subject: </td>
-                    <td><input type="text" name="subject" placeholder="Enter Subject"></td>
+                    <td><select name="subject">
+                            <option value="" disabled selected>Choose Option</option>
+                            <option value="ECON">Biology (BIOL)</option>
+                            <option value="ECON">Chemistry (CHEM)</option>
+                            <option value="CYBR">Cybersecurity (CYBR)</option>
+                            <option value="ECON">Economics (ECON)</option>
+                            <option value="ESOL">English for Speakers of other Languages (ESOL)</option>
+                            <option value="ICS">Information and Computer Sciences (ICS)</option>
+                            <option value="HIST">History (HIST)</option>
+                            <option value="LIT">Literature (LIT)</option>
+                            <option value="MATH">Math (MATH)</option>
+                            <option value="NURS">Nursing (NURS)</option>
+                            <option value="PHYS">Physics (PHYS)</option>
+                            <option value="PSYC">Psychology (PSYC)</option>
+                            <option value="SSED">Social Studies Education (SSED)</option>
+                            <option value="STAT">Statistics (STAT)</option>
+                    </td>
                 </tr>
                 <tr>
                     <td>Course Number: </td>
@@ -95,7 +109,6 @@ if ($connection->connect_error) {
                             <option value="Hybrid">Hybrid</option>
                     </td>
                 </tr>
-
                 <td colspan="2">
                     <input type="submit" name="submit" value="Add Course" class="btn-primary">
                 </td>
@@ -104,9 +117,9 @@ if ($connection->connect_error) {
     </div>
 </div>
 
-<?php include('assets/partials/footer.php'); ?>
+<?php 
+include('assets/partials/footer.php'); 
 
-<?php
 if (isset($_POST['submit'])) {
     //grab values from post form
     $subject = $_POST['subject'];
@@ -114,21 +127,21 @@ if (isset($_POST['submit'])) {
     $coursename = $_POST['coursename'];
     $semester = $_POST['semester'];
     $location = $_POST['location'];
-    $deliverymethod= $_POST['deliverymethod'];
-    
+    $deliverymethod = $_POST['deliverymethod'];
+
     //grab options from weekdays checkboxes
     $day_array = $_POST['day'];
     $days = "";
 
     //grab from array and add to $days
     foreach ($day_array as $day) {
-        $days .= $day." ";
+        $days .= $day . " ";
     }
-    
+
     //grab time and concatenate them
-    $time = date("g:iA", strtotime($_POST['begintime'])). " - " .
+    $time = date("g:iA", strtotime($_POST['begintime'])) . " - " .
             date("g:iA", strtotime($_POST['endtime']));
-    
+
     $sql_insert_course = "INSERT into courses SET
                                         subject='$subject',
                                         coursenumber='$coursenumber',
@@ -145,7 +158,6 @@ if (isset($_POST['submit'])) {
     //Get last insert id 
     if ($result == true) {
         //echo "New record created successfully";
-        
         //success message if sql was successfully added
         $_SESSION['add'] = "Course Added Successfully!";
 
@@ -158,19 +170,4 @@ if (isset($_POST['submit'])) {
         //redirect to the same page to show failure message
         header('location: add-course.php');
     }
-
-    //test to see if operation was successful
-//    if ($result1 == true) {
-//        //success message if sql was successfully added
-//        $_SESSION['add'] = "Instructor Added Successfully!";
-//
-//        //redirect to the same page to show success message
-//        header('location: add-instructor.php');
-//    } else {
-//        //failure message if sql was NOT added
-//        $_SESSION['add'] = "Instructor NOT Added.";
-//
-//        //redirect to the same page to show failure message
-//        header('location: add-instructor.php');
-//    }
 }
