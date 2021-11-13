@@ -28,7 +28,7 @@ if ($connection->connect_error) {
 
         <?php
         if (isset($_SESSION['add'])) {
-            echo $_SESSION['add'];
+            echo "<b>" . $_SESSION['add'] . "</b>";
             unset($_SESSION['add']);
         }
         ?>

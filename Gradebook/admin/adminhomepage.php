@@ -1,8 +1,22 @@
-<?php include('assets/partials/menu.php') ?>
+<?php 
+include('assets/partials/menu.php');
 
+session_start();
+
+if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
+    // This session already exists, should already contain data
+    # echo "User ID Username: ", $_SESSION['username'], "<br />";
+    # echo "User ID Password: ", $_SESSION['password'], "<br />";
+    # echo "User ID: ", $_SESSION['userID'], "<br />";
+} else {
+    // No Session Detected. Redirect to login page.
+
+    header("Location: ../login.php");
+}
+?>
 
 <!-- admin manage section-->
-<div class="admin-manage" style="min-height: 100vh;">
+<div class="admin-manage" style="">
     <div class="wrapper">
         <h1>Admin Dashboard</h1>
 
