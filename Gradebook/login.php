@@ -71,7 +71,8 @@
             <div class="illustration"><i class="icon ion-ios-navigate" style="color: rgb(244, 71, 107);"></i></div>
             <div class="mb-3"><input class="form-control" type="username" name="username" placeholder="Username"></div>
             <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
-            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Log In</button></div><a class="forgot" href="https://starid.minnstate.edu">Forgot your email or password?</a>
+            <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Log In</button></div><a class="forgot" href="studentsignup.php">Don't have an account? Sign up here!</a><a class="forgot" href="https://starid.minnstate.edu">Forgot your email or password?</a>
+            
         </form>
         <div class="social-icons" style="color: rgb(33,37,41);border-color: rgb(33,37,41);background: rgba(255,255,255,0);"><a href="https://twitter.com/MetroStateU"><i class="icon ion-social-twitter"></i></a><a href="https://www.facebook.com/MetropolitanStateUniversity/"><i class="icon ion-social-facebook"></i></a><a href="https://www.youtube.com/channel/UCWqIRPMMnBeUe0tgJB9n1hg"><i class="icon ion-social-youtube"></i></a></div>
     </section>
