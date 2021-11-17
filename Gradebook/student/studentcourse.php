@@ -32,7 +32,9 @@
   }
 </style>
 <?php
+// attached connection file , header file, and manu file
 include("assets/partials/config.php");
+//geting needed information fo the student course
 $sid = $_GET['sid'];
 $course = $_GET['course'];
 $courseid = $_GET['courseid'];
@@ -41,9 +43,10 @@ $stringsid = strval($sid);
 include('assets/partials/studentheader.php');
 include('assets/partials/studentmenu.php');
 include('assets/partials/gradelistbar.php');
+//Sql find out all announcement information base on student id
 $sql = "SELECT * FROM announcement 
 WHERE announcement.courseID_ann=$stringsid 
-AND announcement.instructorID_ann=$stringinstructorid";
+";
 $result = mysqli_query($db, $sql);
 ?>
 <div class="padtable">

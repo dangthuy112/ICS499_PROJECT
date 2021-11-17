@@ -1,0 +1,26 @@
+.padtable
+{
+    height: 90%;
+    width: 100%;
+    border: 1px solid black;
+    display: inline-block;
+    background-color: lightpink;
+    
+}
+.titlebar
+{
+    background-color: grey;
+    padding: 10px;
+    border: solid black 1px;
+    height: 10%;
+    width: auto;
+}
+.gradetable{
+    height: auto;
+    width: 10%;
+    border: 1px solid black;
+    display: inline-block;
+    background-color: lightgrey;
+    text-align: center;
+ 
+}

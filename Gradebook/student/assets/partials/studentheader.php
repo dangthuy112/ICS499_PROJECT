@@ -11,7 +11,7 @@
 }
 </style>
 </head>
- <!-- header-->
+<!-- print out the header for the page and will reused it for every page -->
 <body>
   <div class="header1">
     <a style="font-size:50px; text-align:center; color:white;text-decoration: none" href='studentpage.php?sid=9'> The Student Grade Book</a>

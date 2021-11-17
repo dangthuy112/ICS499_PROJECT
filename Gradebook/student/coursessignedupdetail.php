@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="assets\css\coursedetail.css">
 </head>
 <?php
 $sid = $_GET['sid'];
-$courseid= $_GET['courseid'];
+$courseid = $_GET['courseid'];
+// attached connection file , header file, and manu file 
 include('assets/partials/studentheader.php');
 include('assets/partials/studentmenu.php');
 $courseid = $_GET['courseid'];
 include("assets/partials/config.php");
+//sql find out the  course information base on course id
 $sql = "SELECT * FROM `courses` WHERE courseID='$courseid'";
-$result = mysqli_query($db,$sql);
+$result = mysqli_query($db, $sql);
 $row = mysqli_fetch_assoc($result);
+//presenting the course details  information
 ?>
 <div class="coursenameContainer">
   <?php echo " <coursename class='coursename'>" . $row["coursename"] . "</coursename>"; ?>
@@ -71,30 +75,28 @@ $row = mysqli_fetch_assoc($result);
 
 </div>
 <div class="container">
-<form action="" method="POST">
-  <!-- <button href="studentpage.html">Sign up</button> -->
-  <div class="divcenter">
-    
-      <input type="submit" name="Withdraw" value="Withdraw" >
+  <form action="" method="POST">
+    <!-- <button href="studentpage.html">Sign up</button> -->
+    <div class="divcenter">
+
+      <input type="submit" name="Withdraw" value="Withdraw">
       <!-- <input onClick="href='studentpage.php?sid=$sid'" type="submit" Value="Go"> -->
     </div>
   </form>
 </div>
 <?php
- if (isset($_POST['Withdraw'])) 
- {
-  
-$sql="SELECT * from student_enroll 
-WHERE student_enroll.studentID_enroll='$sid' 
-AND student_enroll.courseID_enroll='$courseid'";
- $result =   mysqli_query($db,$sql);
- $row = mysqli_fetch_assoc($result);
- if($result->num_rows >0){
-    $insert="DELETE FROM student_enroll WHERE student_enroll.studentID_enroll=$sid AND student_enroll.courseID_enroll=$courseid";
-    $process=  mysqli_query($db,$insert);
+// Listener action whenever withdraw button clicked will process drop the course from the student course list
+if (isset($_POST['Withdraw'])) {
+  $sql = "SELECT * from student_enroll 
+  WHERE student_enroll.studentID_enroll='$sid' 
+  AND student_enroll.courseID_enroll='$courseid'";
+  $result =   mysqli_query($db, $sql);
+  $row = mysqli_fetch_assoc($result);
+  if ($result->num_rows > 0) {
+    $insert = "DELETE FROM student_enroll WHERE student_enroll.studentID_enroll=$sid AND student_enroll.courseID_enroll=$courseid";
+    $process =  mysqli_query($db, $insert);
     echo "The course is successfully withdraw";
-   
- }
+  }
 }
 ?>
 

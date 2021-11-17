@@ -1,28 +1,70 @@
 <?php
+include("assets/partials/config.php");
+include('assets/partials/header.php');
+include('assets/partials/instructormenu.php');
+$iid = $_GET['iid'];
+$courseid = $_GET['courseid'];
+$course = $_GET['course'];
+?>
+<div style=" margin: 1% 0;
+    background-color: lightgrey">
+    <div style="padding: 1%;
+    width: 80%;
+    margin: 0 auto;">
+        <h1>Adding Grade Table Table</h1>
+        <br></br>
 
-$database = require 'bootstrap.php';
+        <h4><u>Please enter the following information</u></h4>
+        <?php echo " <form action=''
+             method='POST'>"
+        ?>
+        <table>
+       
+            <tr>
+                <td>
+                    <label for="fname">Announcement:</label>
+                </td>
+                <td>
+                <textarea cols="30" rows="10" name="announcement" ></textarea><br>
+                </td>
+                </tr>
+                <tr>
+                <td>
+                    <label for="fname">Date:</label>
+                </td>
+                <td>
+                    <input type="date" name="date"><br>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="" method='POST'>
+                        <input type="submit" name="submit" value="Submit" class="btn-primary" style="background-color:red;<?php echo isset($_POST["yes"]) ? "disabled" : ""; ?>>Roll Branch">
+                    </form>
 
-if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
-    // This session already exists, should already contain data
-    # echo "User ID Username: ", $_SESSION['username'], "<br />";
-    # echo "User ID Password: ", $_SESSION['password'], "<br />";
-    # echo "User ID: ", $_SESSION['userID'], "<br />";
-} else {
-    // No Session Detected. Redirect to login page.
 
-    header("Location: ../login.php");
+                    <?php
+                    echo " <form action='instructor-course.php?iid=$iid&courseid=$courseid&course=$course&option=3' method='POST'>
+                    <td>
+                    <input type='submit' name='back' value='Back' class='btn-primary' style='background-color:green;'>
+                    </td>
+                     </form>";
+                    ?>
+                <td>
+            </tr>
+        </table>
+    </div>
+</div>
+<?php
+if (isset($_POST['submit'])) {
+    $announcement = $_POST['announcement'];
+    $date = $_POST['date'];
+     $sql = "INSERT INTO announcement 
+     (announcementID, courseID_ann, announcement, `date`)
+    VALUES (NULL, '$courseid', '$announcement', '$date')";
+     $result = mysqli_query($db, $sql);
+     echo " The data successfully insert enter new announcement if you want to manke a new one or press back for previous page";
 }
-
-$courses = $database->selectAll("courses");
-
-if(isset($_POST['submit'])){
-    
-    $database->insert('announcement', [
-        'courseID' => $_POST['courseID'],
-        'instructorID' => 1,
-        'announcement' => $_POST['announcement'],
-    ]);
-
-}
-
-require 'add-announcement.view.php';   
+$db->close();
+include('assets/partials/footer.php')
+?>

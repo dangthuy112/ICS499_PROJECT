@@ -1,9 +1,9 @@
 <head><link rel="stylesheet" href="assets/css/seachforacourse.css">
 </head>
 <?php
+// attached connection file , header file, and manu file
 $sid = $_GET['sid'];
 include('assets/partials/config.php');
-
 $sql = "SELECT courses.subject  FROM courses GROUP BY courses.subject HAVING COUNT(*)>1";
 $result = mysqli_query($db, $sql);
 $subject = [];
@@ -12,10 +12,11 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 include('assets/partials/studentheader.php');
 include('assets/partials/studentmenu.php');
+//present the all the course already signed up by the student in Next Semester
 ?>
-
 <div class="padtable">
   <?php include('assets/partials/coursesignedup.php'); ?>
+<!-- Present the Seaching Table with options. -->
   <div class="middlediv">
     <form action="" method="POST">
       <table>
@@ -64,6 +65,8 @@ include('assets/partials/studentmenu.php');
   </div>
 
   <?php
+  //Action listenter when ever submit is clicked it will take the user input about the course
+  //they want to search and use that for sql command to list all the course matching up
   if (isset($_POST['submit'])) {
     $sem = $_POST['semester'];
     $sbj = $_POST['subject'];
@@ -125,9 +128,7 @@ include('assets/partials/studentmenu.php');
     }
   }
   ?>
-
 </div>
-
 </div>
 <?php
 $db->close();

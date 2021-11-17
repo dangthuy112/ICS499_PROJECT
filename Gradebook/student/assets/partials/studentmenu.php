@@ -1,26 +1,29 @@
 <link rel="stylesheet" href="assets/css/studentmenu.css">
 
 <?php
-include("config.php");
 session_start();
-$sid = $_SESSION['userID_student']; //try student id constant
-$sidstring = strval($sid);
+$sssid = $_SESSION['userID_student'];
+$sid = strval($sssid);
+//sql find out the course information base on the student id
 $sql = "SELECT courses.courseID, courses.subject ,courses.coursenumber ,courses.semester
         From students ,courses ,student_enroll 
         WHERE students.StudentID=student_enroll.studentID_enroll 
         AND courses.courseID=student_enroll.courseID_enroll 
-        AND students.studentID=$sid";
+        AND students.studentID='$sid'";
+        //geting needed information fo the student course
 $result = mysqli_query($db, $sql);
 $subjectname = [];
 $courseid = [];
 $coursenumber = [];
 $semester = [];
+//load the information of the courses then present them later
 while ($row = mysqli_fetch_array($result)) {
     $subjectname[] = $row['subject'];
     $courseid[] = $row['courseID'];
     $coursenumber[] = $row['coursenumber'];
     $semester[] = $row['semester'];
 }
+//show the courses name with dropdown table
 echo
 "<div class='menu text-center'>
               <div class='dropdown'>  
@@ -35,6 +38,6 @@ echo
 " </div>
                  </div>
                  <a class = 'a' href='searchforacourse.php?sid=9'>Search For A Course</a>
-                 <a   class = 'a' href='./../logout.php'>Logout</a>
+                 <a   class = 'a' href='logout.php'>Logout</a>
         </div>";
 ?>

@@ -24,20 +24,22 @@
       if($count == 1) {
         $userID = trim($row['userID']); // get the userID column's value
         $userID_student = trim($row['userID_student']); // get the useID_student column's value
+        $userID_instructor = trim($row['userID_instructor']); // get the useID_student column's value
+
 
          $_SESSION['username'] = $myusername;
          $_SESSION['password'] = $mypassword;
          $_SESSION['userID'] = $userID;
          $_SESSION['userID_student'] = $userID_student;
-         
+         $_SESSION['userID_instructor'] = $userID_instructor;
          
           $role = trim($row['role']); // get the redirect column's value
 
 
-         if ($role == '1') {
+          if ($role == '1') {
             header("location: /ICS499_PROJECT/Gradebook/admin/adminhomepage.php");
         } elseif ($role == '2')  {
-            header("location: /ICS499_PROJECT/Gradebook/student/GradeList.html");
+            header("location: /ICS499_PROJECT/Gradebook/instructor/instructorpage.php");
         } elseif ($role == '3')  {
          
             header("location: /ICS499_PROJECT/Gradebook/student/studentpage.php");

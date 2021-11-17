@@ -1,17 +1,13 @@
 <?php
+//get StudentId from previous page 
 $sid = $_GET['sid'];
-include('assets/partials/config.php');
-
+include('assets/partials/config.php');//connect to data base
+//Sql statement which find out all the data of the Course have Semester is Next Semester
 $sql = "SELECT * FROM (SELECT student_enroll.courseID_enroll 
 FROM student_enroll WHERE student_enroll.studentID_enroll=$sid) 
 AS temptable ,courses WHERE courses.semester='Next Semester' 
 AND courses.courseID=temptable.courseID_enroll";
-$result = mysqli_query($db,$sql);
-// $subject = [];
-// while ($row = mysqli_fetch_assoc($result)) {
-//   $subject[] = $row['subject'];
-// }
-
+// process the sql statement and print out all the course detail in Table
 $result = mysqli_query($db,$sql);
     if ($result->num_rows > 0) {
         echo "<h2 style='text-align: center;color:red;'>THE COURSE SINGED UP FOR NEXT SEMESTER <h2>";

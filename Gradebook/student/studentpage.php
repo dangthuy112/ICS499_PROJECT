@@ -1,5 +1,6 @@
 
 <?php
+include("assets/partials/config.php");
 include('assets/partials/studentheader.php');
 include('assets/partials/studentmenu.php');
 
