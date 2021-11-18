@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="assets/css/studentcourse.css">
+<link rel="stylesheet" href="assets/css/header.css">
 <style>
   .padtable {
     height: 70%;
@@ -12,7 +13,6 @@
     text-align: center;
 
   }
-
   .announcementpad {
     height: 15%;
     width: 100%;
@@ -32,19 +32,25 @@
   }
 </style>
 <?php
+//geting all the data passed from previous page
 $option = $_GET['option'];
 $iidtemp = $_GET['iid'];
 $coursetemp = $_GET['course'];
 $courseidtemp = $_GET['courseid'];
+$coursenumbertemp= $_GET['coursenumber'];
 $iid = strval($iidtemp);
 $course = strval($coursetemp);
 $courseid = strval($courseidtemp);
-
+$coursenumber=strval($coursenumbertemp);
+//include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
-include('assets/partials/header.php');
+echo"<div class='header1'>
+    <a style='font-size:50px; text-align:center; color:white;text-decoration: none' href='./instructorpage.php'> The Student Grade Book</a><br>
+    <p class='bold'> Hello instrcutor $instructorname. Welcome to Course : $course $coursenumber<p>
+  </div>";
 include('assets/partials/instructormenu.php');
 include('assets/partials/functionbar.php');
-
+// depend on the option was send from previous page we will attach section for the page
 if ($option == 0) {echo"<div class='padtable'></div>";
 } else if ($option == 1) {
   include('assets/partials/studentlist.php');

@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="css/gradelistbar.css">
+<!-- <link rel="stylesheet" href="css/gradelistbar.css">
 <style>
 .gradelistbar{
     border-bottom: 1px solid grey;
@@ -49,4 +49,4 @@ else
     <a>
         Quizz
     </a>
-</div>
+</div> -->

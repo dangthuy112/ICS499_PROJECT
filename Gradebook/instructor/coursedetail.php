@@ -6,14 +6,17 @@
   <link rel="stylesheet" href="assets\css\coursedetail.css">
 </head>
 <?php
-$courseid= $_GET['courseid'];
+//include the section of conning to the database, header and divide of the instructormenu
+$courseid = $_GET['courseid'];
 include("assets/partials/config.php");
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
+//sql get all the data from the course table base on course ID
 $sql = "SELECT * FROM `courses` WHERE courseID='$courseid'";
-$result = mysqli_query($db,$sql);
+$result = mysqli_query($db, $sql);
 $row = mysqli_fetch_assoc($result);
 ?>
+<!-- List and print all the Course Detail to the base in a formal form -->
 <div class="coursenameContainer">
   <?php echo " <coursename class='coursename'>" . $row["coursename"] . "</coursename>"; ?>
 </div>
@@ -70,39 +73,29 @@ $row = mysqli_fetch_assoc($result);
 
 </div>
 <div class="container">
-<form action="" method="POST">
-  <!-- <button href="studentpage.html">Sign up</button> -->
-  <div class="divcenter">
-    
-      <input type="submit" name="signup" value="Sign up" >
-      <!-- <input onClick="href='studentpage.php?sid=$sid'" type="submit" Value="Go"> -->
+  <form action="" method="POST">
+    <div class="divcenter">
+      <input type="submit" name="signup" value="Sign up">
     </div>
   </form>
 </div>
+<!-- Actionlistener whenever the signup was clicked we will add the courseid to the instructor_enroll
+with the recent instructorID if the instructor already has that course signed up the sql will do nothing -->
 <?php
- if (isset($_POST['signup'])) 
- {
-  //  echo " i am here";
-  // $connection = mysqli_connect("localhost:3307", "student", "trungbasau123", "studentgradebook");
-  // if ($connection->connect_error) {
-  //     die("Connection Failed:" . $connection->connect_error);
-  // }
-  $sql="SELECT * from instructor_enroll WHERE instructor_enroll.instructorID_enroll='$iid' and instructor_enroll.courseID_enroll='$courseid'";
- $result =   mysqli_query($db,$sql);
- $row = mysqli_fetch_assoc($result);
- if($result->num_rows > 0){
-   echo"You are already sign up for this course please find another course";
- }
-elseif($result->num_rows == 0){
-  $insert="INSERT INTO instructor_enroll(instructorID_enroll, courseID_enroll) VALUES ('$iid', '$courseid');";
-  $process=  mysqli_query($db,$insert);
-  echo " The course is successfully add";
-}
-// $connection->close();
+if (isset($_POST['signup'])) {
+  $sql = "SELECT * from instructor_enroll WHERE instructor_enroll.instructorID_enroll='$iid' and instructor_enroll.courseID_enroll='$courseid'";
+  $result =   mysqli_query($db, $sql);
+  $row = mysqli_fetch_assoc($result);
+  if ($result->num_rows > 0) {
+    echo "You are already sign up for this course please find another course";
+  } elseif ($result->num_rows == 0) {
+    $insert = "INSERT INTO instructor_enroll(instructorID_enroll, courseID_enroll) VALUES ('$iid', '$courseid');";
+    $process =  mysqli_query($db, $insert);
+    echo " The course is successfully add";
+  }
 }
 ?>
-
-
+<!-- close the database  -->
 <?php
 $db->close();
 include('assets/partials/footer.php') ?>

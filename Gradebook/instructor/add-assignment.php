@@ -1,11 +1,15 @@
 <?php
+//include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
+//geting all the data passed from previous page
 $iid = $_GET['iid'];
 $courseid = $_GET['courseid'];
 $course = $_GET['course'];
+$coursenumber=$_GET['coursenumber'];
 ?>
+<!-- Generate the table with filling space for neccessary to make a new assignment  -->
 <div style=" margin: 1% 0;
     background-color: lightgrey">
     <div style="padding: 1%;
@@ -50,7 +54,7 @@ $course = $_GET['course'];
 
 
                     <?php
-                    echo " <form action='instructor-course.php?iid=$iid&courseid=$courseid&course=$course&option=2' method='POST'>
+                    echo " <form action='instructor-course.php?coursenumber=$coursenumber&iid=$iid&courseid=$courseid&course=$course&option=2' method='POST'>
                     <td>
                     <input type='submit' name='back' value='Back' class='btn-primary' style='background-color:green;'>
                     </td>
@@ -61,6 +65,10 @@ $course = $_GET['course'];
         </table>
     </div>
 </div>
+<!-- Actionlistener whenever the submit was clicked we will collect the user input data above then 
+create a sql command insert all the new data to the assignmenr table and then also create a sql command 
+insert to note table which will send the signal to every student in that class . Datbase was close at the end
+An-->
 <?php
 if (isset($_POST['submit'])) {
     $assignmentname = $_POST['assignmentname'];

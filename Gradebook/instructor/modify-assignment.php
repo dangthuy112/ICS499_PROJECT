@@ -1,7 +1,9 @@
 <?php
+//include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
+//sql get all the data from the course table base on course ID
 $iid = $_GET['iid'];
 $courseid = $_GET['courseid'];
 $course = $_GET['course'];
@@ -9,7 +11,9 @@ $content = $_GET['content'];
 $assignmentname = $_GET['assignmentname'];
 $assignmentid = $_GET['assignmentid'];
 $date = $_GET['date'];
+$coursenumber=$_GET['coursenumber'];
 ?>
+<!-- Print out the information which could be replace by a new information  -->
 <div style=" margin: 1% 0;
     background-color: lightgrey">
     <div style="padding: 1%;
@@ -53,7 +57,7 @@ $date = $_GET['date'];
 
 
                     <?php
-                    echo " <form action='instructor-course.php?iid=$iid&courseid=$courseid&course=$course&option=2' method='POST'>
+                    echo " <form action='instructor-course.php?coursenumber=$coursenumber&iid=$iid&courseid=$courseid&course=$course&option=2' method='POST'>
                     <td>
                     <input type='submit' name='back' value='Back' class='btn-primary' style='background-color:green;'>
                     </td>
@@ -64,6 +68,10 @@ $date = $_GET['date'];
         </table>
     </div>
 </div>
+<!-- Actionlistener whenever the submit was clicked we will collect the user input data above then 
+create a sql command update all the new data to the announcement table' row selected and also make an 
+sql to insert the the note table that the asignment was modify which send the signal to all the student 
+in the class  -->
 <?php
 if (isset($_POST['submit'])) {
     $assignmentname = $_POST['assignmentname'];

@@ -6,15 +6,17 @@
   <link rel="stylesheet" href="assets\css\coursedetail.css">
 </head>
 <?php
+//include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
 $courseid = $_GET['courseid'];
-
+//sql get all the data from the course table base on course ID
 $sql = "SELECT * FROM `courses` WHERE courseID='$courseid'";
 $result = mysqli_query($db, $sql);
 $row = mysqli_fetch_assoc($result);
 ?>
+<!-- List and print all the Course Detail to the base in a formal form -->
 <div class="coursenameContainer">
   <?php echo " <coursename class='coursename'>" . $row["coursename"] . "</coursename>"; ?>
 </div>
@@ -77,6 +79,8 @@ $row = mysqli_fetch_assoc($result);
     </div>
   </form>
 </div>
+<!-- Actionlistener whenever the withdraw was clicked we will remove the courseid to the instructor_enroll
+with the recent instructorID -->
 <?php
 if (isset($_POST['Withdraw'])) {
   $sql = "SELECT * from instructor_enroll 

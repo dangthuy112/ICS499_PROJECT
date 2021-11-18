@@ -17,7 +17,7 @@ if ($result->num_rows > 0) {
             <th style='border-bottom: 2px solid black'>Course Name</th>
             <th style='border-bottom: 2px solid black'>Announcement</th>
             <th style='border-bottom: 2px solid black'>Date</th>  
-            <form action='add-announcement.php?course=$course&iid=$iid&courseid=$courseid'
+            <form action='add-announcement.php?course=$course&coursenumber=$coursenumber&iid=$iid&courseid=$courseid'
               method='POST'>
               <th style='border-bottom: 2px solid black'>
             <input type='submit' name='grade' style='background-color:green;' value='New Announcement'>
@@ -26,7 +26,7 @@ if ($result->num_rows > 0) {
           </tr>";
   //presenting the rows 
   while ($row = mysqli_fetch_assoc($result)) {
-    echo "<form action='modify-announcement.php?course=$course&iid=$iid&courseid=$courseid&announcementid=$row[announcementID]&announcement=$row[announcement]
+    echo "<form action='modify-announcement.php?course=$course&coursenumber=$coursenumber&iid=$iid&courseid=$courseid&announcementid=$row[announcementID]&announcement=$row[announcement]
             &date=$row[date]'
              method='POST'>
              <tr>
@@ -43,7 +43,7 @@ if ($result->num_rows > 0) {
               <input type='submit' name='grade' style='background-color:yellow;' value='Modify The Announcement'>
               
               </form>
-            <form action='delete-announcement.php?course=$course&iid=$iid&courseid=$courseid&announcementid=$row[announcementID]&announcement=$row[announcement]
+            <form action='delete-announcement.php?course=$course&coursenumber=$coursenumber&iid=$iid&courseid=$courseid&announcementid=$row[announcementID]&announcement=$row[announcement]
             &date=$row[date]' method='POST'>
             <td><input type='submit' name='delete' style='background-color:red;' value='Delete'>
             </td></td>

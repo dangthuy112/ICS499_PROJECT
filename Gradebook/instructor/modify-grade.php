@@ -1,7 +1,9 @@
 <?php
+//include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
+//sql get all the data from the course table base on course ID
 $iid = $_GET['iid'];
 $course = $_GET['course'];
 $courseid = $_GET['courseid'];
@@ -12,7 +14,9 @@ $score = $_GET['score'];
 $feedback = $_GET['feedback'];
 $gradename = $_GET['gradename'];
 $gradeid = $_GET['gradeid'];
+$coursenumber=$_GET['coursenumber'];
 ?>
+<!-- Print out the information which could be replace by a new information  -->
 <div style=" margin: 1% 0;
     background-color: lightgrey">
     <div style="padding: 1%;
@@ -22,14 +26,9 @@ $gradeid = $_GET['gradeid'];
         <br></br>
 
         <h4><u>Please enter the following information</u></h4>
-        <!--form for updating instructor-->
         <?php echo " <form action=''
              method='POST'>"
         ?>
-        <!-- <label for="fname">First name:</label><br>
-        <input type="text" id="fname" name="fname"><br>
-        <label for="lname">Last name:</label><br>
-        <input type="text" id="lname" name="lname"> -->
         <table>
             <tr>
                 <td>
@@ -74,7 +73,7 @@ $gradeid = $_GET['gradeid'];
 
 
                     <?php
-                    echo " <form action='instructor-course.php?sid=$sid&name= $studentname&iid=$iid&course=$course&courseid=$courseid&option=4' method='POST'>
+                    echo " <form action='instructor-course.php?coursenumber=$coursenumber&sid=$sid&name= $studentname&iid=$iid&course=$course&courseid=$courseid&option=4' method='POST'>
                     <td>
                     <input type='submit' name='back' value='Back' class='btn-primary' style='background-color:green;'>
                     </td>
@@ -85,6 +84,10 @@ $gradeid = $_GET['gradeid'];
         </table>
     </div>
 </div>
+<!-- Actionlistener whenever the submit was clicked we will collect the user input data above then 
+create a sql command update all the new data to the grade table' row selected and also make an 
+sql to insert the the note table that the grade was modify which send the signal the specific student 
+in the class  -->
 <?php
 if (isset($_POST['submit'])) {
     $gradeitem = $_POST['gradeitem'];

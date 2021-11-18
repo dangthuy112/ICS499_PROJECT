@@ -2,6 +2,7 @@
   <link rel="stylesheet" href="assets/css/seachforacourse.css">
 </head>
 <?php
+// attached connection file , header file, and manu file
 include('assets/partials/config.php');
 
 $sql = "SELECT courses.subject  
@@ -15,10 +16,12 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
+//present the all the course already signed up by the student in Next Semester
 ?>
 
 <div class="padtable">
   <?php include('assets/partials/coursesignedup.php'); ?>
+  <!-- Present the Seaching Table with options. -->
   <div class="middlediv">
     <form action="" method="POST">
       <table>
@@ -67,6 +70,8 @@ include('assets/partials/instructormenu.php');
   </div>
 
   <?php
+  //Action listenter when ever submit is clicked it will take the user input about the course
+  //they want to search and use that for sql command to list all the course matching up
   if (isset($_POST['submit'])) {
     $sem = $_POST['semester'];
     $sbj = $_POST['subject'];

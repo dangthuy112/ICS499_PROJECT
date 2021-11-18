@@ -1,19 +1,17 @@
 <?php
+//include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
+//geting all the data passed from previous page
 $iid = $_GET['iid'];
 $course = $_GET['course'];
 $courseid = $_GET['courseid'];
 $studentname = $_GET['name'];
 $sid = $_GET['sid'];
-// $gradeitem = $_GET['gradeitem'];
-// $score = $_GET['score'];
-// $feedback = $_GET['feedback'];
-// $gradename = $_GET['gradename'];
-// $gradeid = $_GET['gradeid'];
-//$sql = "DELETE FROM grades WHERE grades.gradeID = $gradeid";
+$coursenumber=$_GET['coursenumber'];
 ?>
+<!-- Generate the table with filling space for neccessary to make a new grade  -->
 <div style=" margin: 1% 0;
     background-color: lightgrey">
     <div style="padding: 1%;
@@ -21,16 +19,10 @@ $sid = $_GET['sid'];
     margin: 0 auto;">
         <h1>Adding Grade Table Table</h1>
         <br></br>
-
         <h4><u>Please enter the following information</u></h4>
-        <!--form for updating instructor-->
         <?php echo " <form action=''
              method='POST'>"
         ?>
-        <!-- <label for="fname">First name:</label><br>
-        <input type="text" id="fname" name="fname"><br>
-        <label for="lname">Last name:</label><br>
-        <input type="text" id="lname" name="lname"> -->
         <table>
             <tr>
                 <td>
@@ -75,7 +67,7 @@ $sid = $_GET['sid'];
 
 
                     <?php
-                    echo " <form action='instructor-course.php?sid=$sid&name= $studentname&iid=$iid&course=$course&courseid=$courseid&option=4' method='POST'>
+                    echo " <form action='instructor-course.php?coursenumber=$coursenumber&sid=$sid&name= $studentname&iid=$iid&course=$course&courseid=$courseid&option=4' method='POST'>
                     <td>
                     <input type='submit' name='back' value='Back' class='btn-primary' style='background-color:green;'>
                     </td>
@@ -86,6 +78,11 @@ $sid = $_GET['sid'];
         </table>
     </div>
 </div>
+<!-- Actionlistener whenever the submit was clicked we will collect the user input data above then 
+create a sql command insert all the new data to the grade table and then also create a sql command 
+insert to note table which will send the signal to  the specific student in that class .
+ Datbase was close at the end
+-->
 <?php
 if (isset($_POST['submit'])) {
     $gradeitem = $_POST['gradeitem'];

@@ -33,10 +33,11 @@
 <?php
 
 ?>
+<!-- attached 3 options which are showing student list ,assignemnt list and announcement list -->
 <div class="gradelistbar">
     <?php 
-    echo "<a  href='./instructor-course.php?iid=$iid&course=$course&courseid=$courseid&option=1'>Student List</a>";
-    echo "<a  href='./instructor-course.php?iid=$iid&course=$course&courseid=$courseid&option=2'>Assignment List</a>";
-    echo "<a  href='./instructor-course.php?iid=$iid&course=$course&courseid=$courseid&option=3'>Announcement List</a>";
+    echo "<a  href='./instructor-course.php?coursenumber=$coursenumber&iid=$iid&course=$course&courseid=$courseid&option=1'>Student List</a>";
+    echo "<a  href='./instructor-course.php?coursenumber=$coursenumber&iid=$iid&course=$course&courseid=$courseid&option=2'>Assignment List</a>";
+    echo "<a  href='./instructor-course.php?coursenumber=$coursenumber&iid=$iid&course=$course&courseid=$courseid&option=3'>Announcement List</a>";
     ?>
 </div>

@@ -1,7 +1,9 @@
 <?php
+//include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
 include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
+//sql get all the data from the course table base on course ID
 $iid = $_GET['iid'];
 $courseid = $_GET['courseid'];
 $course = $_GET['course'];
@@ -9,7 +11,9 @@ $assignmentid=$_GET['assignmentid'];
 $date=$_GET['date'];
 $assignmentname=$_GET['assignmentname'];
 $content=$_GET['content'];
+$coursenumber=$_GET['coursenumber'];
 ?>
+<!-- Print out the information for confirming one more time before delete -->
 <div style=" margin: 1% 0;
     background-color: lightgrey">
     <div style="padding: 1%;
@@ -38,7 +42,7 @@ $content=$_GET['content'];
                         <input type="submit" name="Delete" value="DELETE" class="btn-primary" style="background-color:red;<?php echo isset($_POST["yes"]) ? "disabled" : ""; ?>>Roll Branch">
                     </form>
                     <?php
-                    echo " <form action='instructor-course.php?iid=$iid&courseid=$courseid&course=$course&option=2' method='POST'>
+                    echo " <form action='instructor-course.php?coursenumber=$coursenumber&iid=$iid&courseid=$courseid&course=$course&option=2' method='POST'>
                     <td>
                     <input type='submit' name='back' value='Back' class='btn-primary' style='background-color:green;'>
                     </td>
@@ -49,6 +53,7 @@ $content=$_GET['content'];
         </table>
     </div>
 </div>
+<!-- Actionlistener whenever the yes was clicked we will delete the row in the assignment was selected.
 <?php
 if (isset($_POST['Delete'])) {
     $sql = "DELETE FROM assignment WHERE assignment.assignmentID = '$assignmentid'";
