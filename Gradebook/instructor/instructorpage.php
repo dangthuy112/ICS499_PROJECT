@@ -11,10 +11,11 @@ WHERE instructors.instructorID='$iid'";
 $result = mysqli_query($db,$sql);
 $row = mysqli_fetch_assoc($result);
 $instructorname=$row['fullname'];
+$_SESSION['instructorname'] = $instructorname;
 echo"<div class='header1'>
     <a style='font-size:50px; text-align:center; color:white;text-decoration: none' 
     href='./instructorpage.php'> The Student Grade Book</a><br>
-     <p class='bold'> Hello instrcutor $instructorname. Welcome to Student Grade Book<p>
+     <p class='bold'> Hello instructor $instructorname. Welcome to Student Grade Book<p>
   </div>";
 include('assets/partials/instructormenu.php');
 ?>

@@ -33,6 +33,7 @@
 </style>
 <?php
 //geting all the data passed from previous page
+session_start();
 $option = $_GET['option'];
 $iidtemp = $_GET['iid'];
 $coursetemp = $_GET['course'];
@@ -42,11 +43,12 @@ $iid = strval($iidtemp);
 $course = strval($coursetemp);
 $courseid = strval($courseidtemp);
 $coursenumber=strval($coursenumbertemp);
+$instructorname=$_SESSION['instructorname'];
 //include the section of conning to the database, header and divide of the instructormenu
 include("assets/partials/config.php");
 echo"<div class='header1'>
     <a style='font-size:50px; text-align:center; color:white;text-decoration: none' href='./instructorpage.php'> The Student Grade Book</a><br>
-    <p class='bold'> Hello instrcutor $instructorname. Welcome to Course : $course $coursenumber<p>
+    <p class='bold'> Hello instructor $instructorname. Welcome to Course : $course $coursenumber<p>
   </div>";
 include('assets/partials/instructormenu.php');
 include('assets/partials/functionbar.php');
