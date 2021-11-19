@@ -1,10 +1,9 @@
 <link rel="stylesheet" href="assets/css/header.css">
 <?php
-include("config.php");
-session_start();
+include("assets/partials/config.php");
+//session_start();
 $iid = $_SESSION['userID_instructor'];
 $stringiid = strval($iid);
-include("assets/partials/config.php");
 $sql = "SELECT *
 FROM instructors 
 WHERE instructors.instructorID='$iid'";

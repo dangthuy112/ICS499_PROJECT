@@ -75,13 +75,37 @@ include('assets/partials/instructormenu.php');
   if (isset($_POST['submit'])) {
     $sem = $_POST['semester'];
     $sbj = $_POST['subject'];
-    $sql = "SELECT* FROM courses WHERE courses.subject='$sbj' and courses.semester='$sem'";
+    $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+            c.semester, c.days, c.time, c.location,
+            c.`delivery method`, i.fullname
+            FROM courses c
+            LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i
+            ON ie.instructorID_enroll=i.instructorID)
+            ON c.courseID=ie.courseID_enroll WHERE c.subject='$sbj' and c.semester='$sem'";
     if ($sem == "Any" && $sbj != "Any") {
-      $sql = "SELECT* FROM courses WHERE courses.subject='$sbj'";
+      $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+              c.semester, c.days, c.time, c.location,
+              c.`delivery method`, i.fullname
+              FROM courses c
+              LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i
+              ON ie.instructorID_enroll=i.instructorID)
+               ON c.courseID=ie.courseID_enroll WHERE c.subject='$sbj'";
     } elseif ($sem != "Any" && $sbj == "Any") {
-      $sql = "SELECT* FROM courses WHERE courses.semester='$sem'";
+      $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+              c.semester, c.days, c.time, c.location,
+              c.`delivery method`, i.fullname
+              FROM courses c
+              LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i
+              ON ie.instructorID_enroll=i.instructorID)
+              ON c.courseID=ie.courseID_enroll WHERE c.semester='$sem'";
     } elseif ($sem == "Any" && $sbj == "Any") {
-      $sql = "SELECT* FROM courses";
+      $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+              c.semester, c.days, c.time, c.location,
+              c.`delivery method`, i.fullname
+              FROM courses c
+              LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i
+              ON ie.instructorID_enroll=i.instructorID)
+              ON c.courseID=ie.courseID_enroll";
     }
 
     $result = mysqli_query($db, $sql);
@@ -122,7 +146,7 @@ include('assets/partials/instructormenu.php');
 
           . $row["time"] . "</td><td style='border: 2px solid black'>"
 
-          . $row["Instructor"] . "</td><td style='border: 2px solid black'><a  href='./coursedetail.php?iid=$iid&courseid=$courseid'>"
+          . $row["fullname"] . "</td><td style='border: 2px solid black'><a  href='./coursedetail.php?iid=$iid&courseid=$courseid'>"
 
 
           . $row["coursename"] . "</a></td></tr>";

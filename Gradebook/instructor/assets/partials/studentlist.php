@@ -32,7 +32,7 @@ echo "<div class='padtable'> ";
     
               . $row["address"] . "</td><td style='border-bottom: 2px: 2px solid black'>"
     
-              . $row["Instructor"] . "</td><td style='border-bottom: 2px: 2px solid black'>"
+              . $instructorname . "</td><td style='border-bottom: 2px: 2px solid black'>"
     
               . $row["coursename"] . "</td><td>
               <input type='submit' name='grade' style='background-color:red;' value='See and modify grade'>

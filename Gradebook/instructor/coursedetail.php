@@ -83,11 +83,11 @@ $row = mysqli_fetch_assoc($result);
 with the recent instructorID if the instructor already has that course signed up the sql will do nothing -->
 <?php
 if (isset($_POST['signup'])) {
-  $sql = "SELECT * from instructor_enroll WHERE instructor_enroll.instructorID_enroll='$iid' and instructor_enroll.courseID_enroll='$courseid'";
+  $sql = "SELECT * from instructor_enroll WHERE instructor_enroll.courseID_enroll='$courseid'";
   $result =   mysqli_query($db, $sql);
   $row = mysqli_fetch_assoc($result);
   if ($result->num_rows > 0) {
-    echo "You are already sign up for this course please find another course";
+    echo "The course is already assigned , Please select different course";
   } elseif ($result->num_rows == 0) {
     $insert = "INSERT INTO instructor_enroll(instructorID_enroll, courseID_enroll) VALUES ('$iid', '$courseid');";
     $process =  mysqli_query($db, $insert);

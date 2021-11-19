@@ -50,7 +50,7 @@ echo"<div class='header1'>
     <a style='font-size:50px; text-align:center; color:white;text-decoration: none' href='./instructorpage.php'> The Student Grade Book</a><br>
     <p class='bold'> Hello instructor $instructorname. Welcome to Course : $course $coursenumber<p>
   </div>";
-include('assets/partials/instructormenu.php');
+include('assets/partials/instructormenu_2.php');
 include('assets/partials/functionbar.php');
 // depend on the option was send from previous page we will attach section for the page
 if ($option == 0) {echo"<div class='padtable'></div>";

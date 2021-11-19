@@ -1,9 +1,11 @@
 <?php
 include('assets/partials/config.php');
 $sql = "SELECT * FROM (SELECT instructor_enroll.courseID_enroll 
-FROM instructor_enroll WHERE instructor_enroll.instructorID_enroll='$iid') 
-AS temptable ,courses WHERE courses.semester='Next Semester' 
-AND courses.courseID=temptable.courseID_enroll";
+FROM instructor_enroll WHERE instructor_enroll.instructorID_enroll=$iid) 
+AS temptable ,courses,instructors 
+WHERE courses.semester='Next Semester' 
+AND courses.courseID=temptable.courseID_enroll
+AND instructors.instructorID=$iid";
 $result = mysqli_query($db,$sql);
     if ($result->num_rows > 0) {
         echo "<h2 style='text-align: center;color:red;'>THE COURSE SINGED UP FOR NEXT SEMESTER <h2>";
@@ -43,7 +45,7 @@ $result = mysqli_query($db,$sql);
 
           . $row["time"] . "</td><td style='border: 2px solid black'>"
 
-          . $row["Instructor"] . "</td><td style='border: 2px solid black'><a  href='./coursessignedupdetail.php?iid=$iid&courseid=$courseid'>"
+          . $row["fullname"] . "</td><td style='border: 2px solid black'><a  href='./coursessignedupdetail.php?iid=$iid&courseid=$courseid'>"
 
           .$row["coursename"] . "</a></td></tr>";
       }
