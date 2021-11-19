@@ -28,7 +28,7 @@ if ($connection->connect_error) {
         <br></br>
         <?php
         if (isset($_SESSION['add'])) {
-            echo "<b>".$_SESSION['add']."</b>";
+            echo "<b>" . $_SESSION['add'] . "</b>";
             unset($_SESSION['add']);
         }
         ?>
@@ -72,7 +72,10 @@ if ($connection->connect_error) {
                     <td><input type="text" name="location" placeholder="Enter Location"></td>
                 </tr>
                 <tr>
-                    <td>Days:
+                    <td>
+                        Days: <br>
+                    </td>
+                    <td>
                         <div class="weekDays-selector">
                             <input type="checkbox" name="day[]" value="M" id="M" class="weekday" />
                             <label for="M">M</label>
@@ -88,7 +91,8 @@ if ($connection->connect_error) {
                             <label for="S">S</label>
                             <input type="checkbox" name="day[]" value="SU" id="SU" class="weekday" />
                             <label for="SU">SU</label>
-                        </div></td>
+                        </div>
+                    </td>
                 </tr>
                 <tr>
                     <td><label for =begintime>Select the Begin Time:</label> </td>
@@ -117,8 +121,8 @@ if ($connection->connect_error) {
     </div>
 </div>
 
-<?php 
-include('assets/partials/footer.php'); 
+<?php
+include('assets/partials/footer.php');
 
 if (isset($_POST['submit'])) {
     //grab values from post form

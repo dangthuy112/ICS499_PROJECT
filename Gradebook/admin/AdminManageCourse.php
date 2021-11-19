@@ -50,6 +50,7 @@ if ($connection->connect_error) {
         <!-- display table -->
         <table class="tbl-full">
             <tr>
+                <th>courseID</th>
                 <th>Subject</th>
                 <th>Course Number</th>
                 <th>Course Name</th>
@@ -69,7 +70,7 @@ if ($connection->connect_error) {
 //                        INNER JOIN instructors ON instructors.instructorID = instructor_enroll.instructorID_enroll
 //                        INNER JOIN courses ON courses.courseID = instructor_enroll.courseID_enroll
 //                        ORDER BY courses.subject ASC";
-            $sql = "SELECT c.subject, c.coursenumber, c.coursename,
+            $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
                         c.semester, c.days, c.time, c.location,
                         c.`delivery method`, i.fullname
                         FROM courses c
@@ -87,6 +88,7 @@ if ($connection->connect_error) {
                 if ($rows > 0) {
                     while ($rows = mysqli_fetch_assoc($result)) {
                         //grab data
+                        $courseID = $rows['courseID'];
                         $subject = $rows['subject'];
                         $coursenumber = $rows['coursenumber'];
                         $coursename = $rows['coursename'];
@@ -100,6 +102,7 @@ if ($connection->connect_error) {
 
                         <!--print data-->
                         <tr>
+                            <td><?php echo $courseID; ?></td>
                             <td><?php echo $subject; ?></td>
                             <td><?php echo $coursenumber; ?></td>
                             <td><?php echo $coursename; ?></td>
@@ -114,7 +117,7 @@ if ($connection->connect_error) {
                                     ?> 
                                     NONE
                                     <br>
-                                    <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Assign Instructor</a>
+
                                     <?php
                                 } else {
                                     echo $instructor_fullname;
@@ -123,8 +126,11 @@ if ($connection->connect_error) {
                             </td>
                             <td><?php echo $deliverymethod; ?></td>
                             <td>
-                                <a href="update-instructor.php?id=<?php echo$instructorID; ?>" class="btn-secondary">Update</a>
-                                <a href="delete-instructor.php?id=<?php echo$instructorID; ?>" class="btn-danger">Delete</a>
+                                <a href="update-course.php?id=<?php echo$courseID; ?>" class="btn-secondary">Update</a></td>
+                            <td>
+                                <a href="delete-course.php?id=<?php echo$courseID; ?>" class="btn-danger">Delete</a></td>   
+                            <td> 
+                                <a href="assign-instructor.php?id=<?php echo$courseID; ?>" class="btn-secondary">Assign Instructor</a>
                             </td>
                         </tr>
 

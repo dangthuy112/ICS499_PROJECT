@@ -28,7 +28,8 @@ $sql = "SELECT instructors.instructorID, instructors.fullname,
                     instructors.gender, instructors.address,
                     users.username, users.password
                     FROM instructors
-                    INNER JOIN users ON instructors.instructorID = users.userID_instructor
+                    INNER JOIN users 
+                    ON instructors.instructorID = users.userID_instructor
                     WHERE instructors.instructorID = $instructorID";
 
 $result = $connection->query($sql);
@@ -96,10 +97,10 @@ if (isset($_POST['submit'])) {
 
     //update instructors table
     $sql_update_instructor = "UPDATE instructors
-                                SET fullname='$fullname',
-                                    address='$address',
-                                    gender='$gender'
-                                WHERE instructorID = $instructorID";
+                                    SET fullname='$fullname',
+                                        address='$address',
+                                        gender='$gender'
+                                    WHERE instructorID = $instructorID";
 
     $result1 = $connection->query($sql_update_instructor) or die($connection->error);
 

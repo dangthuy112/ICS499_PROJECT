@@ -2,6 +2,7 @@
 include('assets/partials/menu.php');
 
 session_start();
+ob_start();
 
 if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
     // This session already exists, should already contain data
@@ -21,26 +22,33 @@ if ($connection->connect_error) {
 }
 
 //grab ID from url
-$instructorID = $_GET['id'];
+$courseID = $_GET['id'];
 
 //sql to query id information
-$sql = "SELECT instructors.instructorID, instructors.fullname,
-                    instructors.gender, instructors.address,
-                    users.username, users.password
-                    FROM instructors
-                    INNER JOIN users ON instructors.instructorID = users.userID_instructor
-                    WHERE instructors.instructorID = $instructorID";
+$sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+                        c.semester, c.days, c.time, c.location,
+                        c.`delivery method`, i.fullname
+                        FROM courses c
+                        LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i 
+                                   ON ie.instructorID_enroll=i.instructorID) 
+                        ON c.courseID=ie.courseID_enroll
+                        WHERE c.courseID=$courseID";
 
 $result = $connection->query($sql);
 $rows = mysqli_fetch_assoc($result);
 
 //set data to variables
-$instructorID = $rows['instructorID'];
+$subject = $rows['subject'];
+$coursename = $rows['coursename'];
+$coursenumber = $rows['coursenumber'];
+$semester = $rows['semester'];
+$days = $rows['days'];
+$location = $rows['location'];
+$deliverymethod = $rows['delivery method'];
 $fullname = $rows['fullname'];
-$gender = $rows['gender'];
-$address = $rows['address'];
-$username = $rows['username'];
-$password = $rows['password'];
+
+//split time string
+$time_arr = explode("-", $rows['time']);
 ?>
 
 <div class="admin-manage">
@@ -51,32 +59,98 @@ $password = $rows['password'];
         <!--form for updating instructor-->
         <form action="" method="POST">
             <table class="tbl-30">
-                <tr> 
-                    <td>Full Name: </td>
-                    <td><input type="text" name="fullname" value="<?php echo "$fullname"; ?>"></td>
+                <tr>
+                    <td>
+                        Subject: 
+                    </td>
+                    <td> 
+                        Currently: <?php echo "$subject" ?><br>
+                        <select name="subject">
+                            <option value="" disabled selected>Choose Option</option>
+                            <option value="ECON">Biology (BIOL)</option>
+                            <option value="ECON">Chemistry (CHEM)</option>
+                            <option value="CYBR">Cybersecurity (CYBR)</option>
+                            <option value="ECON">Economics (ECON)</option>
+                            <option value="ESOL">English for Speakers of other Languages (ESOL)</option>
+                            <option value="ICS">Information and Computer Sciences (ICS)</option>
+                            <option value="HIST">History (HIST)</option>
+                            <option value="LIT">Literature (LIT)</option>
+                            <option value="MATH">Math (MATH)</option>
+                            <option value="NURS">Nursing (NURS)</option>
+                            <option value="PHYS">Physics (PHYS)</option>
+                            <option value="PSYC">Psychology (PSYC)</option>
+                            <option value="SSED">Social Studies Education (SSED)</option>
+                            <option value="STAT">Statistics (STAT)</option>
+                    </td>
                 </tr>
                 <tr> 
-                    <td>Username: </td>
-                    <td><input type="text" name="username" value="<?php echo "$username"; ?>"></td>
+                    <td>Course Number: </td>
+                    <td><input type="text" name="coursenumber" value="<?php echo "$coursenumber"; ?>"></td>
                 </tr>
                 <tr> 
-                    <td>Password: </td>
-                    <td><input type="text" name="password" value="<?php echo "$password"; ?>"></td>
+                    <td>Course Name: </td>
+                    <td><input type="text" name="coursename" value="<?php echo "$coursename"; ?>"></td>
+                </tr>
+
+                <tr> 
+                    <td>Semester: </td>
+                    <td><input type="text" name="semester" value="<?php echo "$semester"; ?>"></td>
                 </tr>
                 <tr> 
-                    <td>Address: </td>
-                    <td><input type="text" name="address" value="<?php echo "$address"; ?>"></td>
+                    <td>Location: </td>
+                    <td><input type="text" name="location" value="<?php echo "$location"; ?>"></td>
                 </tr>
-                <tr> 
-                    <td>Gender: </td>
-                    <td><select name="gender">
-                            <option value ="" disabled selected>Choose Option</option>
-                            <option value ="male">Male</option>
-                            <option value ="female">Female</option>
+                <tr>
+                    <td>Days:
+                    </td>
+                    <td>
+                        Currently: <?php echo "$days" ?><br>
+                        <div class="weekDays-selector">
+                            <input type="checkbox" name="day[]" value="M" id="M" class="weekday" />
+                            <label for="M">M</label>
+                            <input type="checkbox" name="day[]" value="T" id="T" class="weekday" />
+                            <label for="T">T</label>
+                            <input type="checkbox" name="day[]" value="W" id="W" class="weekday" />
+                            <label for="W">W</label>
+                            <input type="checkbox" name="day[]" value="TH" id="TH" class="weekday" />
+                            <label for="TH">TH</label>
+                            <input type="checkbox" name="day[]" value="F" id="F" class="weekday" />
+                            <label for="F">F</label>
+                            <input type="checkbox" name="day[]" value="S" id="S" class="weekday" />
+                            <label for="S">S</label>
+                            <input type="checkbox" name="day[]" value="SU" id="SU" class="weekday" />
+                            <label for="SU">SU</label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for =begintime>Select the Begin Time:</label> </td>
+                    <td>
+                        Currently: <?php echo "$time_arr[0]" ?><br>
+                        <input type="time" id="begintime" name="begintime" 
+                               min="06:00" max="22:00" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for =endtime>Select the End Time:</label> </td>
+                    <td>
+                        Currently: <?php echo "$time_arr[1]" ?><br>
+                        <input type="time" id="endtime" name="endtime" 
+                               min="06:00" max="22:00" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Delivery Method: </td>
+                    <td>Currently: <?php echo $deliverymethod ?> <br>
+                        <select name="deliverymethod">
+                            <option value="" disabled selected>Choose Option</option>
+                            <option value="In Person">In Person</option>
+                            <option value="Online">Online</option>
+                            <option value="Hybrid">Hybrid</option>
                     </td>
                 </tr>
                 <td colspan="2">
-                    <input type="submit" name="submit" value="Update Instructor" class="btn-primary">
+                    <input type="submit" name="submit" value="Update Course" class="btn-primary">
                 </td>
 
             </table>
@@ -88,41 +162,54 @@ $password = $rows['password'];
 
 <?php
 if (isset($_POST['submit'])) {
-    $fullname = $_POST['fullname'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $address = $_POST['address'];
-    $gender = $_POST['gender'];
+    //grab values from post form
+    $subject = $_POST['subject'];
+    $coursenumber = $_POST['coursenumber'];
+    $coursename = $_POST['coursename'];
+    $semester = $_POST['semester'];
+    $location = $_POST['location'];
+    $deliverymethod = $_POST['deliverymethod'];
 
-    //update instructors table
-    $sql_update_instructor = "UPDATE instructors
-                                SET fullname='$fullname',
-                                    address='$address',
-                                    gender='$gender'
-                                WHERE instructorID = $instructorID";
+    //grab options from weekdays checkboxes
+    $day_array = $_POST['day'];
+    $days = "";
 
-    $result1 = $connection->query($sql_update_instructor) or die($connection->error);
+    //grab from array and add to $days
+    foreach ($day_array as $day) {
+        $days .= $day . " ";
+    }
 
-    $sql_update_user = "UPDATE users 
-                                SET username='$username',
-                                    password='$password'
-                                WHERE userID_instructor = $instructorID";
+    //grab time and concatenate them
+    $time = date("g:iA", strtotime($_POST['begintime'])) . " - " .
+            date("g:iA", strtotime($_POST['endtime']));
 
-    $result2 = $connection->query($sql_update_user) or die($connection->error);
+    $sql_update_course = "UPDATE courses 
+                                    SET subject='$subject',
+                                        coursenumber='$coursenumber',
+                                        coursename='$coursename',
+                                        semester='$semester',
+                                        location='$location',
+                                        days='$days',
+                                        time='$time',
+                                        `delivery method`='$deliverymethod'
+                                    WHERE courseID = $courseID";
+
+    $result = $connection->query($sql_update_course) or die($connection->error);
+
 
     //test to see if operation was successful
-    if ($result1 == true && result2 == true) {
+    if ($result == true) {
         //success message if sql was successfully added
-        $_SESSION['update'] = "Instructor Updated Successfully!";
+        $_SESSION['update'] = "Course Updated Successfully!";
 
         //redirect to the same page to show success message
-        header('location: AdminManageInstructor.php');
+        header('location: AdminManageCourse.php');
     } else {
         //failure message if sql was NOT added
-        $_SESSION['update'] = "Instructor NOT Updated.";
+        $_SESSION['update'] = "Course NOT Updated.";
 
         //redirect to the same page to show failure message
-        header('location: AdminManageInstructor.php');
+        header('location: AdminManageCourse.php');
     }
 }
 ?>
