@@ -3,10 +3,20 @@
 $sid = $_GET['sid'];
 include('assets/partials/config.php');//connect to data base
 //Sql statement which find out all the data of the Course have Semester is Next Semester
-$sql = "SELECT * FROM (SELECT student_enroll.courseID_enroll 
-FROM student_enroll WHERE student_enroll.studentID_enroll=$sid) 
-AS temptable ,courses WHERE courses.semester='Next Semester' 
-AND courses.courseID=temptable.courseID_enroll";
+$sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+c.semester, c.days, c.time, c.location,
+c.`delivery method`, i.fullname
+FROM (SELECT student_enroll.courseID_enroll FROM student_enroll WHERE student_enroll.studentID_enroll=$sid)AS temp, courses c
+LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i
+ON ie.instructorID_enroll=i.instructorID)
+ON c.courseID=ie.courseID_enroll WHERE c.semester='Next Semester' and temp.courseID_enroll=c.courseID";
+// $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+// c.semester, c.days, c.time, c.location,
+// c.`delivery method`, i.fullname
+// FROM courses c
+// LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i
+// ON ie.instructorID_enroll=i.instructorID)
+// ON c.courseID=ie.courseID_enroll WHERE c.subject='$sbj' and c.semester='$sem'";
 // process the sql statement and print out all the course detail in Table
 $result = mysqli_query($db,$sql);
     if ($result->num_rows > 0) {
@@ -47,7 +57,7 @@ $result = mysqli_query($db,$sql);
 
           . $row["time"] . "</td><td style='border: 2px solid black'>"
 
-          . $row["Instructor"] . "</td><td style='border: 2px solid black'><a  href='./coursessignedupdetail.php?sid=$sid&courseid=$courseid'>"
+          . $row["fullname"] . "</td><td style='border: 2px solid black'><a  href='./coursessignedupdetail.php?sid=$sid&courseid=$courseid'>"
 
           .$row["coursename"] . "</a></td></tr>";
       }

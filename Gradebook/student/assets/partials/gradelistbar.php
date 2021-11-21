@@ -24,23 +24,23 @@
     }
 </style>
 <?php
-//connect to data base
-include("config.php");
+// //connect to data base
+// include("config.php");
 
-//Sql statement which find out the instructor ID of the 
-//Course with the coruseID given.
-$sql = "SELECT instructor_enroll.instructorID_enroll
-FROM instructor_enroll
-WHERE instructor_enroll.courseID_enroll='$stringcourseid'";
-$result = mysqli_query($db, $sql);
-$row = mysqli_fetch_array($result);
-if ($result->num_rows > 0) {
-    $instructorid = trim($row['instructorID_enroll']);
-    $stringinstructorid = strval($instructorid);
-} else {
-    $stringinstructorid = 0;
-}
-
+// //Sql statement which find out the instructor ID of the 
+// //Course with the coruseID given.
+// $sql = "SELECT instructor_enroll.instructorID_enroll
+// FROM instructor_enroll
+// WHERE instructor_enroll.courseID_enroll='$courseid'";
+// $result = mysqli_query($db, $sql);
+// $row = mysqli_fetch_array($result);
+// if ($result->num_rows > 0) {
+//     $instructoridget = trim($row['instructorID_enroll']);
+//     $instructorid = strval($instructoridget);
+// } else {
+//     $instructorid = 0;
+// }
+//$courseid=strval($courseid);
 ?>
 <!-- Making 3 options for the gradelist bar which are Gradelist, Assignment , Quizz
 Gradelist point to gradelist php file with all data need to show up 
@@ -50,14 +50,14 @@ the garde table of the student  -->
     <!-- Gradelist point to gradelist php file with all data need to show up 
 the garde table of the student  -->
 
-    <?php echo "<a   href='./gradelist.php?sid=$stringsid&courseid=$stringcourseid&instructorid=$stringinstructorid'>"; ?>
+    <?php echo "<a   href='./gradelist.php?sid=$sid&courseid=$courseid'>"; ?>
     Grade List
     </a>
 
     <!-- Assignment point to assignemnt php file with all data need to show up 
 the garde table of the student  -->
 
-    <?php echo "<a   href='./assignment.php?sid=$stringsid&courseid=$stringcourseid&instructorid=$stringinstructorid'>"; ?>
+    <?php echo "<a   href='./assignment.php?sid=$sid&courseid=$courseid'>"; ?>
     Assignment
     </a>
     <a>

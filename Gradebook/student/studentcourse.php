@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="assets/css/studentcourse.css">
+<link rel="stylesheet" href="assets/css/studentheader.css">
 <style>
   .padtable {
     height: 70%;
@@ -35,17 +36,33 @@
 // attached connection file , header file, and manu file
 include("assets/partials/config.php");
 //geting needed information fo the student course
-$sid = $_GET['sid'];
-$course = $_GET['course'];
-$courseid = $_GET['courseid'];
-$stringcourseid = strval($courseid);
-$stringsid = strval($sid);
-include('assets/partials/studentheader.php');
+session_start();
+$sidget = $_GET['sid'];
+$coursesubject = $_GET['coursesubject'];
+$coursename = $_GET['coursename'];
+$coursenumber = $_GET['coursenumber'];
+$courseidget = $_GET['courseid'];
+$courseid = strval($courseidget);
+$sid = strval($sidget);
+$studentname=$_SESSION['instructorname'];
+
+
+$sql = "SELECT *
+FROM students 
+WHERE students.studentID='$sid'";
+$result = mysqli_query($db,$sql);
+$row = mysqli_fetch_assoc($result);
+$studentname=$row['fullname'];
+echo"<div class='header1'>
+    <a style='font-size:50px; text-align:center; color:white;text-decoration: none' 
+    href='./studentpage.php'> The Student Grade Book</a><br>
+     <p class='bold'> Hello $studentname. Welcome to $coursesubject $coursenumber : $coursename <p>
+  </div>";
 include('assets/partials/studentmenu.php');
 include('assets/partials/gradelistbar.php');
 //Sql find out all announcement information base on student id
 $sql = "SELECT * FROM announcement 
-WHERE announcement.courseID_ann=$stringsid 
+WHERE announcement.courseID_ann='$courseid' 
 ";
 $result = mysqli_query($db, $sql);
 ?>

@@ -1,15 +1,13 @@
 <?php
 // attached connection file , header file, and manu file 
-include('assets/partials/config.php');
-include('assets/partials/studentheader.php');
-include('assets/partials/studentmenu.php');
 //geting needed information fo the student course
 $sssid = $_GET['sid'];
 $sscourseid = $_GET['courseid'];
-$ssinstructorid = $_GET['instructorid'];
 $sid = strval($sssid);
 $courseid = strval($sscourseid);
-$instructorid = strval($ssinstructorid);
+include('assets/partials/config.php');
+include('assets/partials/studentheader.php');
+include('assets/partials/studentmenu.php');
 //sql find out the  note lable is new and change it to old since the student 
 //already see all the new  assignment at this page.
 $notesql = "SELECT * FROM note WHERE note.studentID_note='$sid' AND note.courseID_note='$courseid'";

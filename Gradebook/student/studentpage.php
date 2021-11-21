@@ -1,7 +1,22 @@
-
+<link rel="stylesheet" href="assets/css/studentheader.css">
 <?php
+session_start();
+$sssid = $_SESSION['userID_student'];
+$sid = strval($sssid);
 include("assets/partials/config.php");
-include('assets/partials/studentheader.php');
+// include('assets/partials/studentheader.php');
+$sql = "SELECT *
+FROM students 
+WHERE students.studentID='$sid'";
+$result = mysqli_query($db,$sql);
+$row = mysqli_fetch_assoc($result);
+$studentname=$row['fullname'];
+$_SESSION['instructorname'] = $studentname;
+echo"<div class='header1'>
+    <a style='font-size:50px; text-align:center; color:white;text-decoration: none' 
+    href='./studentpage.php'> The Student Grade Book</a><br>
+     <p class='bold'> Hello $studentname. Welcome to Student Grade Book<p>
+  </div>";
 include('assets/partials/studentmenu.php');
 
 $sql = "SELECT students.fullname From students WHERE students.StudentID='$sid'";
@@ -14,17 +29,6 @@ $studentname=$row['fullname'];
 <!-- admin manage section-->
 
 <div class="padtable">
-  <b>ANNOUNCEMENT</b>
-  <table >
-    <tr>
-      <th>Date</th>
-      <th>Announcement</th>
-    </tr>
-    <tr>
-      <td>today</td>
-      <?php echo "<td>Hello I am the student name $studentname and my student id is $sid</td>"?>;
-    </tr>
-  </table>
 </div>
 <?php
 $db->close();

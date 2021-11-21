@@ -52,7 +52,7 @@
 <?php
 //Sql statement which find out all the data from the note table 
  //of the Note  with the course Id and coruseID given.
-$notesql = "SELECT * FROM note WHERE note.studentID_note='$stringsid' AND note.courseID_note='$stringcourseid'";
+$notesql = "SELECT * FROM note WHERE note.studentID_note='$sid' AND note.courseID_note='$courseid'";
 $notes = mysqli_query($db, $notesql);
 $notes2 = mysqli_query($db, $notesql);
 $notes3 = mysqli_query($db, $notesql);

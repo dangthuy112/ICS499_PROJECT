@@ -1,0 +1,14 @@
+.header1{
+  border:1px solid #ccc;
+  text-align:center;
+  background-color:blue;
+  border: 1px blue;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2% 10%; 
+  height: 25%;
+}
+.bold {font-size: 30px;
+display: inline;
+color: black;}

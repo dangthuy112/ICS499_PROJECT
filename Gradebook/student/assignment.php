@@ -1,17 +1,16 @@
 <?php
-// attached connection file , header file, and manu file 
-include('assets/partials/config.php');
-include('assets/partials/studentheader.php');
-include('assets/partials/studentmenu.php');
 //geting needed information fo the student course
 $sid = $_GET['sid'];
 $courseid = $_GET['courseid'];
 $instructorid = $_GET['instructorid'];
-$stringcourseid = strval($courseid);
-$stringsid = strval($sid);
+// attached connection file , header file, and manu file 
+include('assets/partials/config.php');
+include('assets/partials/studentheader.php');
+include('assets/partials/studentmenu.php');
+
 //sql find out the  note lable is new and change it to old since the student 
 //already see all the new  assignment at this page.
-$notesql = "SELECT * FROM note WHERE note.studentID_note='$stringsid' AND note.courseID_note='$stringcourseid'";
+$notesql = "SELECT * FROM note WHERE note.studentID_note='$sid' AND note.courseID_note='$courseid'";
 $notes = mysqli_query($db, $notesql);
 while ($row = mysqli_fetch_array($notes)) {
       if ($row['badge'] == 'New' && $row['note_type'] == 'assignment') {
@@ -21,7 +20,7 @@ while ($row = mysqli_fetch_array($notes)) {
 }
 //Sql command to find all the information of the assignment table base on student id 
 $sql = "SELECT * FROM assignment 
-WHERE assignment.courseID_ass=$stringsid";
+WHERE assignment.courseID_ass=$sid";
 $result = mysqli_query($db, $sql);
 ?>
 <link rel="stylesheet" href="assets/css/assignment.css">
