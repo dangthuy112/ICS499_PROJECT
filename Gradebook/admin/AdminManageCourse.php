@@ -60,6 +60,9 @@ if ($connection->connect_error) {
                 <th>Location</th>
                 <th>Instructor</th>
                 <th>Delivery Method</th>
+                <th>UPDATE</th>
+                <th>DELETE</th>
+                <th>ASSIGN</th>
             </tr>
 
             <?php
