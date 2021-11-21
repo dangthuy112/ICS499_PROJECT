@@ -14,7 +14,7 @@
 <body>
     <section class="login-clean">
         <h1 style="text-align: center;color: rgb(244,71,107);">You've Logged Out</h1>
-        <form action="login.php">
+        <form action="/./ICS499_PROJECT/Gradebook/login.php">
             <h2 class="visually-hidden">Login Form</h2>
             <div class="illustration"><i class="icon ion-ios-navigate" style="color: rgb(244, 71, 107);"></i></div>
             <p></p>
