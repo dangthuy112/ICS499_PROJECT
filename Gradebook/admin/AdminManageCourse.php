@@ -19,6 +19,41 @@ $connection = mysqli_connect($servername, $username, $password, $dbname);
 if ($connection->connect_error) {
     die("Connection Failed:" . $connection->connect_error);
 }
+
+if (isset($_POST['search'])) {
+    $search_value = $_POST['search_value'];
+
+    //sql search query
+    $sql_search = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+                        c.semester, c.days,  c.time, c.location,
+                        c.`delivery method`, i.instructorID,i.fullname
+                        FROM courses c
+                        LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i 
+                                   ON ie.instructorID_enroll=i.instructorID) 
+                        ON c.courseID=ie.courseID_enroll
+                        WHERE CONCAT(`courseID`,`subject`,`coursenumber`,
+                                     `semester`,`days`,`location`,
+                                     `delivery method`,`time`,`coursename`)
+						LIKE '%" . $search_value . "%'";
+
+    $search_result = table_search($connection, $sql_search);
+} else {
+    $sql_search = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+                        c.semester, c.days, c.time, c.location,
+                        c.`delivery method`, i.fullname
+                        FROM courses c
+                        LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i 
+                                   ON ie.instructorID_enroll=i.instructorID) 
+                        ON c.courseID=ie.courseID_enroll
+                        ORDER BY c.subject ASC";
+
+    $search_result = table_search($connection, $sql_search);
+}
+
+function table_search($connection, $sql_search) {
+    $filtered_result = mysqli_query($connection, $sql_search);
+    return $filtered_result;
+}
 ?>
 
 <div class="admin-manage" style="">
@@ -40,13 +75,28 @@ if ($connection->connect_error) {
             }
             ?>
         </h4>
-
         <br /><br />
 
         <!-- add courses button -->
         <a href="add-course.php" class="btn-primary">Add Courses</a>
 
         <br /><br /><br />
+        <!-- search form -->
+        <form action ="AdminManageCourse.php" method="POST">
+            <tr>
+                <th><input type="text" name="search_value" placeholder ="Value To Search"></th>
+                <th><input type ="submit" name="search" value="Search"></th>
+            <br><br>
+            </tr>
+        </form>
+
+        <?php
+        if (isset($_POST['search_value'])) {
+            echo "<tr><b>Search Result for \"" . $search_value . "\":</b></tr>";
+        }
+        ?>
+
+        <br />
         <!-- display table -->
         <table class="tbl-full">
             <tr>
@@ -66,80 +116,50 @@ if ($connection->connect_error) {
             </tr>
 
             <?php
-//            $sql = "SELECT courses.subject, courses.coursenumber, courses.coursename,
-//                        courses.semester, courses.days, courses.time, courses.location,
-//                        courses.`delivery method`, instructors.fullname
-//                        FROM instructor_enroll
-//                        INNER JOIN instructors ON instructors.instructorID = instructor_enroll.instructorID_enroll
-//                        INNER JOIN courses ON courses.courseID = instructor_enroll.courseID_enroll
-//                        ORDER BY courses.subject ASC";
-            $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
-                        c.semester, c.days, c.time, c.location,
-                        c.`delivery method`, i.fullname
-                        FROM courses c
-                        LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i 
-                                   ON ie.instructorID_enroll=i.instructorID) 
-                        ON c.courseID=ie.courseID_enroll
-                        ORDER BY c.subject ASC";
+            if (mysqli_num_rows($search_result) > 0) {
+                foreach ($search_result as $course) {
+                    ?>
+                    <tr>
+                        <td><?php echo $course['courseID']; ?></td>
+                        <td><?php echo $course['subject']; ?></td>
+                        <td><?php echo $course['coursenumber']; ?></td>
+                        <td><?php echo $course['coursename']; ?></td>
+                        <td><?php echo $course['semester']; ?></td>
+                        <td><?php echo $course['days']; ?></td>
+                        <td><?php echo $course['time']; ?></td>
+                        <td><?php echo $course['location']; ?></td>
+                        <td>
+                            <?php
+                            //display NONE instead of NULL
+                            if ($course['fullname'] == "") {
+                                ?> 
+                                NONE
+                                <br>
 
-
-            $result = $connection->query($sql);
-
-            if ($result == TRUE) {
-                $rows = mysqli_num_rows($result);
-
-                if ($rows > 0) {
-                    while ($rows = mysqli_fetch_assoc($result)) {
-                        //grab data
-                        $courseID = $rows['courseID'];
-                        $subject = $rows['subject'];
-                        $coursenumber = $rows['coursenumber'];
-                        $coursename = $rows['coursename'];
-                        $semester = $rows['semester'];
-                        $days = $rows['days'];
-                        $time = $rows['time'];
-                        $location = $rows['location'];
-                        $deliverymethod = $rows['delivery method'];
-                        $instructor_fullname = $rows['fullname'];
-                        ?>
-
-                        <!--print data-->
-                        <tr>
-                            <td><?php echo $courseID; ?></td>
-                            <td><?php echo $subject; ?></td>
-                            <td><?php echo $coursenumber; ?></td>
-                            <td><?php echo $coursename; ?></td>
-                            <td><?php echo $semester; ?></td>
-                            <td><?php echo $days; ?></td>
-                            <td><?php echo $time; ?></td>
-                            <td><?php echo $location; ?></td>
-                            <td>
                                 <?php
-                                //display NONE instead of NULL
-                                if ($instructor_fullname == "") {
-                                    ?> 
-                                    NONE
-                                    <br>
+                            } else {
+                                echo $course['fullname'];
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo $course['delivery method']; ?></td>
+                        <td>
+                            <a href="update-course.php?id=<?php echo $course['courseID']; ?>" class="btn-secondary">Update</a></td>
+                        <td>
+                            <a href="delete-course.php?id=<?php echo $course['courseID']; ?>" class="btn-danger">Delete</a></td>   
+                        <td> 
+                            <a href="assign-instructor.php?id=<?php echo $course['courseID']; ?>" class="btn-secondary">Assign Instructor</a>
+                        </td>
 
-                                    <?php
-                                } else {
-                                    echo $instructor_fullname;
-                                }
-                                ?>
-                            </td>
-                            <td><?php echo $deliverymethod; ?></td>
-                            <td>
-                                <a href="update-course.php?id=<?php echo$courseID; ?>" class="btn-secondary">Update</a></td>
-                            <td>
-                                <a href="delete-course.php?id=<?php echo$courseID; ?>" class="btn-danger">Delete</a></td>   
-                            <td> 
-                                <a href="assign-instructor.php?id=<?php echo$courseID; ?>" class="btn-secondary">Assign Instructor</a>
-                            </td>
-                        </tr>
-
-                        <?php
-                    }
+                    </tr>
+                    <?php
                 }
+            } else {
+                ?>
+                <tr>
+                    <td colspan="4">No Record Found</td>
+                </tr>
+                <?php
             }
 
             $connection->close();

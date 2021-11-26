@@ -24,8 +24,7 @@ if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
             <h2>Courses</h2>
             <br>
             <li><a href="AdminManageCourse.php">View All Courses</a></li>
-            <li><a href="#">Add Courses</a></li>
-            <li><a href="#">Assign Instructors</a></li>
+            <li><a href="add-course.php">Add Courses</a></li>
         </div>
 
         <div class="column-3">
@@ -39,14 +38,7 @@ if ((isset($_SESSION['username'])) && (isset($_SESSION['password']))) {
             <h2>Students</h2>
             <br>
             <li><a href="AdminManageStudent.php">View All Students</a></li>
-            <li><a href="#">Add Students</a></li>
-        </div>
-
-        <div class="column-3">
-            <h2>Announcements</h2>
-            <br>
-            <li><a href="AdminManageStudent.php">View All Announcements</a></li>
-            <li><a href="#">Add Announcement</a></li>
+            <li><a href="add-student.php">Add Students</a></li>
         </div>
 
         <div class="clearfix"></div>

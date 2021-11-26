@@ -24,22 +24,26 @@ if ($connection->connect_error) {
 $courseID = $_GET['id'];
 
 //sql to query id information
-$sql = "SELECT courses.courseID, courses.fullname,
-                    courses.gender, courses.address,
-                    users.username, users.password
-                    FROM courses
-                    INNER JOIN users ON courses.courseID= users.userID_instructor
-                    WHERE instructors.instructorID = $instructorID";
+$sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename, i.fullname
+                        FROM courses c
+                        LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i 
+                                   ON ie.instructorID_enroll=i.instructorID) 
+                        ON c.courseID=ie.courseID_enroll
+                        WHERE c.courseID = $courseID";
 
 $result = $connection->query($sql);
 $rows = mysqli_fetch_assoc($result);
 
 //set data to variables
-$fullname = $rows['fullname'];
-$gender = $rows['gender'];
-$address = $rows['address'];
-$username = $rows['username'];
-$password = $rows['password'];
+$courseID = $rows['courseID'];
+$subject = $rows['subject'];
+$coursenumber = $rows['coursenumber'];
+$coursename = $rows['coursename'];
+$instructorname = $rows['fullname'];
+
+if ($instructorname == "") {
+    $instructorname = "NONE";
+}
 ?>
 
 <div class="admin-manage">
@@ -52,25 +56,24 @@ $password = $rows['password'];
         <form action="" method="POST">
             <table class="tbl-30">
                 <tr> 
-                    <td>Full Name: <b><?php echo "$fullname"; ?></b></td>
+                    <td>Course ID: <b><?php echo "$courseID"; ?></b></td>
                 </tr>
                 <tr> 
-                    <td>Username: <b><?php echo "$username"; ?></b></td>
+                    <td>Subject: <b><?php echo "$subject"; ?></b></td>
                 </tr>
                 <tr> 
-                    <td>Password: <b><?php echo "$password"; ?></b></td>
+                    <td>Course Number: <b><?php echo "$coursenumber"; ?></b></td>
                 </tr>
                 <tr> 
-                    <td>Address: <b><?php echo "$address"; ?></b></td>
+                    <td>Course Name: <b><?php echo "$coursename"; ?></b></td>
                 </tr>
                 <tr> 
-                    <td>Gender: <b><?php echo "$gender"; ?></b></td>
+                    <td>Current Instructor: <b><?php echo "$instructorname"; ?></b></td>
                 </tr>
                 <td colspan="2">
                     <input type="submit" name="yes" value="Yes" class="btn-primary">
                     <input type="submit" name="no" value="No" class="btn-primary">
                 </td>
-
             </table>
         </form>
     </div>
@@ -78,44 +81,45 @@ $password = $rows['password'];
 
 <?php
 if (isset($_POST['yes'])) {
-    //check to see if the instructor is currently enrolled in any classes
-    $sql = "SELECT * FROM `instructor_enroll` WHERE instructorID_enroll = $instructorID";
+    //check to see if the course currently has students enrolled
+    $sql = "SELECT * FROM `student_enroll` WHERE `courseID_enroll` = $courseID";
     $result = $connection->query($sql);
     $num_result = mysqli_num_rows($result);
 
     if ($num_result > 0) {
         //if they are, send to warning page
-        header('location: delete-instructor-warning.php?id=' . $instructorID);
+        header('location: delete-course-warning.php?id=' . $courseID);
     } else {
-        //if not, delete them from instructors table which will cascade
-        $sql_delete_instructor = "DELETE FROM instructors
-                                WHERE instructorID = $instructorID";
+        //if not, delete from course table which will cascade
+        $sql_delete_course = "DELETE FROM courses
+                                WHERE courseID = $courseID";
 
-        $result = $connection->query($sql_delete_instructor) or die($connection->error);
+        $result = $connection->query($sql_delete_course) or die($connection->error);
 
         //test to see if operation was successful
         if ($result == true) {
             //success message if sql was successfully added
-            $_SESSION['delete'] = "Instructor Deleted Successfully!";
+            $_SESSION['delete'] = "Course Deleted Successfully!";
 
             //redirect to the same page to show success message
-            header('location: AdminManageInstructor.php');
+            header('location: AdminManageCourse.php');
         } else {
             //failure message if sql was NOT added
-            $_SESSION['delete'] = "Instructor NOT Deleted.";
+            $_SESSION['delete'] = "Course NOT Deleted.";
 
             //redirect to the manage page to show failure message
-            header('location: AdminManageInstructor.php');
+            header('location: AdminManageCourse.php');
         }
     }
 } else if (isset($_POST['no'])) {
     //failure message since NOT deleted
-    $_SESSION['delete'] = "Instructor NOT Deleted.";
+    $_SESSION['delete'] = "Course NOT Deleted.";
 
     //redirect to the manage page to show failure message
-    header('location: AdminManageInstructor.php');
+    header('location: AdminManageCourse.php');
 }
 
-include('assets/partials/footer.php'); ?>
+include('assets/partials/footer.php');
+?>
 
 

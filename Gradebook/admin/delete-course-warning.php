@@ -23,38 +23,40 @@ if ($connection->connect_error) {
 
 <div class="admin-manage">
     <div class="wrapper">
-        <h1>Deleting Instructor Warning!</h1>
+        <h1>Deleting Course Warning!</h1>
         <br></br>
 
         <table class="tbl-full">
-            <tr><b><u>This instructor is currently teaching these classes:</u></b></tr>
+            <tr><b><u>This Course is currently enrolled by these students:</u></b></tr>
             <!--form for updating instructor-->
             <?php
             //grab ID from url
-            $instructorID = $_GET['id'];
+            $courseID = $_GET['id'];
 
-            //sql for all classes that instructor is enrolled in
-            $sql = "SELECT CONCAT(courses.subject,' ', courses.coursenumber,' ', courses.coursename) AS course_information
-                        FROM instructor_enroll
-                        INNER JOIN courses ON courses.courseID = 
-                                    instructor_enroll.courseID_enroll
-                        WHERE instructor_enroll.instructorID_enroll = $instructorID";
+            //sql for all students that is in the course
+            $sql = "SELECT CONCAT(students.studentID,' - ', students.fullname)
+                        AS student_information
+                        FROM student_enroll
+                        INNER JOIN students 
+                        ON students.studentID = 
+                                    student_enroll.studentID_enroll
+                        WHERE student_enroll.courseID_enroll = $courseID";
 
             $result = $connection->query($sql);
 
-            //display the classes
+            //display the students
             if ($result == TRUE) {
                 $rows = mysqli_num_rows($result);
 
                 if ($rows > 0) {
                     while ($rows = mysqli_fetch_assoc($result)) {
                         //set data to variables
-                        $course = $rows['course_information'];
+                        $student = $rows['student_information'];
                         ?>
 
                         <!--print data-->
                         <tr>
-                            <td><?php echo $course; ?></td>
+                            <td><?php echo $student; ?></td>
                         </tr>
                         <?php
                     }
@@ -62,8 +64,8 @@ if ($connection->connect_error) {
             }
             ?>
         </table>
-        
-        <h4><u><br>Deleting will remove their records from all the classes.
+
+        <h4><u><br>Deleting will remove all the course's information related to these students.
                 <br>Are you sure you want to continue?</br></br></u></h4>
         <form action="" method="POST">
             <table class="tbl-30"> 
@@ -79,35 +81,35 @@ if ($connection->connect_error) {
 
 <?php
 if (isset($_POST['yes'])) {
-    //delete from instructors table which will cascade and delete from other tables
-    $sql_delete_instructor = "DELETE FROM instructors
-                                WHERE instructorID = $instructorID";
+    //delete from course table which will cascade
+    $sql_delete_course = "DELETE FROM courses
+                                WHERE courseID = $courseID";
 
-    $result = $connection->query($sql_delete_instructor) or die($connection->error);
+    $result = $connection->query($sql_delete_course) or die($connection->error);
 
     //test to see if operation was successful
     if ($result == true) {
         //success message if sql was successfully added
-        $_SESSION['delete'] = "Instructor Deleted Successfully!";
+        $_SESSION['delete'] = "Course Deleted Successfully!";
 
         //redirect to the same page to show success message
-        header('location: AdminManageInstructor.php');
+        header('location: AdminManageCourse.php');
     } else {
         //failure message if sql was NOT added
-        $_SESSION['delete'] = "Instructor NOT Deleted.";
+        $_SESSION['delete'] = "Course NOT Deleted.";
 
         //redirect to the manage page to show failure message
-        header('location: AdminManageInstructor.php');
+        header('location: AdminManageCourse.php');
     }
 } else if (isset($_POST['no'])) {
     //failure message since NOT deleted
-    $_SESSION['delete'] = "Instructor NOT Deleted.";
+    $_SESSION['delete'] = "Course NOT Deleted.";
 
     //redirect to the manage page to show failure message
-    header('location: AdminManageInstructor.php');
+    header('location: AdminManageCourse.php');
 }
-?>
 
-<?php include('assets/partials/footer.php'); ?>
+include('assets/partials/footer.php');
+?>
 
 

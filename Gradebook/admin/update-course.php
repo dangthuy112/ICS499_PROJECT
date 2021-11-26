@@ -27,7 +27,7 @@ $courseID = $_GET['id'];
 //sql to query id information
 $sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
                         c.semester, c.days, c.time, c.location,
-                        c.`delivery method`, i.fullname
+                        c.`delivery method`, i.instructorID ,i.fullname
                         FROM courses c
                         LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i 
                                    ON ie.instructorID_enroll=i.instructorID) 
@@ -46,6 +46,7 @@ $days = $rows['days'];
 $location = $rows['location'];
 $deliverymethod = $rows['delivery method'];
 $fullname = $rows['fullname'];
+$instructorID = $rows['instructorID'];
 
 //split time string
 $time_arr = explode("-", $rows['time']);
@@ -53,9 +54,10 @@ $time_arr = explode("-", $rows['time']);
 
 <div class="admin-manage">
     <div class="wrapper">
-        <h1>Update Instructor</h1>
+        <h1>Update Course</h1>
         <br></br>
-
+        <input type="button" onclick="location.href = 'assign-instructor.php?id=<?php echo$courseID; ?>'" 
+               value="Assign Instructor" class="btn-primary">
         <!--form for updating instructor-->
         <form action="" method="POST">
             <table class="tbl-30">
@@ -64,11 +66,11 @@ $time_arr = explode("-", $rows['time']);
                         Subject: 
                     </td>
                     <td> 
-                        Currently: <?php echo "$subject" ?><br>
+                        Currently: <?php echo "<b>$subject</b>" ?><br>
                         <select name="subject">
                             <option value="" disabled selected>Choose Option</option>
-                            <option value="ECON">Biology (BIOL)</option>
-                            <option value="ECON">Chemistry (CHEM)</option>
+                            <option value="BIOL">Biology (BIOL)</option>
+                            <option value="CHEM">Chemistry (CHEM)</option>
                             <option value="CYBR">Cybersecurity (CYBR)</option>
                             <option value="ECON">Economics (ECON)</option>
                             <option value="ESOL">English for Speakers of other Languages (ESOL)</option>
@@ -91,7 +93,20 @@ $time_arr = explode("-", $rows['time']);
                     <td>Course Name: </td>
                     <td><input type="text" name="coursename" value="<?php echo "$coursename"; ?>"></td>
                 </tr>
+                <tr>
+                    <td>Instructor: </td>
 
+                    <td>Currently: 
+                        <?php
+                        if ($instructorID == "") {
+                            echo $instructorID = "NONE";
+                        } else {
+                            echo "$instructorID" . " - " . "$fullname";
+                        }
+                        ?>
+                        <br>                      
+                    </td>
+                </tr>
                 <tr> 
                     <td>Semester: </td>
                     <td><input type="text" name="semester" value="<?php echo "$semester"; ?>"></td>
@@ -152,7 +167,6 @@ $time_arr = explode("-", $rows['time']);
                 <td colspan="2">
                     <input type="submit" name="submit" value="Update Course" class="btn-primary">
                 </td>
-
             </table>
         </form>
     </div>
@@ -195,7 +209,6 @@ if (isset($_POST['submit'])) {
                                     WHERE courseID = $courseID";
 
     $result = $connection->query($sql_update_course) or die($connection->error);
-
 
     //test to see if operation was successful
     if ($result == true) {

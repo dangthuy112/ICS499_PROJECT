@@ -28,7 +28,7 @@ $instructor_assigned = false;
 $instructor_name;
 $instructorID;
 
-//sql to query id information
+//sql to check for assigned instructor
 $sql_instructor_assigned = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
                         c.semester, c.days, c.time, c.location,
                         c.`delivery method`, i.instructorID, i.fullname
@@ -41,17 +41,12 @@ $sql_instructor_assigned = "SELECT c.courseID, c.subject, c.coursenumber, c.cour
 $assigned = $connection->query($sql_instructor_assigned);
 $rows = mysqli_fetch_assoc($assigned);
 
-
+//set instructor assigned boolean
 if ($rows['instructorID'] != "") {
     $instructor_assigned = true;
     $instructor_name = $rows['fullname'];
     $instructorID = $rows['instructorID'];
 }
-
-    $sql_all_instructors = "SELECT fullname, instructorID
-                            FROM instructors";
-
-$instructor_result = $connection->query($sql_all_instructors);
 ?>
 
 <div class="admin-manage">
@@ -59,9 +54,10 @@ $instructor_result = $connection->query($sql_all_instructors);
         <h1>Assign Instructor</h1>
         <br></br>
 
-        <!--form for updating instructor-->
+        <!--form for assigning instructor-->
         <form action="" method="POST">
             <table class="tbl-30">
+
                 <?php
                 if ($instructor_assigned) {
                     echo "<tr><b>This Course is Currently Assigned to: "
@@ -71,76 +67,78 @@ $instructor_result = $connection->query($sql_all_instructors);
                 }
                 ?>
                 <tr>
-                    <td>
-                        Subject: 
-                    </td>
+                    <td>Instructors: </td>
                     <td> 
-                        <select name="categories">
+                        <select name="instructor">
+                            <option value="">NONE</option>
                             <?php
-                            while ($row = mysql_fetch_array($instructor_result)) {
-                                echo "<option value='" . $row['instructorID'] . "'>'"
-                                . $row['instructorID'] . " - " . $row['fullname'] . "'</option>";
+                            //sql to grab all instructors
+                            $sql_all_instructors = "SELECT fullname, instructorID
+                                                            FROM instructors";
+
+                            $instructor_result = $connection->query($sql_all_instructors);
+
+                            if ($instructor_result == TRUE) {
+                                $rows2 = mysqli_num_rows($instructor_result);
+
+                                if ($rows2 > 0) {
+                                    while ($rows2 = mysqli_fetch_assoc($instructor_result)) {
+                                        //grab data
+                                        echo "<option value=" . $rows2['instructorID'] . ">"
+                                        . $rows2['instructorID'] . " - " . $rows2['fullname'] . "</option>";
+                                    }
+                                }
                             }
-                            ?>        
+                            ?>
                         </select>
                     </td>
                 </tr>
-    
-
+                <td colspan="2">
+                    <input type="submit" name="submit" value="Assign Instructor" class="btn-primary">
+                </td>
             </table>
         </form>
     </div>
 </div>
 
-<?php include('config.php'); ?>
 
 <?php
 if (isset($_POST['submit'])) {
     //grab values from post form
-    $subject = $_POST['subject'];
-    $coursenumber = $_POST['coursenumber'];
-    $coursename = $_POST['coursename'];
-    $semester = $_POST['semester'];
-    $location = $_POST['location'];
-    $deliverymethod = $_POST['deliverymethod'];
+    $instructorID = $_POST['instructor'];
 
-    //grab options from weekdays checkboxes
-    $day_array = $_POST['day'];
-    $days = "";
+    //if instructor has been assigned, update table to new instructor
+    //otherwise instructor not assign so add new entry to table
+    //check if course is being assigned to no one for now
+    if ($instructorID == "") {
+        $sql_assign_instructor = "DELETE FROM instructor_enroll
+                                WHERE courseID_enroll = $courseID";
 
-    //grab from array and add to $days
-    foreach ($day_array as $day) {
-        $days .= $day . " ";
+        $result = $connection->query($sql_assign_instructor) or die($connection->error);
+    } else if ($instructor_assigned) {
+        $sql_assign_instructor = "UPDATE instructor_enroll 
+                                    SET instructorID_enroll='$instructorID'
+                                    WHERE courseID_enroll = $courseID";
+
+        $result = $connection->query($sql_assign_instructor) or die($connection->error);
+    } else {
+        $sql_assign_instructor = "INSERT into instructor_enroll SET
+                                        instructorID_enroll='$instructorID',
+                                        courseID_enroll='$courseID'";
+
+        $result = $connection->query($sql_assign_instructor) or die($connection->error);
     }
-
-    //grab time and concatenate them
-    $time = date("g:iA", strtotime($_POST['begintime'])) . " - " .
-            date("g:iA", strtotime($_POST['endtime']));
-
-    $sql_update_course = "UPDATE courses 
-                                    SET subject='$subject',
-                                        coursenumber='$coursenumber',
-                                        coursename='$coursename',
-                                        semester='$semester',
-                                        location='$location',
-                                        days='$days',
-                                        time='$time',
-                                        `delivery method`='$deliverymethod'
-                                    WHERE courseID = $courseID";
-
-    $result = $connection->query($sql_update_course) or die($connection->error);
-
 
     //test to see if operation was successful
     if ($result == true) {
         //success message if sql was successfully added
-        $_SESSION['update'] = "Course Updated Successfully!";
+        $_SESSION['update'] = "Instructor Assigned Successfully!";
 
         //redirect to the same page to show success message
         header('location: AdminManageCourse.php');
     } else {
         //failure message if sql was NOT added
-        $_SESSION['update'] = "Course NOT Updated.";
+        $_SESSION['update'] = "Instructor NOT Assigned.";
 
         //redirect to the same page to show failure message
         header('location: AdminManageCourse.php');
