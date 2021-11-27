@@ -12,7 +12,15 @@ include('assets/partials/header.php');
 include('assets/partials/instructormenu.php');
 $courseid = $_GET['courseid'];
 //sql get all the data from the course table base on course ID
-$sql = "SELECT * FROM `courses` WHERE courseID='$courseid'";
+//$sql = "SELECT * FROM `courses` WHERE courseID='$courseid'";
+$sql = "SELECT c.courseID, c.subject, c.coursenumber, c.coursename,
+c.semester, c.days, c.time, c.location,
+c.`delivery method`, i.fullname
+FROM courses c
+LEFT JOIN (`instructor_enroll` ie INNER JOIN instructors i
+ON ie.instructorID_enroll=i.instructorID)
+ON c.courseID=ie.courseID_enroll WHERE c.courseID=$courseid
+";
 $result = mysqli_query($db, $sql);
 $row = mysqli_fetch_assoc($result);
 ?>
@@ -49,7 +57,7 @@ $row = mysqli_fetch_assoc($result);
   </div>
   <div class="floatdiv">
     <b>Instructor<br></b>
-    <?php echo "  <p class='header'>" . $row["Instructor"] .
+    <?php echo "  <p class='header'>" . $row["fullname"] .
       "</p>"; ?>
   </div>
 </div>
