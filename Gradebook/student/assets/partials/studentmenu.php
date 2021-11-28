@@ -1,9 +1,6 @@
 <link rel="stylesheet" href="assets/css/studentmenu.css">
 
 <?php
-// session_start();
-// $sssid = $_SESSION['userID_student'];
-// $sid = strval($sssid);
 //sql find out the course information base on the student id
 $sql = "SELECT *
         From students ,courses ,student_enroll 
@@ -16,7 +13,7 @@ $result = mysqli_query($db, $sql);
 echo
 "<div class='menu text-center'>
               <div class='dropdown'>  
-                <a >Course</a>
+                <a style='margin-right: 100px;'>Course</a>
                 <div class='dropdown-content'>";
 while ($row = mysqli_fetch_array($result)) {
     if ($row['semester'] == 'Current Semester') {
