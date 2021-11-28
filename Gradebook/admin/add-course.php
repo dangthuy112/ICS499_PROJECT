@@ -37,10 +37,10 @@ if ($connection->connect_error) {
             <table class="tbl-30">
                 <tr>
                     <td>Subject: </td>
-                    <td><select name="subject">
+                    <td><select name="subject" required>
                             <option value="" disabled selected>Choose Option</option>
-                            <option value="ECON">Biology (BIOL)</option>
-                            <option value="ECON">Chemistry (CHEM)</option>
+                            <option value="BIOL">Biology (BIOL)</option>
+                            <option value="CHEM">Chemistry (CHEM)</option>
                             <option value="CYBR">Cybersecurity (CYBR)</option>
                             <option value="ECON">Economics (ECON)</option>
                             <option value="ESOL">English for Speakers of other Languages (ESOL)</option>
@@ -57,19 +57,19 @@ if ($connection->connect_error) {
                 </tr>
                 <tr>
                     <td>Course Number: </td>
-                    <td><input type="text" name="coursenumber" placeholder="Enter Course Number"></td>
+                    <td><input type="text" name="coursenumber" placeholder="Enter Course Number" required></td>
                 </tr>
                 <tr>
                     <td>Course Name: </td>
-                    <td><input type="text" name="coursename" placeholder="Enter Course Name"></td>
+                    <td><input type="text" name="coursename" placeholder="Enter Course Name" required> </td>
                 </tr>
                 <tr>
                     <td>Semester: </td>
-                    <td><input type="text" name="semester" placeholder="Enter Semester"></td>
+                    <td><input type="text" name="semester" placeholder="Enter Semester" required></td>
                 </tr>
                 <tr>
                     <td>Location: </td>
-                    <td><input type="text" name="location" placeholder="Enter Location"></td>
+                    <td><input type="text" name="location" placeholder="Enter Location" required></td>
                 </tr>
                 <tr>
                     <td>
@@ -106,7 +106,7 @@ if ($connection->connect_error) {
                 </tr>
                 <tr>
                     <td>Delivery Method: </td>
-                    <td><select name="deliverymethod">
+                    <td><select name="deliverymethod" required>
                             <option value="" disabled selected>Choose Option</option>
                             <option value="In Person">In Person</option>
                             <option value="Online">Online</option>
