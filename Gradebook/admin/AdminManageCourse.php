@@ -100,19 +100,19 @@ function table_search($connection, $sql_search) {
         <!-- display table -->
         <table class="tbl-full">
             <tr>
-                <th>courseID</th>
-                <th>Subject</th>
-                <th>Course Number</th>
-                <th>Course Name</th>
-                <th>Semester</th>
-                <th>Days</th>
-                <th>Time</th>
-                <th>Location</th>
-                <th>Instructor</th>
-                <th>Delivery Method</th>
-                <th>UPDATE</th>
-                <th>DELETE</th>
-                <th>ASSIGN</th>
+                <th style="background-color:#1e90ff;height:50px;width:90px">courseID</th>
+                <th style="background-color:#1e90ff;height:50px;width:90px">Subject</th>
+                <th style="background-color:#1e90ff;height:50px;width:90px">Course Number</th>
+                <th style="background-color:#1e90ff;height:50px">Course Name</th>
+                <th style="background-color:#1e90ff;height:50px;width:100px">Semester</th>
+                <th style="background-color:#1e90ff;height:50px;width:80px">Days</th>
+                <th style="background-color:#1e90ff;height:50px;width:170px">Time</th>
+                <th style="background-color:#1e90ff;height:50px;width:100px">Location</th>
+                <th style="background-color:#1e90ff;height:50px">Instructor</th>
+                <th style="background-color:#1e90ff;height:50px;width:100px">Delivery Method</th>
+                <th style="background-color:#1e90ff;height:50px;width:95px">UPDATE</th>
+                <th style="background-color:#1e90ff;height:50px;width:95px">DELETE</th>
+                <th style="background-color:#1e90ff;height:50px;width:95px">ASSIGN</th>
             </tr>
 
             <?php
@@ -120,7 +120,7 @@ function table_search($connection, $sql_search) {
                 foreach ($search_result as $course) {
                     ?>
                     <tr>
-                        <td><?php echo $course['courseID']; ?></td>
+                        <td style="background-color:#ced6e0;height:50px;width:90px"><?php echo $course['courseID']; ?></td>
                         <td><?php echo $course['subject']; ?></td>
                         <td><?php echo $course['coursenumber']; ?></td>
                         <td><?php echo $course['coursename']; ?></td>

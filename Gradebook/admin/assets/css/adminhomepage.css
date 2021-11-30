@@ -32,12 +32,15 @@
 
 table tr th{
     border-bottom: 1px solid black;
+    border: 1px solid black;
     padding: 1%;
     text-align: left;
 }
 
 table tr td{
     padding: 1%;
+    border: 1px solid black;
+    text-align: left;    
 }
 
 .tbl-30{

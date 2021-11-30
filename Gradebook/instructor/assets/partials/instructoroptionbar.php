@@ -1,26 +1,4 @@
-<!-- <link rel="stylesheet" href="css/gradelistbar.css">
-<style>
-.gradelistbar{
-    border-bottom: 1px solid grey;
-    background-color:lightgrey;
-    display: inline-block;
-    box-sizing: border-box;
-    width: 100%;
-    height: 5%;
-    padding-top: 5px;
-}
-.gradelistbar a
-{   text-decoration: none;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-top: 7px;
-    color: black;
-}
-.gradelistbar a:hover
-{
-    color:red;
-}
-</style>
+
 <?php
 include("config.php");
 $sql="SELECT grades.instructorID_grade 

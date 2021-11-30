@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="assets/css/header.css">
 <?php
 include("assets/partials/config.php");
-//session_start();
+session_start();
 $iid = $_SESSION['userID_instructor'];
 $stringiid = strval($iid);
 $sql = "SELECT *
 FROM instructors 
-WHERE instructors.instructorID='$iid'";
+WHERE instructors.instructorID='$stringiid'";
 $result = mysqli_query($db,$sql);
 $row = mysqli_fetch_assoc($result);
 $instructorname=$row['fullname'];

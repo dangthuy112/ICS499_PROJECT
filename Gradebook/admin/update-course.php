@@ -67,7 +67,7 @@ $time_arr = explode("-", $rows['time']);
                     </td>
                     <td> 
                         Currently: <?php echo "<b>$subject</b>" ?><br>
-                        <select name="subject">
+                        <select name="subject" required> 
                             <option value="" disabled selected>Choose Option</option>
                             <option value="BIOL">Biology (BIOL)</option>
                             <option value="CHEM">Chemistry (CHEM)</option>
@@ -83,25 +83,26 @@ $time_arr = explode("-", $rows['time']);
                             <option value="PSYC">Psychology (PSYC)</option>
                             <option value="SSED">Social Studies Education (SSED)</option>
                             <option value="STAT">Statistics (STAT)</option>
+
                     </td>
                 </tr>
                 <tr> 
                     <td>Course Number: </td>
-                    <td><input type="text" name="coursenumber" value="<?php echo "$coursenumber"; ?>"></td>
+                    <td><input type="text" name="coursenumber" required value="<?php echo "$coursenumber"; ?>"></td>
                 </tr>
                 <tr> 
                     <td>Course Name: </td>
-                    <td><input type="text" name="coursename" value="<?php echo "$coursename"; ?>"></td>
+                    <td><input type="text" name="coursename" required value="<?php echo "$coursename"; ?>"></td>
                 </tr>
                 <tr>
                     <td>Instructor: </td>
 
-                    <td>Currently: 
+                    <td> 
                         <?php
                         if ($instructorID == "") {
-                            echo $instructorID = "NONE";
+                            echo $instructorID = "<b>NONE</b>";
                         } else {
-                            echo "$instructorID" . " - " . "$fullname";
+                            echo "<b>$instructorID" . " - " . "$fullname" . "</b>";
                         }
                         ?>
                         <br>                      
@@ -109,17 +110,17 @@ $time_arr = explode("-", $rows['time']);
                 </tr>
                 <tr> 
                     <td>Semester: </td>
-                    <td><input type="text" name="semester" value="<?php echo "$semester"; ?>"></td>
+                    <td><input type="text" name="semester" required value="<?php echo "$semester"; ?>"></td>
                 </tr>
                 <tr> 
                     <td>Location: </td>
-                    <td><input type="text" name="location" value="<?php echo "$location"; ?>"></td>
+                    <td><input type="text" name="location" required value="<?php echo "$location"; ?>"></td>
                 </tr>
                 <tr>
                     <td>Days:
                     </td>
                     <td>
-                        Currently: <?php echo "$days" ?><br>
+                        Currently: <?php echo "<b>$days</b>" ?><br>
                         <div class="weekDays-selector">
                             <input type="checkbox" name="day[]" value="M" id="M" class="weekday" />
                             <label for="M">M</label>
@@ -141,7 +142,7 @@ $time_arr = explode("-", $rows['time']);
                 <tr>
                     <td><label for =begintime>Select the Begin Time:</label> </td>
                     <td>
-                        Currently: <?php echo "$time_arr[0]" ?><br>
+                        Currently: <?php echo "<b>$time_arr[0]</b>" ?><br>
                         <input type="time" id="begintime" name="begintime" 
                                min="06:00" max="22:00" required>
                     </td>
@@ -149,25 +150,25 @@ $time_arr = explode("-", $rows['time']);
                 <tr>
                     <td><label for =endtime>Select the End Time:</label> </td>
                     <td>
-                        Currently: <?php echo "$time_arr[1]" ?><br>
+                        Currently: <?php echo "<b>$time_arr[1]</b>" ?><br>
                         <input type="time" id="endtime" name="endtime" 
                                min="06:00" max="22:00" required>
                     </td>
                 </tr>
                 <tr>
                     <td>Delivery Method: </td>
-                    <td>Currently: <?php echo $deliverymethod ?> <br>
-                        <select name="deliverymethod">
-                            <option value="" disabled selected>Choose Option</option>
+                    <td>Currently: <?php echo "<b>$deliverymethod</b>" ?> <br>
+                        <select name="deliverymethod" required>
+                            <option value=""disabled selected>Choose Option</option>
                             <option value="In Person">In Person</option>
                             <option value="Online">Online</option>
                             <option value="Hybrid">Hybrid</option>
                     </td>
                 </tr>
-                <td colspan="2">
-                    <input type="submit" name="submit" value="Update Course" class="btn-primary">
-                </td>
             </table>
+            <td colspan="2">
+                <input type="submit" name="submit" value="Update Course" class="btn-primary">
+            </td>
         </form>
     </div>
 </div>
