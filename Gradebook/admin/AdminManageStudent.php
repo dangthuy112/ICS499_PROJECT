@@ -94,14 +94,14 @@ function table_search($connection, $sql_search) {
         <!-- display table -->
         <table class="tbl-full" >
             <tr> 
-                <th>StudentID</th>
-                <th>Full Name</th>
-                <th>Gender</th>
-                <th>Address</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>UPDATE</th>
-                <th>DELETE</th>
+                <th style="background-color:#1e90ff;height:50px;width:115px">StudentID</th>
+                <th style="background-color:#1e90ff;height:50px;width:150px">Full Name</th>
+                <th style="background-color:#1e90ff;height:50px;width:50px">Gender</th>
+                <th style="background-color:#1e90ff;height:50px;width:150px">Address</th>
+                <th style="background-color:#1e90ff;height:50px;width:90px">Username</th>
+                <th style="background-color:#1e90ff;height:50px;width:90px">Password</th>
+                <th style="background-color:#1e90ff;height:50px;width:95px">UPDATE</th>
+                <th style="background-color:#1e90ff;height:50px;width:95px">DELETE</th>
             </tr>
 
             <?php
@@ -109,7 +109,7 @@ function table_search($connection, $sql_search) {
                 foreach ($search_result as $student) {
                     ?>
                     <tr>
-                        <td><?php echo $student['studentID']; ?></td>
+                        <td style="background-color:#ced6e0;height:50px;width:90px"><?php echo $student['studentID']; ?></td>
                         <td><?php echo $student['fullname']; ?></td>
                         <td><?php echo $student['gender']; ?></td>
                         <td><?php echo $student['address']; ?></td>

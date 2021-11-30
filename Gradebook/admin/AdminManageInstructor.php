@@ -92,14 +92,14 @@ function table_search($connection, $sql_search) {
 
         <table class="tbl-full">
             <tr>
-                <th>InstructorID</th>
-                <th>Full Name</th>
-                <th>Gender</th>
-                <th>Address</th>
-                <th>Username</th>
-                <th>Password</th>
-                <th>UPDATE</th>
-                <th>DELETE</th>
+                <th style="background-color:#1e90ff;height:50px;width:115px">InstructorID</th>
+                <th style="background-color:#1e90ff;height:50px;width:150px">Full Name</th>
+                <th style="background-color:#1e90ff;height:50px;width:50px">Gender</th>
+                <th style="background-color:#1e90ff;height:50px;width:150px">Address</th>
+                <th style="background-color:#1e90ff;height:50px;width:90px">Username</th>
+                <th style="background-color:#1e90ff;height:50px;width:90px">Password</th>
+                <th style="background-color:#1e90ff;height:50px;width:95px">UPDATE</th>
+                <th style="background-color:#1e90ff;height:50px;width:95px">DELETE</th>
             </tr>
 
             <?php
@@ -107,7 +107,7 @@ function table_search($connection, $sql_search) {
                 foreach ($search_result as $instructor) {
                     ?>
                     <tr>
-                        <td><?php echo $instructor['instructorID']; ?></td>
+                        <td style="background-color:#ced6e0;height:50px;width:90px"><?php echo $instructor['instructorID']; ?></td>
                         <td><?php echo $instructor['fullname']; ?></td>
                         <td><?php echo $instructor['gender']; ?></td>
                         <td><?php echo $instructor['address']; ?></td>

@@ -103,12 +103,12 @@ function table_search($connection, $sql_search) {
                 <th style="background-color:#1e90ff;height:50px;width:90px">courseID</th>
                 <th style="background-color:#1e90ff;height:50px;width:90px">Subject</th>
                 <th style="background-color:#1e90ff;height:50px;width:90px">Course Number</th>
-                <th style="background-color:#1e90ff;height:50px">Course Name</th>
+                <th style="background-color:#1e90ff;height:50px;width:150px">Course Name</th>
                 <th style="background-color:#1e90ff;height:50px;width:100px">Semester</th>
                 <th style="background-color:#1e90ff;height:50px;width:80px">Days</th>
                 <th style="background-color:#1e90ff;height:50px;width:170px">Time</th>
                 <th style="background-color:#1e90ff;height:50px;width:100px">Location</th>
-                <th style="background-color:#1e90ff;height:50px">Instructor</th>
+                <th style="background-color:#1e90ff;height:50px;width:150px">Instructor</th>
                 <th style="background-color:#1e90ff;height:50px;width:100px">Delivery Method</th>
                 <th style="background-color:#1e90ff;height:50px;width:95px">UPDATE</th>
                 <th style="background-color:#1e90ff;height:50px;width:95px">DELETE</th>
