@@ -102,7 +102,8 @@ if (isset($_POST['submit'])) {
         while ($row = mysqli_fetch_array($result2)) {
             $instructorID= $row['instructorID'];
         }
-        $sql_insert_user = "INSERT into users SET username='$user',`password`='$pass',userID_student='$instructorID',`role` = 2;";
+        echo $instructorID;
+        $sql_insert_user = "INSERT into users SET username='$user',`password`='$pass',userID_instructor='$instructorID',`role` = 2;";
         $result3 = $connection->query($sql_insert_user) or die($connection->error);
         }
 }
