@@ -1,4 +1,3 @@
-
 <html lang="en">
 
 <head>
@@ -18,8 +17,8 @@
             <div class="container"><a class="navbar-brand" href="index.html" style="color: rgb(244,71,107);">Infinite Campus @&nbsp;Metropolitan State University&nbsp;<br></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="navbar-nav ms-auto">
-                       
-    
+
+
                     </ul>
                 </div>
             </div>
@@ -27,21 +26,28 @@
         <div class="form-container">
             <div class="image-holder"></div>
             <form action="" method="POST">
-                <h2 class="text-center"><strong>Create</strong> a student account.</h2>
+                <h2 class="text-center"><strong>Create</strong>  Account.</h2>
                 <div class="mb-3"><input class="form-control" type="text" name="fullname" placeholder="fullname"></div>
                 <div class="mb-3"><input class="form-control" type="text" name="username" placeholder="username"></div>
-                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="password"></div>
+                <div class="mb-3"><input class="form-control" type="text" name="password" placeholder="password"></div>
                 <div class="mb-3"><input class="form-control" type="text" name="address" placeholder="address"></div>
                 <div class="mb-3">
-
-                
-                <div class="dropdown"><button class="btn btn-primary dropdown-toggle" aria-expanded="false" data-bs-toggle="dropdown" type="button">Gender </button>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#">Male</a><a class="dropdown-item" href="#">Female</a></div>
-                    
-                   
-                    </div>
+                    <b>Gender </b>
+                    <select name="gender" style="margin-top : 20px;">
+                        <option value="Select"></option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
                 </div>
-                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" style="color: rgb(255, 255, 255);background: rgb(244, 71, 107);">Register</button></div><a class="already" href="login.php">You already have an account? Login here.</a>
+                <div class="mb-3">
+                    <b>Account for </b>
+                    <select name="accounttype" style="margin-top : 20px;">
+                        <option value="Select"></option>
+                        <option value="instructor">Instructor</option>
+                        <option value="student">Student</option>
+                    </select>
+                </div>
+                <div class="mb-3"><input class="btn btn-primary d-block w-100" type="submit" name="submit" value="Register" style="color: rgb(255, 255, 255);background: rgb(244, 71, 107);"></button></div><a class="already" href="login.php">You already have an account? Login here.</a>
             </form>
         </div>
         <footer class="footer-basic" style="background: rgb(241,247,252);">
@@ -61,60 +67,43 @@
 
 if (isset($_POST['submit'])) {
     $fullname = $_POST['fullname'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $user = $_POST['username'];
+    $pass = $_POST['password'];
     $address = $_POST['address'];
     $gender = $_POST['gender'];
-
+    $accounttype=$_POST['accounttype'];
+    echo $accounttype;
+   
     include("config.php");
-
-$connection = $db;
-
+    if($accounttype=="student"){
+    $connection = $db;
     $sql_insert_student = "INSERT into students SET
                                         fullname='$fullname',
                                         address='$address',
                                         gender='$gender'";
-
     $result1 = $connection->query($sql_insert_student) or die($connection->error);
-
-    //Get last insert id 
-    if ($result1 == true) {
-        $last_id = mysqli_insert_id($connection);
-        //debugging
-        //echo "New record created successfully. Last inserted ID is: $last_id";
-    } else {
-        //failure message if sql was NOT added
-        $_SESSION['add'] = "Student NOT Added.";
-
-        //redirect to the same page to show failure message
-        header('location: add-student.php');
+    $sqlSeachstudent=" SELECT students.studentID FROM students WHERE students.fullname='$fullname';";
+    $result2 = $connection->query($sqlSeachstudent) or die($connection->error);
+    while ($row = mysqli_fetch_array($result2)) {
+        $studentID= $row['studentID'];
     }
-
-    $sql_insert_user = "INSERT into users SET
-                                        username='$username',
-                                        password='$password',
-                                        userID_student='$last_id',
-                                        role = 3
-                                      ";
-
-    $result2 = $connection->query($sql_insert_user) or die($connection->error);
-
-    //test to see if operation was successful
-    if ($result1 == true && $result2 == true) {
-        //success message if sql was successfully added
-        $_SESSION['add'] = "Student Added Successfully!";
-
-        //redirect to the same page to show success message
-        header('location: add-student.php');
-    } else {
-        //failure message if sql was NOT added
-        $_SESSION['add'] = "Student NOT Added.";
-
-        //redirect to the same page to show failure message
-        header('location: add-student.php');
+    $sql_insert_user = "INSERT into users SET username='$user',`password`='$pass',userID_student='$studentID',`role` = 3;";
+    $result3 = $connection->query($sql_insert_user) or die($connection->error);
     }
+    if($accounttype=="instructor"){
+        $connection = $db;
+        $sql_insert_student = "INSERT into instructors SET
+                                            fullname='$fullname',
+                                            address='$address',
+                                            gender='$gender'";
+        $result1 = $connection->query($sql_insert_student) or die($connection->error);
+        $sqlSeachstudent=" SELECT instructors.instructorID FROM instructors WHERE instructors.fullname='$fullname';";
+        $result2 = $connection->query($sqlSeachstudent) or die($connection->error);
+        while ($row = mysqli_fetch_array($result2)) {
+            $instructorID= $row['instructorID'];
+        }
+        $sql_insert_user = "INSERT into users SET username='$user',`password`='$pass',userID_student='$instructorID',`role` = 2;";
+        $result3 = $connection->query($sql_insert_user) or die($connection->error);
+        }
 }
-
-
-
 ?>
